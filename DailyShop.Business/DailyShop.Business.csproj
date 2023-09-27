@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstract\" />
+    <Folder Include="AutoMapper\Profiles\" />
+    <Folder Include="Concrete\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DailyShop.DataAccess\DailyShop.DataAccess.csproj" />
+    <ProjectReference Include="..\DailyShop.Entities\DailyShop.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
