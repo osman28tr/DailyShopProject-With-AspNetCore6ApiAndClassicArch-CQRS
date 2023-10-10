@@ -1,4 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
+using Core.Security.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using System;
@@ -35,6 +36,13 @@ namespace DailyShop.Business.Features.Auths.Rules
 			if (user == null)
 			{
 				throw new BusinessException("No registered user for this email.");
+			}
+		}
+		public async Task CheckPasswordConfirm(UserForRegisterDto userForRegisterDto)
+		{
+			if(userForRegisterDto.Password != userForRegisterDto.ConfirmPassword)
+			{
+				throw new BusinessException("Passwords do not match.");
 			}
 		}
 	}

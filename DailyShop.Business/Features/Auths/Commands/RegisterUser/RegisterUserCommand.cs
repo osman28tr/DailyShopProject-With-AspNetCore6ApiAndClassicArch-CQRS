@@ -39,6 +39,8 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 			{
 				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterDto.Email);
 
+				await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
+
 				byte[] passwordHash, passwordSalt;
 				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Password, out passwordHash, out passwordSalt);
 

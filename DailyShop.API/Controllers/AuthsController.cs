@@ -1,5 +1,6 @@
 ﻿using Core.Security.Dtos;
 using Core.Security.JWT;
+using DailyShop.Business.Features.Auths.Commands.LoginUser;
 using DailyShop.Business.Features.Auths.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,14 @@ namespace DailyShop.API.Controllers
 
 			SetAccessTokenToCookie(result.AccessToken);
 
+			return Ok(result.AccessToken);
+		}
+		[HttpPost("Login")]
+		public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+		{
+			LoginUserCommand loginUserCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
+			var result = await _mediator.Send(loginUserCommand);
+			SetAccessTokenToCookie(result.AccessToken);
 			return Ok(result.AccessToken);
 		}
 		private void SetAccessTokenToCookie(AccessToken accessToken)
