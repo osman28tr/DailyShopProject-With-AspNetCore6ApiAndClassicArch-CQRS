@@ -16,23 +16,21 @@ public class CacheRemovingBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         _cache = cache;
         _logger = logger;
     }
+	public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+	{
+		TResponse response;
+		if (request.BypassCache) return await next();
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
-                                        RequestHandlerDelegate<TResponse> next)
-    {
-        TResponse response;
-        if (request.BypassCache) return await next();
+		async Task<TResponse> GetResponseAndRemoveCache()
+		{
+			response = await next();
+			await _cache.RemoveAsync(request.CacheKey, cancellationToken);
+			return response;
+		}
 
-        async Task<TResponse> GetResponseAndRemoveCache()
-        {
-            response = await next();
-            await _cache.RemoveAsync(request.CacheKey, cancellationToken);
-            return response;
-        }
+		response = await GetResponseAndRemoveCache();
+		_logger.LogInformation($"Removed Cache -> {request.CacheKey}");
 
-        response = await GetResponseAndRemoveCache();
-        _logger.LogInformation($"Removed Cache -> {request.CacheKey}");
-
-        return response;
-    }
+		return response;
+	}
 }

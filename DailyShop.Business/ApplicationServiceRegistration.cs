@@ -1,4 +1,6 @@
 ﻿using Core.Application.Pipelines.Authorization;
+using DailyShop.Business.Features.Auths.Rules;
+using DailyShop.Business.Services.AuthService;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,8 +19,9 @@ namespace DailyShop.Business
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
-
+			services.AddScoped<AuthBusinessRules>();
 			//services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+			services.AddScoped<IAuthService, AuthManager>();
 			return services;
 		}
 	}

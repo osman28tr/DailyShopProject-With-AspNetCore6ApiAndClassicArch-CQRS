@@ -15,19 +15,17 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
     {
         _httpContextAccessor = httpContextAccessor;
     }
+	public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+	{
+		List<string>? roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
-                                        RequestHandlerDelegate<TResponse> next)
-    {
-        List<string>? roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+		if (roleClaims == null) throw new AuthorizationException("Claims not found.");
 
-        if (roleClaims == null) throw new AuthorizationException("Claims not found.");
+		bool isNotMatchedARoleClaimWithRequestRoles =
+			roleClaims.FirstOrDefault(roleClaim => request.Roles.Any(role => role == roleClaim)).IsNullOrEmpty();
+		if (isNotMatchedARoleClaimWithRequestRoles) throw new AuthorizationException("You are not authorized.");
 
-        bool isNotMatchedARoleClaimWithRequestRoles =
-            roleClaims.FirstOrDefault(roleClaim => request.Roles.Any(role => role == roleClaim)).IsNullOrEmpty();
-        if (isNotMatchedARoleClaimWithRequestRoles) throw new AuthorizationException("You are not authorized.");
-
-        TResponse response = await next();
-        return response;
-    }
+		TResponse response = await next();
+		return response;
+	}
 }

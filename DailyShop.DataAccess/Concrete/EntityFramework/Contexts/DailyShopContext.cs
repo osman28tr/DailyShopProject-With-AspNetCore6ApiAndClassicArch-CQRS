@@ -21,7 +21,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
 			{
 				a.ToTable("AppUsers");
 				a.Property(p => p.Id).HasColumnName("Id");
-			});
+			});			
 		}
 	}
 }

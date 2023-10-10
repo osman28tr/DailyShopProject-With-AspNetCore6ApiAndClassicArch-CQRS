@@ -12,11 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Auths\Commands\" />
-    <Folder Include="Features\Auths\Dtos\" />
-    <Folder Include="Features\Auths\Rules\" />
     <Folder Include="Features\AppUsers\" />
-    <Folder Include="Services\AuthService\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,29 +18,27 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         _loggerServiceBase = loggerServiceBase;
         _httpContextAccessor = httpContextAccessor;
     }
+	public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+	{
+		List<LogParameter> logParameters = new();
+		logParameters.Add(new LogParameter
+		{
+			Type = request.GetType().Name,
+			Value = request
+		});
 
-    public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
-                                  RequestHandlerDelegate<TResponse> next)
-    {
-        List<LogParameter> logParameters = new();
-        logParameters.Add(new LogParameter
-        {
-            Type = request.GetType().Name,
-            Value = request
-        });
+		LogDetail logDetail = new()
+		{
+			MethodName = next.Method.Name,
+			Parameters = logParameters,
+			User = _httpContextAccessor.HttpContext == null ||
+				   _httpContextAccessor.HttpContext.User.Identity.Name == null
+					   ? "?"
+					   : _httpContextAccessor.HttpContext.User.Identity.Name
+		};
 
-        LogDetail logDetail = new()
-        {
-            MethodName = next.Method.Name,
-            Parameters = logParameters,
-            User = _httpContextAccessor.HttpContext == null ||
-                   _httpContextAccessor.HttpContext.User.Identity.Name == null
-                       ? "?"
-                       : _httpContextAccessor.HttpContext.User.Identity.Name
-        };
+		_loggerServiceBase.Info(JsonConvert.SerializeObject(logDetail));
 
-        _loggerServiceBase.Info(JsonConvert.SerializeObject(logDetail));
-
-        return next();
-    }
+		return next();
+	}
 }
