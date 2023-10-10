@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DailyShop.Business", "Daily
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DailyShop.Entities", "DailyShop.Entities\DailyShop.Entities.csproj", "{B60029C7-9CB1-4936-8E26-004659D0FBCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DailyShop.Shared", "DailyShop.Shared\DailyShop.Shared.csproj", "{1A4EE959-FD83-4443-AF69-2105A46987CF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "corePackages", "corePackages", "{A0AEB2A5-49AE-4525-9AD1-A0042B58BADC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "corePackages\Core.Application\Core.Application.csproj", "{0EE53D18-C10B-4A5A-BFE6-D6D16BB19CC5}"
@@ -49,10 +47,6 @@ Global
 		{B60029C7-9CB1-4936-8E26-004659D0FBCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B60029C7-9CB1-4936-8E26-004659D0FBCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B60029C7-9CB1-4936-8E26-004659D0FBCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A4EE959-FD83-4443-AF69-2105A46987CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A4EE959-FD83-4443-AF69-2105A46987CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A4EE959-FD83-4443-AF69-2105A46987CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4EE959-FD83-4443-AF69-2105A46987CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EE53D18-C10B-4A5A-BFE6-D6D16BB19CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EE53D18-C10B-4A5A-BFE6-D6D16BB19CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EE53D18-C10B-4A5A-BFE6-D6D16BB19CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU

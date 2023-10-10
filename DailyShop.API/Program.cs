@@ -1,3 +1,5 @@
+using DailyShop.Business;
+using DailyShop.DataAccess;
 using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -5,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApplicationServices();
 builder.Services.AddDbContext<DailyShopContext>(opt =>
 {
-	opt.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
+	opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
 });
+builder.Services.AddPersistanceRegistration();
 builder.Services.AddScoped<DbContext, DailyShopContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

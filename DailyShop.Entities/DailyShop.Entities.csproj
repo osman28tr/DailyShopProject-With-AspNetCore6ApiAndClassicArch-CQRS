@@ -8,11 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Concrete\" />
-    <Folder Include="Dtos\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DailyShop.Shared\DailyShop.Shared.csproj" />
+    <ProjectReference Include="..\corePackages\Core.Persistence\Core.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
