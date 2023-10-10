@@ -9,6 +9,7 @@ namespace DailyShop.Entities.Concrete
 {
 	public class AppUser:User
 	{
+        public ICollection<Address> Addresses { get; set; }
         public AppUser()
         {
             
@@ -16,7 +17,6 @@ namespace DailyShop.Entities.Concrete
         public AppUser(int id)
         {
             Id = id;
-        }
-        
+        }      
     }
 }

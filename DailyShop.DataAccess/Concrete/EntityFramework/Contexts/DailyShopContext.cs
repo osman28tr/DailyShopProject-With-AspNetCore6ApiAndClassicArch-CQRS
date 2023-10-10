@@ -15,13 +15,21 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         { }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<User> Users { get; set; }
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<Address> Addresses { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<AppUser>(a =>
 			{
 				a.ToTable("AppUsers");
 				a.Property(p => p.Id).HasColumnName("Id");
-			});			
+				a.HasMany(p => p.Addresses);
+			});
+			modelBuilder.Entity<Address>(a =>
+			{
+				a.ToTable("Addresses");
+				a.Property(p => p.Id).HasColumnName("Id");
+				a.HasOne(p => p.AppUser);
+			});
 		}
 	}
 }
