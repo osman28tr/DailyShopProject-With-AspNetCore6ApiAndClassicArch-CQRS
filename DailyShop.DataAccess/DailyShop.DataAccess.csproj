@@ -20,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DailyShop.Business\DailyShop.Business.csproj" />
     <ProjectReference Include="..\DailyShop.Entities\DailyShop.Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Concrete\EntityFramework\Repositories\" />
   </ItemGroup>
 
 </Project>
