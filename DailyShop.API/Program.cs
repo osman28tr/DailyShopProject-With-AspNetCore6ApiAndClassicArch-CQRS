@@ -11,20 +11,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Core.Security.JWT;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
-	options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-builder.Services.AddApplicationServices();
+//builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+//	options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+//builder.Services.AddApplicationServices();
+
 builder.Services.AddSecurityServices();
+builder.Services.AddApplicationServices();
 builder.Services.AddDbContext<DailyShopContext>(opt =>
 {
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
 });
 builder.Services.AddPersistanceRegistration();
-builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<DbContext, DailyShopContext>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -77,6 +80,9 @@ builder.Services.AddAuthentication(options =>
 	   })
 	   .AddCookie();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddSwaggerGen(opt =>
 {
 	opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -98,7 +104,6 @@ builder.Services.AddSwaggerGen(opt =>
 		}
 	});
 });
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -108,9 +113,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
-	app.UseSwaggerUI();
+	//app.UseSwaggerUI();
+	app.UseSwaggerUI(opt => { opt.DisplayRequestDuration(); opt.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyShop"); });
 }
-app.ConfigureCustomExceptionMiddleware();
+if(app.Environment.IsProduction())
+	app.ConfigureCustomExceptionMiddleware();
 
 app.UseRouting();
 app.UseAuthentication();

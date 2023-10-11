@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Addresses\Commands\" />
+    <Folder Include="Features\Addresses\Models\" />
+    <Folder Include="Features\Addresses\Rules\" />
     <Folder Include="Features\AppUsers\" />
   </ItemGroup>
 

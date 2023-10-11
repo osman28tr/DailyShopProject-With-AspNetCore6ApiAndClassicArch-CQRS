@@ -18,6 +18,7 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
 			services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 			services.AddScoped<IAppUserRepository, AppUserRepository>();
+			services.AddScoped<IAddressRepository, AddressRepository>();
 			
 			return services;
 		}
