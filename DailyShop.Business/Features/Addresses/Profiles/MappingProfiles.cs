@@ -20,6 +20,7 @@ namespace DailyShop.Business.Features.Addresses.Profiles
                 .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(c => c.AppUser.PhoneNumber))
                 .ForMember(c => c.ProfileImage, opt => opt.MapFrom(c => c.AppUser.ProfileImage))
                 .ReverseMap();
+            CreateMap<Address, DeletedAddressDto>().ReverseMap();
         }
     }
 }
