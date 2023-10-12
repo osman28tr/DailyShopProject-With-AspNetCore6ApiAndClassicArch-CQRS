@@ -1,5 +1,6 @@
 ﻿using DailyShop.Business.Features.Addresses.Commands.DeleteAddress;
 using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
+using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
 using MediatR;
@@ -18,8 +19,8 @@ namespace DailyShop.API.Controllers
 		{
 			_mediator = mediator;
 		}
-		[HttpGet]
-		public async Task<IActionResult> GetListByUserId([FromQuery] int id)
+		[HttpGet("GetListAddressByUserId")]
+		public async Task<IActionResult> GetListAddressByUserId([FromQuery] int id)
 		{
 			 var address = await _mediator.Send(new GetListAddressByUserIdQuery { Id = id });
 			 return Ok(address);
@@ -35,6 +36,12 @@ namespace DailyShop.API.Controllers
 		{
 			InsertedAddressDto insertedAddressDto = await _mediator.Send(insertAddressCommand);
 			return Created("", insertedAddressDto);
+		}
+		[HttpPut("UpdateAddress")]
+		public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressCommand updateAddressCommand)
+		{
+			UpdatedAddressDto updatedAddressDto = await _mediator.Send(updateAddressCommand);
+			return Ok(updatedAddressDto);
 		}
 	}
 }

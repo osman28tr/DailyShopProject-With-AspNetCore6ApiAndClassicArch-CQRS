@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
+using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Entities.Concrete;
 using System;
@@ -24,6 +25,8 @@ namespace DailyShop.Business.Features.Addresses.Profiles
             CreateMap<Address, DeletedAddressDto>().ReverseMap();
             CreateMap<Address, InsertAddressCommand>().ReverseMap();
             CreateMap<Address, InsertedAddressDto>().ReverseMap();
+            CreateMap<Address,UpdateAddressCommand>().ReverseMap();
+            CreateMap<Address, UpdatedAddressDto>().ReverseMap();
         }
     }
 }

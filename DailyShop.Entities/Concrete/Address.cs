@@ -9,7 +9,6 @@ namespace DailyShop.Entities.Concrete
 {
 	public class Address:Entity
 	{
-        public int Id { get; set; }
         public int AppUserId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
