@@ -20,7 +20,7 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 {
 	public class RegisterUserCommand:IRequest<RegisteredDto>
 	{
-        public UserForRegisterDto UserForRegisterDto { get; set; }
+        public UserForRegisterFrontendDto UserForRegisterFrontendDto { get; set; }
         public string IpAddress { get; set; }
 		public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisteredDto>
 		{
@@ -41,24 +41,24 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 
 			public async Task<RegisteredDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
 			{
-				UserForRegisterFrontendDto userForRegisterFrontendDto = _mapper.Map<UserForRegisterFrontendDto>(request.UserForRegisterDto);
+				//UserForRegisterFrontendDto userForRegisterFrontendDto = _mapper.Map<UserForRegisterFrontendDto>(request.UserForRegisterDto);
 
-				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(userForRegisterFrontendDto.email);
+				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterFrontendDto.email);
 
 				//await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
 
 				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(userForRegisterFrontendDto.password, out passwordHash, out passwordSalt);
+				HashingHelper.CreatePasswordHash(request.UserForRegisterFrontendDto.password, out passwordHash, out passwordSalt);
 
 				AppUser newUser = new()
 				{
-					FirstName = userForRegisterFrontendDto.name,
-					LastName = userForRegisterFrontendDto.surname,
-					Email = userForRegisterFrontendDto.email,					
-					PhoneNumber = userForRegisterFrontendDto.phonenumber,
+					FirstName = request.UserForRegisterFrontendDto.name,
+					LastName = request.UserForRegisterFrontendDto.surname,
+					Email = request.UserForRegisterFrontendDto.email,					
+					PhoneNumber = request.UserForRegisterFrontendDto.phonenumber,
 					PasswordHash = passwordHash,
 					PasswordSalt = passwordSalt,
-					Role = userForRegisterFrontendDto.role,
+					Role = "member",
 					Status = true,
 				};
 				AppUser createdAppUser = await _appUserRepository.AddAsync(newUser);

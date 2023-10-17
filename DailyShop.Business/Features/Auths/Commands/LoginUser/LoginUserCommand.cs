@@ -19,7 +19,7 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 {
     public class LoginUserCommand:IRequest<LoggedInDto>
 	{
-        public UserForLoginDto UserForLoginDto { get; set; }
+        public UserForLoginFrontendDto UserForLoginFrontendDto { get; set; }
         public string IpAddress { get; set; }
 		public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoggedInDto>
 		{
@@ -40,11 +40,11 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 
 			public async Task<LoggedInDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
 			{
-				await _authBusinessRules.EmailMustExist(request.UserForLoginDto.Email);
+				await _authBusinessRules.EmailMustExist(request.UserForLoginFrontendDto.email);
 
-				UserForLoginFrontendDto userForLoginFrontendDto = _mapper.Map<UserForLoginFrontendDto>(request.UserForLoginDto);
+				//UserForLoginFrontendDto userForLoginFrontendDto = _mapper.Map<UserForLoginFrontendDto>(request.UserForLoginFrontendDto);
 
-				AppUser appUserToLogin = await _appUserRepository.GetAsync(u => u.Email == userForLoginFrontendDto.email);
+				AppUser appUserToLogin = await _appUserRepository.GetAsync(u => u.Email == request.UserForLoginFrontendDto.email);
 
 				LoggedUserFrontendDto loggedUserDto =  _mapper.Map<LoggedUserFrontendDto>(appUserToLogin);
 
@@ -56,7 +56,7 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 					loggedUserDto.addresses.Add(addressFrontendDto);
 				}
 
-				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginDto.Password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
+				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginFrontendDto.password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
 				if (!isPasswordCorrect)
 					throw new BusinessException("Password is incorrect");
 				

@@ -22,11 +22,11 @@ namespace DailyShop.Business.Features.Auths.Profiles
 			CreateMap<UserForRegisterDto, UserForRegisterFrontendDto>()
 				.ForMember(c => c.email, opt => opt.MapFrom(c => c.Email))
 				.ForMember(c => c.password, opt => opt.MapFrom(c => c.Password))
-				.ForMember(c => c.confirmpassword, opt => opt.MapFrom(c => c.ConfirmPassword))
+				//.ForMember(c => c.confirmpassword, opt => opt.MapFrom(c => c.ConfirmPassword))
 				.ForMember(c => c.phonenumber, opt => opt.MapFrom(c => c.PhoneNumber))
 				.ForMember(c => c.name, opt => opt.MapFrom(c => c.Name))
 				.ForMember(c => c.surname, opt => opt.MapFrom(c => c.Surname))
-				.ForMember(c => c.role, opt => opt.MapFrom(c => c.Role))
+				//.ForMember(c => c.role, opt => opt.MapFrom(c => c.Role))
 				.ReverseMap();
 
 			CreateMap<Address, AddressFrontendDto>()

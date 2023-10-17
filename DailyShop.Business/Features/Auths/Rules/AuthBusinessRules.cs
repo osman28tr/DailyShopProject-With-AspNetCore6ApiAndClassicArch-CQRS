@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Dtos;
+using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -41,12 +42,12 @@ namespace DailyShop.Business.Features.Auths.Rules
 				throw new BusinessException("No registered user for this email.");
 			}
 		}
-		public async Task CheckPasswordConfirm(UserForRegisterDto userForRegisterDto)
+		public async Task CheckPasswordConfirm(UserForRegisterFrontendDto userForRegisterFrontendDto)
 		{
-			if(userForRegisterDto.password != userForRegisterDto.confirmpassword)
-			{
-				throw new BusinessException("Passwords do not match.");
-			}
+			//if(userForRegisterFrontendDto.password != userForRegisterFrontendDto.confirmpassword)
+			//{
+			//	throw new BusinessException("Passwords do not match.");
+			//}
 		}
 		public async Task<List<Address>> GetAddress(int userId)
 		{

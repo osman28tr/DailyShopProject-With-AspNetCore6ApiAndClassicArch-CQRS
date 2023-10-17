@@ -2,6 +2,7 @@
 using Core.Security.JWT;
 using DailyShop.Business.Features.Auths.Commands.LoginUser;
 using DailyShop.Business.Features.Auths.Commands.RegisterUser;
+using DailyShop.Business.Features.Auths.DailyFrontends;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,11 @@ namespace DailyShop.API.Controllers
 			_mediator = mediator;
 		}
 		[HttpPost("Register")]
-		public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+		public async Task<IActionResult> Register(UserForRegisterFrontendDto userForRegisterFrontendDto)
 		{
 			RegisterUserCommand registerUserCommand = new()
 			{
-				UserForRegisterDto = userForRegisterDto,
+				UserForRegisterFrontendDto = userForRegisterFrontendDto,
 				IpAddress = GetIpAddress()
 			};
 			var result = await _mediator.Send(registerUserCommand);
@@ -32,12 +33,12 @@ namespace DailyShop.API.Controllers
 			return Ok(new { Message = "Kayıt işlemi başarıyla gerçekleştirildi." });
 		}
 		[HttpPost("Login")]
-		public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+		public async Task<IActionResult> Login(UserForLoginFrontendDto userForLoginFrontendDto)
 		{
-			LoginUserCommand loginUserCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
+			LoginUserCommand loginUserCommand = new() { UserForLoginFrontendDto = userForLoginFrontendDto, IpAddress = GetIpAddress() };
 			var result = await _mediator.Send(loginUserCommand);
 			SetAccessTokenToCookie(result.AccessToken);
-			return Ok(new { accessToken = result.AccessToken, user = result.LoggedUserDto });
+			return Ok(new { authorization = result.AccessToken.Token, user = result.LoggedUserDto, Message = "Başarıyla giriş yaptınız" });
 		}
 		private void SetAccessTokenToCookie(AccessToken accessToken)
 		{

@@ -107,7 +107,19 @@ builder.Services.AddSwaggerGen(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options => {
+	options.AddPolicy(MyAllowSpecificOrigins, policyBuilder => {
+		policyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+	});
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
