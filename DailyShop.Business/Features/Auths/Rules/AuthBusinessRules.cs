@@ -2,6 +2,7 @@
 using Core.Security.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace DailyShop.Business.Features.Auths.Rules
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly IAppUserRepository _appUserRepository;
+		private readonly IAddressRepository _addressRepository;
 
-		public AuthBusinessRules(IUserRepository userRepository, IAppUserRepository appUserRepository)
+		public AuthBusinessRules(IUserRepository userRepository, IAppUserRepository appUserRepository, IAddressRepository addressRepository)
 		{
 			_userRepository = userRepository;
 			_appUserRepository = appUserRepository;
+			_addressRepository = addressRepository;
 		}
 		public async Task EmailCanNotBeDuplicatedWhenRegistered(string email)
 		{
@@ -40,10 +43,17 @@ namespace DailyShop.Business.Features.Auths.Rules
 		}
 		public async Task CheckPasswordConfirm(UserForRegisterDto userForRegisterDto)
 		{
-			if(userForRegisterDto.Password != userForRegisterDto.ConfirmPassword)
+			if(userForRegisterDto.password != userForRegisterDto.confirmpassword)
 			{
 				throw new BusinessException("Passwords do not match.");
 			}
+		}
+		public async Task<List<Address>> GetAddress(int userId)
+		{
+			List<Address> address = await _addressRepository.Query().Where(a => a.AppUserId == userId).ToListAsync();
+			if (!address.Any())
+				throw new Exception("There is no address record for this user.");
+			return address;
 		}
 	}
 }

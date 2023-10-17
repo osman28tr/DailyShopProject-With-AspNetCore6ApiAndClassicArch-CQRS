@@ -37,20 +37,19 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 
 			public async Task<RegisteredDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
 			{
-				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterDto.Email);
+				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterDto.email);
 
-				await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
+				//await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
 
 				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Password, out passwordHash, out passwordSalt);
+				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.password, out passwordHash, out passwordSalt);
 
 				AppUser newUser = new()
 				{
-					FirstName = request.UserForRegisterDto.FirstName,
-					LastName = request.UserForRegisterDto.LastName,
-					Email = request.UserForRegisterDto.Email,
-					ProfileImage = request.UserForRegisterDto.ProfileImage,
-					PhoneNumber = request.UserForRegisterDto.PhoneNumber,
+					FirstName = request.UserForRegisterDto.name,
+					LastName = request.UserForRegisterDto.surname,
+					Email = request.UserForRegisterDto.email,					
+					PhoneNumber = request.UserForRegisterDto.phonenumber,
 					PasswordHash = passwordHash,
 					PasswordSalt = passwordSalt,
 					Status = true,
@@ -64,7 +63,7 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 				RegisteredDto registeredDto = new()
 				{
 					RefreshToken = addedRefreshToken,
-					AccessToken = createdAccessToken,
+					AccessToken = createdAccessToken,				
 				};
 				return registeredDto;
 			}

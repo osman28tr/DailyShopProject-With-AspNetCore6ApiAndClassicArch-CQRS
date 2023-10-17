@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DailyShop.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace DailyShop.Business.Features.Auths.Dtos
 {
 	public class RegisteredDto:RefreshedTokenDto
 	{
-	}
+        public string Message { get; set; }
+    }
 }

@@ -29,7 +29,7 @@ namespace DailyShop.API.Controllers
 
 			SetAccessTokenToCookie(result.AccessToken);
 
-			return Ok(result.AccessToken);
+			return Ok(new { Message = "Kayıt işlemi başarıyla gerçekleştirildi." });
 		}
 		[HttpPost("Login")]
 		public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
@@ -37,7 +37,7 @@ namespace DailyShop.API.Controllers
 			LoginUserCommand loginUserCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
 			var result = await _mediator.Send(loginUserCommand);
 			SetAccessTokenToCookie(result.AccessToken);
-			return Ok(result.AccessToken);
+			return Ok(new { accessToken = result.AccessToken, user = result.LoggedUserDto });
 		}
 		private void SetAccessTokenToCookie(AccessToken accessToken)
 		{
