@@ -2,10 +2,11 @@
 
 public class UserForRegisterDto
 {
-    public string email { get; set; }
-    public string password { get; set; }
-    public string confirmpassword { get; set; }
-    public string name { get; set; }
-    public string surname { get; set; }
-	public string phonenumber { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public string ConfirmPassword { get; set; }
+    public string Name { get; set; }
+    public string Role { get; set; }
+    public string Surname { get; set; }
+	public string PhoneNumber { get; set; }
 }

@@ -1,7 +1,9 @@
-﻿using Core.Security.Dtos;
+﻿using AutoMapper;
+using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
+using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Features.Auths.Rules;
 using DailyShop.Business.Services.AuthService;
@@ -23,35 +25,40 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 		public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisteredDto>
 		{
 			private readonly IUserRepository _userRepository;
+			private readonly IMapper _mapper;
 			private readonly IAppUserRepository _appUserRepository;
 			private readonly IAuthService _authService;
 			private readonly AuthBusinessRules _authBusinessRules;
 
-			public RegisterUserCommandHandler(IUserRepository userRepository, IAppUserRepository appUserRepository, IAuthService authService, AuthBusinessRules authBusinessRules)
+			public RegisterUserCommandHandler(IUserRepository userRepository, IAppUserRepository appUserRepository, IAuthService authService,IMapper mapper ,AuthBusinessRules authBusinessRules)
 			{
 				_userRepository = userRepository;
 				_appUserRepository = appUserRepository;
 				_authService = authService;
 				_authBusinessRules = authBusinessRules;
+				_mapper = mapper;
 			}
 
 			public async Task<RegisteredDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
 			{
-				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterDto.email);
+				UserForRegisterFrontendDto userForRegisterFrontendDto = _mapper.Map<UserForRegisterFrontendDto>(request.UserForRegisterDto);
+
+				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(userForRegisterFrontendDto.email);
 
 				//await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
 
 				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.password, out passwordHash, out passwordSalt);
+				HashingHelper.CreatePasswordHash(userForRegisterFrontendDto.password, out passwordHash, out passwordSalt);
 
 				AppUser newUser = new()
 				{
-					FirstName = request.UserForRegisterDto.name,
-					LastName = request.UserForRegisterDto.surname,
-					Email = request.UserForRegisterDto.email,					
-					PhoneNumber = request.UserForRegisterDto.phonenumber,
+					FirstName = userForRegisterFrontendDto.name,
+					LastName = userForRegisterFrontendDto.surname,
+					Email = userForRegisterFrontendDto.email,					
+					PhoneNumber = userForRegisterFrontendDto.phonenumber,
 					PasswordHash = passwordHash,
 					PasswordSalt = passwordSalt,
+					Role = userForRegisterFrontendDto.role,
 					Status = true,
 				};
 				AppUser createdAppUser = await _appUserRepository.AddAsync(newUser);
