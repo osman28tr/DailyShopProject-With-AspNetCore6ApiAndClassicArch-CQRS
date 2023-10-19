@@ -46,6 +46,7 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 
 				AppUser appUserToLogin = await _appUserRepository.GetAsync(u => u.Email == request.UserForLoginFrontendDto.email);
 
+			
 				LoggedUserFrontendDto loggedUserDto =  _mapper.Map<LoggedUserFrontendDto>(appUserToLogin);
 
 				List<Address> address = await _authBusinessRules.GetAddress(appUserToLogin.Id);

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Auths.DailyFrontends
 {
-	public class UpdatedUserFrontendDto
+	public class UpdatedUserFrontendDto:BaseUserFrontendDto
 	{
-        public ICollection<AddressFrontendDto> addresses { get; set; }
+        public int id { get; set; }
+        public AddressFrontendDto addresses { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
 using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
+using DailyShop.Business.Features.Auths.Commands.UpdateUser;
+using DailyShop.Business.Features.Auths.DailyFrontends;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,11 +39,16 @@ namespace DailyShop.API.Controllers
 			InsertedAddressDto insertedAddressDto = await _mediator.Send(insertAddressCommand);
 			return Created("", insertedAddressDto);
 		}
-		[HttpPut("UpdateAddress")]
-		public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressCommand updateAddressCommand)
+		[HttpPut("Update")]
+		public async Task<IActionResult> Update([FromBody] UpdatedUserFrontendDto updatedUserFrontendDto)
 		{
-			UpdatedAddressDto updatedAddressDto = await _mediator.Send(updateAddressCommand);
-			return Ok(updatedAddressDto);
+			UpdateUserCommand updateUserCommand = new() { UpdatedUserFrontendDto = updatedUserFrontendDto };
+			int userId =  await _mediator.Send(updateUserCommand);
+
+			UpdateAddressCommand updateAddressCommand = new() { AppUserId = userId, City = updatedUserFrontendDto.addresses.city, Adres = updatedUserFrontendDto.addresses.address, Country = updatedUserFrontendDto.addresses.country, Description = updatedUserFrontendDto.addresses.description, Title = updatedUserFrontendDto.addresses.title, ZipCode = updatedUserFrontendDto.addresses.zipcode };
+
+			await _mediator.Send(updateAddressCommand);
+			return Ok("Kullanıcı başarıyla güncellendi.");
 		}
 	}
 }

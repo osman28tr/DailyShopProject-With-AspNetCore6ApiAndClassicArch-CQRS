@@ -30,7 +30,7 @@ namespace DailyShop.Business.Features.Auths.Profiles
 				.ReverseMap();
 
 			CreateMap<Address, AddressFrontendDto>()
-                .ForMember(c => c.id, opt => opt.MapFrom(c => c.Id))
+                //.ForMember(c => c.id, opt => opt.MapFrom(c => c.Id))
                 .ForMember(c => c.title, opt => opt.MapFrom(c => c.Title))
                 .ForMember(c => c.description, opt => opt.MapFrom(c => c.Description))
                 .ForMember(c => c.address, opt => opt.MapFrom(c => c.Adres))
@@ -50,6 +50,7 @@ namespace DailyShop.Business.Features.Auths.Profiles
                 .ForMember(c=>c.updatedAt,opt=>opt.MapFrom(c=>c.UpdatedAt))
                 .ForMember(c=>c.profileImage,opt=>opt.MapFrom(c=>c.ProfileImage))
                 .ReverseMap();
+            
         }
     }
 }
