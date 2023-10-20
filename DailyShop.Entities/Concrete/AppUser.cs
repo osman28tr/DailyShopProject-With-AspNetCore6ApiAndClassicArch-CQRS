@@ -9,10 +9,10 @@ namespace DailyShop.Entities.Concrete
 {
 	public class AppUser:User
 	{
-        public string Role { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public ICollection<Address> Addresses { get; set; }
+        public string? Role { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+        public ICollection<Address>? Addresses { get; set; }
         public AppUser()
         {
             
