@@ -3,7 +3,9 @@ using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
 using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
-using DailyShop.Business.Features.Auths.Commands.UpdateUser;
+using DailyShop.Business.Features.AppUsers.Commands.DeleteUser;
+using DailyShop.Business.Features.AppUsers.Commands.UpdateUser;
+using DailyShop.Business.Features.AppUsers.Dtos;
 using DailyShop.Business.Features.Auths.DailyFrontends;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DailyShop.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class ProfilesController : ControllerBase
 	{
@@ -48,7 +50,14 @@ namespace DailyShop.API.Controllers
 			UpdateAddressCommand updateAddressCommand = new() { AppUserId = userId, City = updatedUserFrontendDto.addresses.city, Adres = updatedUserFrontendDto.addresses.address, Country = updatedUserFrontendDto.addresses.country, Description = updatedUserFrontendDto.addresses.description, Title = updatedUserFrontendDto.addresses.title, ZipCode = updatedUserFrontendDto.addresses.zipcode };
 
 			await _mediator.Send(updateAddressCommand);
-			return Ok("Kullanıcı başarıyla güncellendi.");
+			return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
+		}
+		[HttpDelete("Delete")]
+		public async Task<IActionResult> Delete([FromQuery] DeletedUserFrontendDto deletedUserFrontendDto)
+		{
+			DeleteUserCommand deleteUserCommand = new() { DeletedUserFrontendDto = deletedUserFrontendDto };
+			string message =  await _mediator.Send(deleteUserCommand);
+			return Ok(new { Message = message });
 		}
 	}
 }

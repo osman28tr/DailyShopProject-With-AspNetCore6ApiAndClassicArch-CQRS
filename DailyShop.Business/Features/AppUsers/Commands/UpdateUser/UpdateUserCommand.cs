@@ -9,12 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Auths.Commands.UpdateUser
+namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
 {
-	public class UpdateUserCommand:IRequest<int>
-	{
+    public class UpdateUserCommand : IRequest<int>
+    {
         public UpdatedUserFrontendDto UpdatedUserFrontendDto { get; set; }
-        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,int>
+        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, int>
         {
             private readonly IAppUserRepository _appUserRepository;
             private readonly IMapper _mapper;
@@ -36,9 +36,6 @@ namespace DailyShop.Business.Features.Auths.Commands.UpdateUser
                     ProfileImage = request.UpdatedUserFrontendDto.profileImage,
                 };
                 AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.UpdatedUserFrontendDto.id);
-                //Address updatedAddress = _mapper.Map<Address>(request.UpdatedUserFrontendDto.addresses);
-                ///appUser.Addresses.Add(updatedAddress);
-                newUser.Addresses = null;
                 oldUser.FirstName = newUser.FirstName;
                 oldUser.LastName = newUser.LastName;
                 oldUser.Email = newUser.Email;
