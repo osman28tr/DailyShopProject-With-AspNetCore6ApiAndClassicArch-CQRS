@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231020212548_add_table_colorandsize")]
+    partial class add_table_colorandsize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace DailyShop.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ColorProduct", b =>
-                {
-                    b.Property<int>("ColorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColorsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ColorProduct");
-                });
 
             modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>
                 {
@@ -323,21 +311,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.ToTable("Sizes", (string)null);
                 });
 
-            modelBuilder.Entity("ProductSize", b =>
-                {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SizesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsId", "SizesId");
-
-                    b.HasIndex("SizesId");
-
-                    b.ToTable("ProductSize");
-                });
-
             modelBuilder.Entity("DailyShop.Entities.Concrete.AppUser", b =>
                 {
                     b.HasBaseType("Core.Security.Entities.User");
@@ -352,21 +325,6 @@ namespace DailyShop.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.ToTable("AppUsers", (string)null);
-                });
-
-            modelBuilder.Entity("ColorProduct", b =>
-                {
-                    b.HasOne("DailyShop.Entities.Concrete.Color", null)
-                        .WithMany()
-                        .HasForeignKey("ColorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DailyShop.Entities.Concrete.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
@@ -426,21 +384,6 @@ namespace DailyShop.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("ProductSize", b =>
-                {
-                    b.HasOne("DailyShop.Entities.Concrete.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DailyShop.Entities.Concrete.Size", null)
-                        .WithMany()
-                        .HasForeignKey("SizesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.AppUser", b =>

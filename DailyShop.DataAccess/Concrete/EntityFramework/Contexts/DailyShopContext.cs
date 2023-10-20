@@ -49,12 +49,12 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
             });
             modelBuilder.Entity<Color>(a =>
             {
-                a.ToTable("ProductColors");
+                a.ToTable("Colors");
                 a.Property(p => p.Id).HasColumnName("Id");
             });
             modelBuilder.Entity<Size>(a =>
             {
-                a.ToTable("ProductSizes");
+                a.ToTable("Sizes");
                 a.Property(p => p.Id).HasColumnName("Id");
             });
             modelBuilder.Entity<ProductImage>(a =>

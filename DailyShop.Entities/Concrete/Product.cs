@@ -21,6 +21,8 @@ namespace DailyShop.Entities.Concrete
         public bool? IsDeleted { get; set; }
         public Category? Category { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
+        public ICollection<Color> Colors { get; set; }
+        public ICollection<Size> Sizes { get; set; }
         public Product()
         {
             
