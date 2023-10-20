@@ -14,6 +14,22 @@
   <ItemGroup>
     <Folder Include="Features\Addresses\Models\" />
     <Folder Include="Features\Addresses\Rules\" />
+    <Folder Include="Features\Categories\Commands\InsertCategory\" />
+    <Folder Include="Features\Categories\Commands\DeleteCategory\" />
+    <Folder Include="Features\Categories\Commands\UpdateCategory\" />
+    <Folder Include="Features\Categories\Queries\GetByIdCategory\" />
+    <Folder Include="Features\Categories\Rules\" />
+    <Folder Include="Features\ProductImages\" />
+    <Folder Include="Features\ProductSizes\" />
+    <Folder Include="Features\ProductColors\" />
+    <Folder Include="Features\Products\Commands\InsertProduct\" />
+    <Folder Include="Features\Products\Commands\DeleteProduct\" />
+    <Folder Include="Features\Products\Commands\UpdateProduct\" />
+    <Folder Include="Features\Products\Dtos\" />
+    <Folder Include="Features\Products\Queries\GetListProduct\" />
+    <Folder Include="Features\Products\Queries\GetByIdProduct\" />
+    <Folder Include="Features\Products\Rules\" />
+    <Folder Include="Features\Products\Profiles\" />
   </ItemGroup>
 
   <ItemGroup>
