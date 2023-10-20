@@ -18,8 +18,8 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductColor> ProductColors { get; set; }
-        public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Size> Sizes { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -47,17 +47,15 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.HasOne(p => p.Category);
             });
-            modelBuilder.Entity<ProductColor>(a =>
+            modelBuilder.Entity<Color>(a =>
             {
                 a.ToTable("ProductColors");
                 a.Property(p => p.Id).HasColumnName("Id");
-                a.HasOne(p => p.Product);
             });
-            modelBuilder.Entity<ProductSize>(a =>
+            modelBuilder.Entity<Size>(a =>
             {
                 a.ToTable("ProductSizes");
                 a.Property(p => p.Id).HasColumnName("Id");
-                a.HasOne(p => p.Product);
             });
             modelBuilder.Entity<ProductImage>(a =>
             {

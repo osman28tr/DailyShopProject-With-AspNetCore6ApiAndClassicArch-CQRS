@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DailyShop.Business.Features.Categories.DailyFrontendDtos;
-using DailyShop.Business.Features.Categories.Models;
 using DailyShop.Business.Services.Repositories;
+using DailyShop.Entities.Concrete;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,9 +27,9 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
 
             public async Task<List<GetListCategoryFrontendDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
             {
-                var categories = await _categoryRepository.Query().ToListAsync();
-                GetListCategoryModel mappedGetListCategoryModels =_mapper.Map<GetListCategoryModel>(categories);
-                return mappedGetListCategoryModels.GetListCategoryFrontendDtos;
+                List<Category> categories = await _categoryRepository.Query().ToListAsync();
+                List<GetListCategoryFrontendDto> mappedGetListCategoryModels =_mapper.Map<List<GetListCategoryFrontendDto>>(categories);
+                return mappedGetListCategoryModels;
             }
         }
     }

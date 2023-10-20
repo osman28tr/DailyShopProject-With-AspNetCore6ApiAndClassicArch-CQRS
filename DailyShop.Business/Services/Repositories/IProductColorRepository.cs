@@ -3,7 +3,7 @@ using DailyShop.Entities.Concrete;
 
 namespace DailyShop.Business.Services.Repositories
 {
-    public interface IProductColorRepository:IAsyncRepository<ProductColor>,IRepository<ProductColor>
+    public interface IProductColorRepository:IAsyncRepository<Color>,IRepository<Color>
     {
     }
 }

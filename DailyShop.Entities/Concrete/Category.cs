@@ -18,6 +18,6 @@ namespace DailyShop.Entities.Concrete
         {
             Id = id;
         }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product>? Products { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using DailyShop.Entities.Concrete;
 
 namespace DailyShop.DataAccess.Concrete.EntityFramework.Repositories
 {
-    public class ProductSizeRepository : EfRepositoryBase<ProductSize, DailyShopContext>, IProductSizeRepository
+    public class ProductSizeRepository : EfRepositoryBase<Size, DailyShopContext>, IProductSizeRepository
     {
         public ProductSizeRepository(DailyShopContext context) : base(context)
         {

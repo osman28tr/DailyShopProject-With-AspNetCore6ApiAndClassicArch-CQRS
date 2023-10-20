@@ -20,6 +20,7 @@ namespace DailyShop.Entities.Concrete
         public DateTime? Date { get; set; } = DateTime.Now;
         public bool? IsDeleted { get; set; }
         public Category? Category { get; set; }
+        public ICollection<ProductImage>? ProductImages { get; set; }
         public Product()
         {
             

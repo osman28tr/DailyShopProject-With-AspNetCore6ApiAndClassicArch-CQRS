@@ -3,7 +3,7 @@ using DailyShop.Entities.Concrete;
 
 namespace DailyShop.Business.Services.Repositories
 {
-    public interface IProductSizeRepository:IAsyncRepository<ProductSize>,IRepository<ProductSize>
+    public interface IProductSizeRepository:IAsyncRepository<Size>,IRepository<Size>
     {
     }
 }
