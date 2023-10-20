@@ -12,7 +12,7 @@ namespace DailyShop.Entities.Concrete
         public string Name { get; set; }
         public Color()
         {
-            
+            Products = new HashSet<Product>();
         }
         public Color(int id):base(id)
         {

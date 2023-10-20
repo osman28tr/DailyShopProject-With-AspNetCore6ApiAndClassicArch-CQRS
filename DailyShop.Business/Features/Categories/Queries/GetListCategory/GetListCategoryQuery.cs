@@ -12,23 +12,25 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
 {
-    public class GetListCategoryQuery:IRequest<List<GetListCategoryFrontendDto>>
+    public class GetListCategoryQuery : IRequest<List<GetListCategoryFrontendDto>>
     {
         public class GetListCategoryQueryHandler : IRequestHandler<GetListCategoryQuery, List<GetListCategoryFrontendDto>>
         {
             private readonly ICategoryRepository _categoryRepository;
+            private readonly IProductRepository _productRepository;
             private readonly IMapper _mapper;
 
-            public GetListCategoryQueryHandler(ICategoryRepository categoryRepository, IMapper mapper)
+            public GetListCategoryQueryHandler(ICategoryRepository categoryRepository, IMapper mapper, IProductRepository productRepository)
             {
                 _categoryRepository = categoryRepository;
                 _mapper = mapper;
+                _productRepository = productRepository;
             }
 
             public async Task<List<GetListCategoryFrontendDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
             {
                 List<Category> categories = await _categoryRepository.Query().ToListAsync();
-                List<GetListCategoryFrontendDto> mappedGetListCategoryModels =_mapper.Map<List<GetListCategoryFrontendDto>>(categories);
+                List<GetListCategoryFrontendDto> mappedGetListCategoryModels = _mapper.Map<List<GetListCategoryFrontendDto>>(categories);
                 return mappedGetListCategoryModels;
             }
         }

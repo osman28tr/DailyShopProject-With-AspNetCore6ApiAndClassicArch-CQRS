@@ -2,6 +2,7 @@
 using DailyShop.Business.Services.Repositories;
 using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using DailyShop.Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace DailyShop.DataAccess.Concrete.EntityFramework.Repositories
 {
@@ -9,6 +10,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Repositories
     {
         public ProductRepository(DailyShopContext context) : base(context)
         {
+            //context.Products.Include(p => p.Colors).ToList();
         }
     }
 }

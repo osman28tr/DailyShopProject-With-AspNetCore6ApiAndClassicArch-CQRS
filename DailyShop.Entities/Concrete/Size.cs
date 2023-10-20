@@ -7,7 +7,7 @@ namespace DailyShop.Entities.Concrete
         public string Name { get; set; }
         public Size()
         {
-            
+            Products = new HashSet<Product>();
         }
         public Size(int id):base(id)
         {

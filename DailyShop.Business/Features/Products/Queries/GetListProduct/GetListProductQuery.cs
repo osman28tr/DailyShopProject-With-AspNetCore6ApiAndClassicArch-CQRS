@@ -1,4 +1,5 @@
 ﻿using DailyShop.Business.Services.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,8 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProduct
 {
     public class GetListProductQuery
     {
-        private readonly IProductRepository _productRepository;
-
-        public GetListProductQuery(IProductRepository productRepository)
+        public GetListProductQuery()
         {
-            _productRepository = productRepository;
-        }
-        public async Task Deneme()
-        {
-            
         }
     }
 }

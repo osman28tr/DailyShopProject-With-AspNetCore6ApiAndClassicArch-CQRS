@@ -25,7 +25,8 @@ namespace DailyShop.Entities.Concrete
         public ICollection<Size> Sizes { get; set; }
         public Product()
         {
-            
+            Colors = new HashSet<Color>();
+            Sizes = new HashSet<Size>();
         }
         public Product(int id):base(id)
         {
