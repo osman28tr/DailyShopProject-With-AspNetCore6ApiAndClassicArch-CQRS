@@ -5,7 +5,7 @@ using DailyShop.Entities.Concrete;
 
 namespace DailyShop.DataAccess.Concrete.EntityFramework.Repositories
 {
-    public class ProductColorRepository : EfRepositoryBase<Product, DailyShopContext>, IProductRepository
+    public class ProductColorRepository : EfRepositoryBase<ProductColor, DailyShopContext>, IProductColorRepository
     {
         public ProductColorRepository(DailyShopContext context) : base(context)
         {

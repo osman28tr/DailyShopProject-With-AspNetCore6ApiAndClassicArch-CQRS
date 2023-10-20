@@ -19,6 +19,11 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 			services.AddScoped<IAppUserRepository, AppUserRepository>();
 			services.AddScoped<IAddressRepository, AddressRepository>();
+			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IProductRepository, ProductRepository>();
+			services.AddScoped<IProductColorRepository, ProductColorRepository>();
+			services.AddScoped<IProductSizeRepository, ProductSizeRepository>();
+			services.AddScoped<IProductImageRepository, ProductImageRepository>();
 			
 			return services;
 		}
