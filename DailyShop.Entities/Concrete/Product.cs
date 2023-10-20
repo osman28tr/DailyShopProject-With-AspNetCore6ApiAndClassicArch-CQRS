@@ -1,0 +1,32 @@
+﻿using Core.Persistence.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DailyShop.Entities.Concrete
+{
+    public class Product:Entity
+    {
+        public int? CategoryId { get; set; }
+        public string? Name { get; set; }
+        public decimal? Price { get; set; }
+        public string? BodyImage { get; set; }
+        public string? Description { get; set; }
+        public string? Status { get; set; }
+        public int? Stock { get; set; }
+        public byte? Rating { get; set; }
+        public DateTime? Date { get; set; } = DateTime.Now;
+        public bool? IsDeleted { get; set; }
+        public Category? Category { get; set; }
+        public Product()
+        {
+            
+        }
+        public Product(int id):base(id)
+        {
+            Id = id;
+        }
+    }
+}
