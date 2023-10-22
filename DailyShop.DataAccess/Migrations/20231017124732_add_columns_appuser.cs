@@ -14,7 +14,7 @@ namespace DailyShop.DataAccess.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreatedAt",
                 table: "AppUsers",
-                type: "datetime2",
+                type: "date",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
@@ -28,7 +28,7 @@ namespace DailyShop.DataAccess.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "UpdatedAt",
                 table: "AppUsers",
-                type: "datetime2",
+                type: "date",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
         }
