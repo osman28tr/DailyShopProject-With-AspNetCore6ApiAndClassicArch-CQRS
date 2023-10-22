@@ -19,11 +19,11 @@ namespace DailyShop.API.Controllers
 			_mediator = mediator;
 		}
 		[HttpPost("Register")]
-		public async Task<IActionResult> Register(UserForRegisterFrontendDto userForRegisterFrontendDto)
+		public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
 		{
 			RegisterUserCommand registerUserCommand = new()
 			{
-				UserForRegisterFrontendDto = userForRegisterFrontendDto,
+				UserForRegisterDto = userForRegisterDto,
 				IpAddress = GetIpAddress()
 			};
 			var result = await _mediator.Send(registerUserCommand);

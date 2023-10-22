@@ -20,7 +20,7 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 {
 	public class RegisterUserCommand:IRequest<RegisteredDto>
 	{
-        public UserForRegisterFrontendDto UserForRegisterFrontendDto { get; set; }
+        public UserForRegisterDto UserForRegisterDto { get; set; }
         public string IpAddress { get; set; }
 		public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisteredDto>
 		{
@@ -43,19 +43,19 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 			{
 				//UserForRegisterFrontendDto userForRegisterFrontendDto = _mapper.Map<UserForRegisterFrontendDto>(request.UserForRegisterDto);
 
-				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterFrontendDto.email);
+				await _authBusinessRules.EmailCanNotBeDuplicatedWhenRegistered(request.UserForRegisterDto.Email);
 
 				//await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
 
 				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(request.UserForRegisterFrontendDto.password, out passwordHash, out passwordSalt);
+				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Email, out passwordHash, out passwordSalt);
 
 				AppUser newUser = new()
 				{
-					FirstName = request.UserForRegisterFrontendDto.name,
-					LastName = request.UserForRegisterFrontendDto.surname,
-					Email = request.UserForRegisterFrontendDto.email,					
-					PhoneNumber = request.UserForRegisterFrontendDto.phonenumber,
+					FirstName = request.UserForRegisterDto.Name,
+					LastName = request.UserForRegisterDto.Surname,
+					Email = request.UserForRegisterDto.Email,					
+					PhoneNumber = request.UserForRegisterDto.PhoneNumber,
 					PasswordHash = passwordHash,
 					PasswordSalt = passwordSalt,
 					Role = "member",
