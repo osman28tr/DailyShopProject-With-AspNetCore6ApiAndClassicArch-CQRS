@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DailyShop.Business.Features.Auths.DailyFrontends;
+using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -13,12 +13,12 @@ namespace DailyShop.Business.Helpers
     {
         public MappingHelper()
         {
-            CreateMap<AppUser, BaseUserFrontendDto>()
-                .ForMember(c => c.name, opt => opt.MapFrom(c => c.FirstName))
-                .ForMember(c => c.surname, opt => opt.MapFrom(c => c.LastName))
-                .ForMember(c => c.email, opt => opt.MapFrom(c => c.Email))
-                .ForMember(c => c.phone, opt => opt.MapFrom(c => c.PhoneNumber))
-                .ForMember(c => c.profileImage, opt => opt.MapFrom(c => c.ProfileImage))
+            CreateMap<AppUser, BaseUserDto>()
+                .ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.FirstName))
+                .ForMember(c => c.LastName, opt => opt.MapFrom(c => c.LastName))
+                .ForMember(c => c.Email, opt => opt.MapFrom(c => c.Email))
+                .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(c => c.PhoneNumber))
+                .ForMember(c => c.ProfileImage, opt => opt.MapFrom(c => c.ProfileImage))
                 .ReverseMap();
         }
     }

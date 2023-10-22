@@ -7,7 +7,7 @@ using DailyShop.Business.Features.Auths.Dtos;
 
 namespace DailyShop.Business.Features.Auths.DailyFrontends
 {
-    public class UpdatedUserFrontendDto:BaseUserFrontendDto
+    public class UpdatedUserFrontendDto:BaseUserDto
 	{
         public int id { get; set; }
         public AddressDto addresses { get; set; }

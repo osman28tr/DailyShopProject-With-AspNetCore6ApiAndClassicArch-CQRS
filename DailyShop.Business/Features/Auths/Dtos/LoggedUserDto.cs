@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using DailyShop.Business.Features.Auths.DailyFrontends;
 
 namespace DailyShop.Business.Features.Auths.Dtos
 {
-    public class LoggedUserDto : BaseUserFrontendDto
+    public class LoggedUserDto : BaseUserDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

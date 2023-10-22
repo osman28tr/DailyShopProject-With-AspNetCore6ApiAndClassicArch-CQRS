@@ -29,11 +29,11 @@ namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
             {
                 AppUser newUser = new()
                 {
-                    FirstName = request.UpdatedUserFrontendDto.name,
-                    LastName = request.UpdatedUserFrontendDto.surname,
-                    Email = request.UpdatedUserFrontendDto.email,
-                    PhoneNumber = request.UpdatedUserFrontendDto.phone,
-                    ProfileImage = request.UpdatedUserFrontendDto.profileImage,
+                    FirstName = request.UpdatedUserFrontendDto.FirstName,
+                    LastName = request.UpdatedUserFrontendDto.LastName,
+                    Email = request.UpdatedUserFrontendDto.Email,
+                    PhoneNumber = request.UpdatedUserFrontendDto.PhoneNumber,
+                    ProfileImage = request.UpdatedUserFrontendDto.ProfileImage,
                 };
                 AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.UpdatedUserFrontendDto.id);
                 oldUser.FirstName = newUser.FirstName;

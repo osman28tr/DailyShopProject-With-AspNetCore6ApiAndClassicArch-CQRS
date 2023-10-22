@@ -17,7 +17,6 @@ namespace DailyShop.Entities.Concrete
         public string? Status { get; set; }
         public int? Stock { get; set; }
         public byte? Rating { get; set; }
-        public DateTime? Date { get; set; } = DateTime.Now;
         public bool? IsDeleted { get; set; }
         public Category? Category { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
