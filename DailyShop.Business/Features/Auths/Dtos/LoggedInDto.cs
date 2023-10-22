@@ -1,6 +1,5 @@
 ﻿using Core.Security.Entities;
 using Core.Security.JWT;
-using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,6 @@ namespace DailyShop.Business.Features.Auths.Dtos
 	{
 		public AccessToken AccessToken { get; set; }
 		public RefreshToken RefreshToken { get; set; }
-        public LoggedUserFrontendDto LoggedUserDto { get; set; }
+        public LoggedUserDto LoggedUserDto { get; set; }
     }
 }

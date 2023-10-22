@@ -49,11 +49,11 @@ namespace DailyShop.Business.Features.Auths.Rules
 			//	throw new BusinessException("Passwords do not match.");
 			//}
 		}
-		public async Task<List<Address>> GetAddress(int userId)
+		public async Task<List<Address>>? GetAddress(int userId)
 		{
 			List<Address> address = await _addressRepository.Query().Where(a => a.AppUserId == userId).ToListAsync();
-			if (!address.Any())
-				throw new Exception("There is no address record for this user.");
+			//if (!address.Any())
+			//	throw new Exception("There is no address record for this user.");
 			return address;
 		}
 	}

@@ -2,14 +2,14 @@
 using Core.Security.JWT;
 using DailyShop.Business.Features.Auths.Commands.LoginUser;
 using DailyShop.Business.Features.Auths.Commands.RegisterUser;
-using DailyShop.Business.Features.Auths.DailyFrontends;
+using DailyShop.Business.Features.Auths.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DailyShop.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class AuthsController : ControllerBase
 	{
@@ -33,9 +33,9 @@ namespace DailyShop.API.Controllers
 			return Ok(new { Message = "Kayıt işlemi başarıyla gerçekleştirildi." });
 		}
 		[HttpPost("Login")]
-		public async Task<IActionResult> Login(UserForLoginFrontendDto userForLoginFrontendDto)
+		public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
 		{
-			LoginUserCommand loginUserCommand = new() { UserForLoginFrontendDto = userForLoginFrontendDto, IpAddress = GetIpAddress() };
+			LoginUserCommand loginUserCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
 			var result = await _mediator.Send(loginUserCommand);
 			SetAccessTokenToCookie(result.AccessToken);
 			return Ok(new { authorization = result.AccessToken.Token, user = result.LoggedUserDto, Message = "Başarıyla giriş yaptınız" });

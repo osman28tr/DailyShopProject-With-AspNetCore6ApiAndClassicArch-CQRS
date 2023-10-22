@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
 namespace Core.Security.Dtos;
 
@@ -16,4 +18,5 @@ public class UserForRegisterDto
     public string Surname { get; set; }
     [JsonPropertyName("phonenumber")]
     public string PhoneNumber { get; set; }
+    //public override string ToString() => JsonConvert.SerializeObject(this);
 }

@@ -42,16 +42,16 @@ namespace DailyShop.API.Controllers
 			return Created("", insertedAddressDto);
 		}
 		[HttpPut("Update")]
-		public async Task<IActionResult> Update([FromBody] UpdatedUserFrontendDto updatedUserFrontendDto)
-		{
-			UpdateUserCommand updateUserCommand = new() { UpdatedUserFrontendDto = updatedUserFrontendDto };
-			int userId =  await _mediator.Send(updateUserCommand);
+		//public async Task<IActionResult> Update([FromBody] UpdatedUserFrontendDto updatedUserFrontendDto)
+		//{
+		//	UpdateUserCommand updateUserCommand = new() { UpdatedUserFrontendDto = updatedUserFrontendDto };
+		//	int userId =  await _mediator.Send(updateUserCommand);
 
-			UpdateAddressCommand updateAddressCommand = new() { AppUserId = userId, City = updatedUserFrontendDto.addresses.city, Adres = updatedUserFrontendDto.addresses.address, Country = updatedUserFrontendDto.addresses.country, Description = updatedUserFrontendDto.addresses.description, Title = updatedUserFrontendDto.addresses.title, ZipCode = updatedUserFrontendDto.addresses.zipcode };
+		//	UpdateAddressCommand updateAddressCommand = new() { AppUserId = userId, City = updatedUserFrontendDto.addresses.city, Adres = updatedUserFrontendDto.addresses.address, Country = updatedUserFrontendDto.addresses.country, Description = updatedUserFrontendDto.addresses.description, Title = updatedUserFrontendDto.addresses.title, ZipCode = updatedUserFrontendDto.addresses.zipcode };
 
-			await _mediator.Send(updateAddressCommand);
-			return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
-		}
+		//	await _mediator.Send(updateAddressCommand);
+		//	return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
+		//}
 		[HttpDelete("Delete")]
 		public async Task<IActionResult> Delete([FromQuery] DeletedUserFrontendDto deletedUserFrontendDto)
 		{

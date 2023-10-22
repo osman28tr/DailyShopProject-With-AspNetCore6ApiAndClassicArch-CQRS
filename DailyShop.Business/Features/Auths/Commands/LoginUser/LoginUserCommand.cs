@@ -2,7 +2,6 @@
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Dtos;
 using Core.Security.Hashing;
-using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Features.Auths.Rules;
 using DailyShop.Business.Services.AuthService;
@@ -19,7 +18,7 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 {
     public class LoginUserCommand:IRequest<LoggedInDto>
 	{
-        public UserForLoginFrontendDto UserForLoginFrontendDto { get; set; }
+        public UserForLoginDto UserForLoginDto { get; set; }
         public string IpAddress { get; set; }
 		public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoggedInDto>
 		{
@@ -40,24 +39,25 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 
 			public async Task<LoggedInDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
 			{
-				await _authBusinessRules.EmailMustExist(request.UserForLoginFrontendDto.email);
+				await _authBusinessRules.EmailMustExist(request.UserForLoginDto.Email);
 
 				//UserForLoginFrontendDto userForLoginFrontendDto = _mapper.Map<UserForLoginFrontendDto>(request.UserForLoginFrontendDto);
 
-				AppUser appUserToLogin = await _appUserRepository.GetAsync(u => u.Email == request.UserForLoginFrontendDto.email);
+				AppUser appUserToLogin = await _appUserRepository.GetAsync(u => u.Email == request.UserForLoginDto.Email);
 
 			
-				LoggedUserFrontendDto loggedUserDto =  _mapper.Map<LoggedUserFrontendDto>(appUserToLogin);
+				LoggedUserDto loggedUserDto =  _mapper.Map<LoggedUserDto>(appUserToLogin);
 
-				//List<Address> address = await _authBusinessRules.GetAddress(appUserToLogin.Id);
-
-				//foreach (Address addressDto in address)
-				//{
-				//	AddressFrontendDto addressFrontendDto = _mapper.Map<AddressFrontendDto>(addressDto);
-				//	loggedUserDto.addresses.Add(addressFrontendDto);
-				//}
-
-				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginFrontendDto.password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
+				List<Address> address = await _authBusinessRules.GetAddress(appUserToLogin.Id);
+				if (address != null)
+                {
+                    foreach (Address addressDto in address)
+                    {
+                        AddressDto addressFrontendDto = _mapper.Map<AddressDto>(addressDto);
+                        loggedUserDto.Addresses.Add(addressFrontendDto);
+                    }
+                }
+				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginDto.Password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
 				if (!isPasswordCorrect)
 					throw new BusinessException("Password is incorrect");
 				
