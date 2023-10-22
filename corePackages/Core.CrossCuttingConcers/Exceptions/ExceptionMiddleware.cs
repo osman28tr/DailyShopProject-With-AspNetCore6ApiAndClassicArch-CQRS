@@ -60,7 +60,7 @@ public class ExceptionMiddleware
             Status = StatusCodes.Status400BadRequest,
             Type = "https://example.com/probs/business",
             Title = "Business exception",
-            Detail = exception.Message,
+            Message = exception.Message,
             Instance = ""
         }.ToString());
     }

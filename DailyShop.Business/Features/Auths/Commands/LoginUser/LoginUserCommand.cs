@@ -49,13 +49,13 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
 			
 				LoggedUserFrontendDto loggedUserDto =  _mapper.Map<LoggedUserFrontendDto>(appUserToLogin);
 
-				List<Address> address = await _authBusinessRules.GetAddress(appUserToLogin.Id);
+				//List<Address> address = await _authBusinessRules.GetAddress(appUserToLogin.Id);
 
-				foreach (Address addressDto in address)
-				{
-					AddressFrontendDto addressFrontendDto = _mapper.Map<AddressFrontendDto>(addressDto);
-					loggedUserDto.addresses.Add(addressFrontendDto);
-				}
+				//foreach (Address addressDto in address)
+				//{
+				//	AddressFrontendDto addressFrontendDto = _mapper.Map<AddressFrontendDto>(addressDto);
+				//	loggedUserDto.addresses.Add(addressFrontendDto);
+				//}
 
 				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginFrontendDto.password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
 				if (!isPasswordCorrect)

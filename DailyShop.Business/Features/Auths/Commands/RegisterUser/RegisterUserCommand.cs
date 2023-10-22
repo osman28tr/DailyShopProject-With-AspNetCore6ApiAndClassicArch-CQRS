@@ -48,7 +48,7 @@ namespace DailyShop.Business.Features.Auths.Commands.RegisterUser
 				//await _authBusinessRules.CheckPasswordConfirm(request.UserForRegisterDto);
 
 				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Email, out passwordHash, out passwordSalt);
+				HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Password, out passwordHash, out passwordSalt);
 
 				AppUser newUser = new()
 				{
