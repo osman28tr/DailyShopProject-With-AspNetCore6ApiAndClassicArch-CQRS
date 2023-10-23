@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DailyShop.Business.Features.Categories.DailyFrontendDtos;
+using DailyShop.Business.Features.Categories.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using MediatR;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
 {
-    public class GetListCategoryQuery : IRequest<List<GetListCategoryFrontendDto>>
+    public class GetListCategoryQuery : IRequest<List<GetListCategoryDto>>
     {
-        public class GetListCategoryQueryHandler : IRequestHandler<GetListCategoryQuery, List<GetListCategoryFrontendDto>>
+        public class GetListCategoryQueryHandler : IRequestHandler<GetListCategoryQuery, List<GetListCategoryDto>>
         {
             private readonly ICategoryRepository _categoryRepository;
             private readonly IProductRepository _productRepository;
@@ -27,10 +27,10 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
                 _productRepository = productRepository;
             }
 
-            public async Task<List<GetListCategoryFrontendDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
+            public async Task<List<GetListCategoryDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
             {
                 List<Category> categories = await _categoryRepository.Query().ToListAsync();
-                List<GetListCategoryFrontendDto> mappedGetListCategoryModels = _mapper.Map<List<GetListCategoryFrontendDto>>(categories);
+                List<GetListCategoryDto> mappedGetListCategoryModels = _mapper.Map<List<GetListCategoryDto>>(categories);
                 return mappedGetListCategoryModels;
             }
         }

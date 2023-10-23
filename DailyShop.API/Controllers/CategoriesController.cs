@@ -1,5 +1,4 @@
-﻿using DailyShop.Business.Features.Categories.DailyFrontendDtos;
-using DailyShop.Business.Features.Categories.Queries.GetListCategory;
+﻿using DailyShop.Business.Features.Categories.Queries.GetListCategory;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

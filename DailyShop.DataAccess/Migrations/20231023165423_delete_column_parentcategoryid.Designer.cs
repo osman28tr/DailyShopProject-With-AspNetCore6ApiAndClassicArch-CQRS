@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231023165423_delete_column_parentcategoryid")]
+    partial class delete_column_parentcategoryid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,19 +243,21 @@ namespace DailyShop.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Categories", (string)null);
                 });
@@ -462,6 +467,13 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.Category", null)
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId");
+                });
+
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Category", "Category")
@@ -516,6 +528,8 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>

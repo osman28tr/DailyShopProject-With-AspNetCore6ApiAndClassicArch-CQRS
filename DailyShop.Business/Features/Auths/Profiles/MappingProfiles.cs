@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Security.Dtos;
-using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Entities.Concrete;
 using System;
@@ -20,15 +19,15 @@ namespace DailyShop.Business.Features.Auths.Profiles
     ////            .ForMember(c => c.password, opt => opt.MapFrom(c => c.Password))
 				//.ReverseMap();
 
-			CreateMap<UserForRegisterDto, UserForRegisterFrontendDto>()
-				.ForMember(c => c.email, opt => opt.MapFrom(c => c.Email))
-				.ForMember(c => c.password, opt => opt.MapFrom(c => c.Password))
-				//.ForMember(c => c.confirmpassword, opt => opt.MapFrom(c => c.ConfirmPassword))
-				.ForMember(c => c.phonenumber, opt => opt.MapFrom(c => c.PhoneNumber))
-				.ForMember(c => c.name, opt => opt.MapFrom(c => c.Name))
-				.ForMember(c => c.surname, opt => opt.MapFrom(c => c.Surname))
-				//.ForMember(c => c.role, opt => opt.MapFrom(c => c.Role))
-				.ReverseMap();
+			//CreateMap<UserForRegisterDto, UserForRegisterFrontendDto>()
+			//	.ForMember(c => c.email, opt => opt.MapFrom(c => c.Email))
+			//	.ForMember(c => c.password, opt => opt.MapFrom(c => c.Password))
+			//	//.ForMember(c => c.confirmpassword, opt => opt.MapFrom(c => c.ConfirmPassword))
+			//	.ForMember(c => c.phonenumber, opt => opt.MapFrom(c => c.PhoneNumber))
+			//	.ForMember(c => c.name, opt => opt.MapFrom(c => c.Name))
+			//	.ForMember(c => c.surname, opt => opt.MapFrom(c => c.Surname))
+			//	//.ForMember(c => c.role, opt => opt.MapFrom(c => c.Role))
+			//	.ReverseMap();
 
 			CreateMap<Address, AddressDto>()
                 //.ForMember(c => c.id, opt => opt.MapFrom(c => c.Id))

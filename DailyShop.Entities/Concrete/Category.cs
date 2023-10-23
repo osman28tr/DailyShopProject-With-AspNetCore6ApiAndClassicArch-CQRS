@@ -17,6 +17,5 @@ namespace DailyShop.Entities.Concrete
             Id = id;
         }
         public ICollection<Product>? Products { get; set; }
-        public ICollection<Category>? SubCategories { get; set; }
     }
 }

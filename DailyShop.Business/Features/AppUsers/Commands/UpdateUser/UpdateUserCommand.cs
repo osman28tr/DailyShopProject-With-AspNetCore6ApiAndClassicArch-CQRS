@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DailyShop.Business.Features.Auths.DailyFrontends;
+using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using MediatR;
@@ -13,7 +13,7 @@ namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<int>
     {
-        public UpdatedUserFrontendDto UpdatedUserFrontendDto { get; set; }
+        public UpdatedUserDto UpdatedUserDto { get; set; }
         public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, int>
         {
             private readonly IAppUserRepository _appUserRepository;
@@ -29,13 +29,13 @@ namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
             {
                 AppUser newUser = new()
                 {
-                    FirstName = request.UpdatedUserFrontendDto.FirstName,
-                    LastName = request.UpdatedUserFrontendDto.LastName,
-                    Email = request.UpdatedUserFrontendDto.Email,
-                    PhoneNumber = request.UpdatedUserFrontendDto.PhoneNumber,
-                    ProfileImage = request.UpdatedUserFrontendDto.ProfileImage,
+                    FirstName = request.UpdatedUserDto.FirstName,
+                    LastName = request.UpdatedUserDto.LastName,
+                    Email = request.UpdatedUserDto.Email,
+                    PhoneNumber = request.UpdatedUserDto.PhoneNumber,
+                    ProfileImage = request.UpdatedUserDto.ProfileImage,
                 };
-                AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.UpdatedUserFrontendDto.id);
+                AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.UpdatedUserDto.Id);
                 oldUser.FirstName = newUser.FirstName;
                 oldUser.LastName = newUser.LastName;
                 oldUser.Email = newUser.Email;

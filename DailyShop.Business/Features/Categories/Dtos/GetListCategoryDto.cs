@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Categories.DailyFrontendDtos
+namespace DailyShop.Business.Features.Categories.Dtos
 {
-    public class GetListCategoryFrontendDto
+    public class GetListCategoryDto
     {
-        public string name { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
         public ICollection<Product>? Products { get; set; }
         //public ICollection<ProductColor>? ProductColors { get; set; }
         //public ICollection<ProductSize>? ProductSizes { get; set; }

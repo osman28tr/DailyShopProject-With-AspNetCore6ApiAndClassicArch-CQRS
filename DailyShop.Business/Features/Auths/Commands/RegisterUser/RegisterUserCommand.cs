@@ -3,7 +3,6 @@ using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
-using DailyShop.Business.Features.Auths.DailyFrontends;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Features.Auths.Rules;
 using DailyShop.Business.Services.AuthService;

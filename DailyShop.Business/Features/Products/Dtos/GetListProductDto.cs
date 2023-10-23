@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Products.DailyFrontendDtos
+namespace DailyShop.Business.Features.Products.Dtos
 {
-    public class GetListProductFrontendDto
+    public class GetListProductDto
     {
     }
 }

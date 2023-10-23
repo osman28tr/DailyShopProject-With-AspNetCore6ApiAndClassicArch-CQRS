@@ -12,7 +12,7 @@ namespace DailyShop.Business.Features.AppUsers.Commands.DeleteUser
 {
     public class DeleteUserCommand : IRequest<string>
     {
-        public DeletedUserFrontendDto DeletedUserFrontendDto { get; set; }
+        public DeletedUserDto DeletedUserDto { get; set; }
         public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, string>
         {
             private readonly IAppUserRepository _appUserRepository;
@@ -24,7 +24,7 @@ namespace DailyShop.Business.Features.AppUsers.Commands.DeleteUser
 
             public async Task<string> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
             {
-                AppUser deletedUser = await _appUserRepository.GetAsync(a => a.Id == request.DeletedUserFrontendDto.id);
+                AppUser deletedUser = await _appUserRepository.GetAsync(a => a.Id == request.DeletedUserDto.Id);
                 await _appUserRepository.DeleteAsync(deletedUser);
                 return "Kullanıcı başarıyla silindi.";
             }
