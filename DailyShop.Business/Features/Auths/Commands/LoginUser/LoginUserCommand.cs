@@ -54,10 +54,9 @@ namespace DailyShop.Business.Features.Auths.Commands.LoginUser
                         loggedUserDto.Addresses.Add(addressFrontendDto);
                     }
                 }
-				bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(request.UserForLoginDto.Password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
-				if (!isPasswordCorrect)
-					throw new BusinessException("Password is incorrect");
-				
+				//check password for user
+				await _authBusinessRules.CheckPassword(request.UserForLoginDto.Password, appUserToLogin.PasswordHash, appUserToLogin.PasswordSalt);
+
 				LoggedInDto loggedInDto = new()
 				{
 					AccessToken = await _authService.CreateAccessToken(appUserToLogin),

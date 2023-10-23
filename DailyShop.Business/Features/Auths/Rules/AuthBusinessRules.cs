@@ -1,7 +1,9 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Dtos;
+using Core.Security.Hashing;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,18 +31,23 @@ namespace DailyShop.Business.Features.Auths.Rules
 
 			if (user != null)
 			{
-				throw new BusinessException("Email exits already");
+				throw new BusinessException("Bu email adresine ait bir kullanıcı mevcut.");
 			}
 		}
 		public async Task EmailMustExist(string email)
 		{
 			AppUser? user = await _appUserRepository.GetAsync(u => u.Email == email);
-
 			if (user == null)
 			{
-				throw new BusinessException("No registered user for this email.");
+				throw new BusinessException("Email veya parolayı yanlış girdiniz.");
 			}
 		}
+		public async Task CheckPassword(string password, byte[]? PasswordHash, byte[]? PasswordSalt)
+		{
+			bool isPasswordCorrect = HashingHelper.VerifyPasswordHash(password, PasswordHash, PasswordSalt);
+			if (!isPasswordCorrect)
+				throw new BusinessException("Email veya parolayı yanlış girdiniz.");
+        }
 		public async Task<List<Address>>? GetAddress(int userId)
 		{
 			List<Address> address = await _addressRepository.Query().Where(a => a.AppUserId == userId).ToListAsync();
