@@ -12,18 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Addresses\Models\" />
-    <Folder Include="Features\Addresses\Rules\" />
     <Folder Include="Features\Categories\Commands\InsertCategory\" />
     <Folder Include="Features\Categories\Commands\DeleteCategory\" />
     <Folder Include="Features\Categories\Commands\UpdateCategory\" />
-    <Folder Include="Features\Categories\Queries\GetByIdCategory\" />
-    <Folder Include="Features\Categories\Rules\" />
     <Folder Include="Features\Products\Commands\InsertProduct\" />
     <Folder Include="Features\Products\Commands\DeleteProduct\" />
     <Folder Include="Features\Products\Commands\UpdateProduct\" />
     <Folder Include="Features\Products\Queries\GetByIdProduct\" />
-    <Folder Include="Features\Products\Rules\" />
   </ItemGroup>
 
   <ItemGroup>

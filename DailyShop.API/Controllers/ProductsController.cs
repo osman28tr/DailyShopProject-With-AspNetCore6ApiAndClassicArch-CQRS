@@ -19,8 +19,8 @@ namespace DailyShop.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            var productValues = _mediator.Send(new GetListProductQuery());
-            return Ok(new { productValues, message = "Ürün verileri başarıyla getirildi." });
+            var productValues = await _mediator.Send(new GetListProductQuery());
+            return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
     }
 }
