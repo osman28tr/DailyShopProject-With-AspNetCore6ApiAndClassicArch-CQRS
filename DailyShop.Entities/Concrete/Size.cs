@@ -4,7 +4,7 @@ namespace DailyShop.Entities.Concrete
 {
     public class Size:Entity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public Size()
         {
             Products = new HashSet<Product>();
@@ -13,6 +13,6 @@ namespace DailyShop.Entities.Concrete
         {
             Id = id;
         }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product>? Products { get; set; }
     }
 }

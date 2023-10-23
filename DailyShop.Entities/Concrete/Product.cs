@@ -18,10 +18,11 @@ namespace DailyShop.Entities.Concrete
         public int? Stock { get; set; }
         public byte? Rating { get; set; }
         public bool? IsDeleted { get; set; }
+        public bool? IsApproved { get; set; }
         public Category? Category { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
-        public ICollection<Color> Colors { get; set; }
-        public ICollection<Size> Sizes { get; set; }
+        public ICollection<Color>? Colors { get; set; }
+        public ICollection<Size>? Sizes { get; set; }
         public Product()
         {
             Colors = new HashSet<Color>();

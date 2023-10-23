@@ -1,0 +1,26 @@
+﻿using DailyShop.Business.Features.Products.Queries.GetListProduct;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DailyShop.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductsController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public ProductsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetList()
+        {
+            var productValues = _mediator.Send(new GetListProductQuery());
+            return Ok(new { productValues, message = "Ürün verileri başarıyla getirildi." });
+        }
+    }
+}

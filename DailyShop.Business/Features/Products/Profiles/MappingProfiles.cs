@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DailyShop.Business.Features.Products.Dtos;
+using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace DailyShop.Business.Features.Products.Profiles
     {
         public MappingProfiles()
         {
-            
+            CreateMap<Product, GetListProductDto>().ReverseMap();
         }
     }
 }

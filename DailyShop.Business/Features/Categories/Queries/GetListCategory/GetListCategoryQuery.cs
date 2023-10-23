@@ -30,8 +30,8 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
             public async Task<List<GetListCategoryDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
             {
                 List<Category> categories = await _categoryRepository.Query().ToListAsync();
-                List<GetListCategoryDto> mappedGetListCategoryModels = _mapper.Map<List<GetListCategoryDto>>(categories);
-                return mappedGetListCategoryModels;
+                List<GetListCategoryDto> mappedGetListCategory = _mapper.Map<List<GetListCategoryDto>>(categories);
+                return mappedGetListCategory;
             }
         }
     }

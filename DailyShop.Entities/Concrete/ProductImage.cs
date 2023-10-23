@@ -4,8 +4,8 @@ namespace DailyShop.Entities.Concrete
 {
     public class ProductImage:Entity
     {
-        public int ProductId { get; set; }
-        public string Name { get; set; }
+        public int? ProductId { get; set; }
+        public string? Name { get; set; }
         public ProductImage()
         {
             
@@ -14,6 +14,6 @@ namespace DailyShop.Entities.Concrete
         {
             Id = id;
         }
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }
