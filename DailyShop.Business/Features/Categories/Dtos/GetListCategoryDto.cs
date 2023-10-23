@@ -10,9 +10,11 @@ namespace DailyShop.Business.Features.Categories.Dtos
 {
     public class GetListCategoryDto
     {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
-        public ICollection<Product>? Products { get; set; }
+        //public ICollection<Product>? Products { get; set; }
         //public ICollection<ProductColor>? ProductColors { get; set; }
         //public ICollection<ProductSize>? ProductSizes { get; set; }
         //public ICollection<ProductImage>? ProductImages { get; set; }
