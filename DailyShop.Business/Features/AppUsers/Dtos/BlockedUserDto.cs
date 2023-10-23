@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.AppUsers.Dtos
 {
-    public class DeletedUserDto
+    public class BlockedUserDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

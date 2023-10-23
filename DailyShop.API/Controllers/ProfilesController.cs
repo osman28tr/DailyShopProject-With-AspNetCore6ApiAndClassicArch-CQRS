@@ -3,7 +3,7 @@ using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
 using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
-using DailyShop.Business.Features.AppUsers.Commands.DeleteUser;
+using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
 using DailyShop.Business.Features.AppUsers.Commands.UpdateUser;
 using DailyShop.Business.Features.AppUsers.Dtos;
 using DailyShop.Business.Features.Auths.Dtos;
@@ -53,10 +53,10 @@ namespace DailyShop.API.Controllers
 			return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
 		}
 		[HttpDelete("Delete")]
-		public async Task<IActionResult> Delete([FromQuery] DeletedUserDto deletedUserDto)
+		public async Task<IActionResult> Delete([FromQuery] BlockedUserDto blockedUserDto)
 		{
-			DeleteUserCommand deleteUserCommand = new() { DeletedUserDto = deletedUserDto };
-			string message =  await _mediator.Send(deleteUserCommand);
+			BlockUserCommand blockUserCommand = new() { BlockedUserDto = blockedUserDto };
+			string message =  await _mediator.Send(blockUserCommand);
 			return Ok(new { Message = message });
 		}
 	}

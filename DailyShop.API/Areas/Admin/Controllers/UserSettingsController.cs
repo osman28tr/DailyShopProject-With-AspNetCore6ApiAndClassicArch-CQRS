@@ -1,4 +1,6 @@
-﻿using DailyShop.Business.Features.AppUsers.Queries.GetListUser;
+﻿using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
+using DailyShop.Business.Features.AppUsers.Dtos;
+using DailyShop.Business.Features.AppUsers.Queries.GetListUser;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,12 @@ namespace DailyShop.API.Areas.Admin.Controllers
         {
             var users = await _mediator.Send(new GetListUserQuery());
             return Ok(users);
+        }
+        [HttpPut("BlockUser")]
+        public async Task<IActionResult> BlockUser(BlockedUserDto blockedUserDto)
+        {
+            var message = await _mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
+            return Ok(message);
         }
     }
 }
