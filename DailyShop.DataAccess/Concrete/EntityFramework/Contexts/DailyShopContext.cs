@@ -21,6 +21,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Color> Colors { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<AppUser>(a =>
@@ -62,6 +63,11 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
                 a.ToTable("ProductImages");
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.HasOne(p => p.Product);
+            });
+            modelBuilder.Entity<Review>(a =>
+            {
+                a.ToTable("Reviews");
+                a.Property(p => p.Id).HasColumnName("Id");
             });
         }
 	}

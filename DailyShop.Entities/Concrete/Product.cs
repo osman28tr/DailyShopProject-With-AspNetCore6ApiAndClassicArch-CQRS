@@ -23,6 +23,7 @@ namespace DailyShop.Entities.Concrete
         public ICollection<ProductImage>? ProductImages { get; set; }
         public ICollection<Color>? Colors { get; set; }
         public ICollection<Size>? Sizes { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
         public Product()
         {
             Colors = new HashSet<Color>();

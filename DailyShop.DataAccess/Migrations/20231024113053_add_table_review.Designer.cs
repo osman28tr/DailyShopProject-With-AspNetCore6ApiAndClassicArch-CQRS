@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231024113053_add_table_review")]
+    partial class add_table_review
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,9 +372,6 @@ namespace DailyShop.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
@@ -384,9 +384,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<byte?>("Rating")
                         .HasColumnType("tinyint");
 
@@ -397,10 +394,6 @@ namespace DailyShop.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Reviews", (string)null);
                 });
@@ -525,21 +518,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DailyShop.Entities.Concrete.Review", b =>
-                {
-                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "AppUser")
-                        .WithMany("Reviews")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("DailyShop.Entities.Concrete.Product", "Product")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ProductSize", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Product", null)
@@ -579,15 +557,11 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.Navigation("ProductImages");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.AppUser", b =>
                 {
                     b.Navigation("Addresses");
-
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
