@@ -24,6 +24,7 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IProductColorRepository, ProductColorRepository>();
 			services.AddScoped<IProductSizeRepository, ProductSizeRepository>();
 			services.AddScoped<IProductImageRepository, ProductImageRepository>();
+			services.AddScoped<IReviewRepository, ReviewRepository>();
 			
 			return services;
 		}
