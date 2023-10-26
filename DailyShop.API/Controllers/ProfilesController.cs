@@ -48,10 +48,7 @@ namespace DailyShop.API.Controllers
 		[HttpPut("Update")]
 		public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
 		{
-			var authorization = Request.Headers.Authorization;
-			var token = authorization.ToString().Split(" ")[1];
-
-			int userId =  _authService.VerifyToken(token);
+			int userId = _authService.VerifyToken(GetToken());
 
 			UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
 			var updatedUser = await _mediator.Send(updateUserCommand);
@@ -64,12 +61,19 @@ namespace DailyShop.API.Controllers
 
 			return Ok(new { data = newUser, Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
 		}
-		[HttpDelete("Delete")]
-		public async Task<IActionResult> Delete([FromQuery] BlockedUserDto blockedUserDto)
+		[HttpGet("Block")]
+		public async Task<IActionResult> Block()
 		{
-			BlockUserCommand blockUserCommand = new() { BlockedUserDto = blockedUserDto };
-			string message =  await _mediator.Send(blockUserCommand);
+			int id = _authService.VerifyToken(GetToken());
+            BlockedUserDto blockedUserDto = new() { Id =  id};
+			string message = await _mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
 			return Ok(new { Message = message });
 		}
+		private string GetToken()
+		{
+            var authorization = Request.Headers.Authorization;
+            var token = authorization.ToString().Split(" ")[1];
+			return token;
+        }
 	}
 }
