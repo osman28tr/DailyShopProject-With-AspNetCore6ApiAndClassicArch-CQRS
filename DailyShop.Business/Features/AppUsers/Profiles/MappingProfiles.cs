@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DailyShop.Business.Features.AppUsers.Dtos;
+using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace DailyShop.Business.Features.AppUsers.Profiles
         public MappingProfiles()
         {
             CreateMap<AppUser, GetListUserDto>().ReverseMap();
+            CreateMap<AppUser, UpdatedUserDto>().ReverseMap();
         }
     }
 }

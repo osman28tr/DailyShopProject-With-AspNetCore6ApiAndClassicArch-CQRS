@@ -13,5 +13,6 @@ namespace DailyShop.Business.Services.AuthService
 		public Task<AccessToken> CreateAccessToken(User user);
 		public Task<RefreshToken> CreateRefreshToken(User user, string ipAddress);
 		public Task<RefreshToken> AddRefreshTokenToDb(RefreshToken refreshToken);
+		public int VerifyToken(string token);
 	}
 }

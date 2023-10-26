@@ -7,7 +7,9 @@ using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
 using DailyShop.Business.Features.AppUsers.Commands.UpdateUser;
 using DailyShop.Business.Features.AppUsers.Dtos;
 using DailyShop.Business.Features.Auths.Dtos;
+using DailyShop.Business.Services.AuthService;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +20,12 @@ namespace DailyShop.API.Controllers
 	public class ProfilesController : ControllerBase
 	{
 		private readonly IMediator _mediator;
+		private readonly IAuthService _authService;
 
-		public ProfilesController(IMediator mediator)
+		public ProfilesController(IMediator mediator,IAuthService authService)
 		{
 			_mediator = mediator;
+			_authService = authService;
 		}
 		[HttpGet("GetListAddressByUserId")]
 		public async Task<IActionResult> GetListAddressByUserId([FromQuery] int id)
@@ -44,13 +48,21 @@ namespace DailyShop.API.Controllers
 		[HttpPut("Update")]
 		public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
 		{
-			UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto };
-			int userId = await _mediator.Send(updateUserCommand);
+			var authorization = Request.Headers.Authorization;
+			var token = authorization.ToString().Split(" ")[1];
 
-			UpdateAddressCommand updateAddressCommand = new() { AppUserId = userId, City = updatedUserDto.Addresses.City, Adres = updatedUserDto.Addresses.Address, Country = updatedUserDto.Addresses.Country, Description = updatedUserDto.Addresses.Description, Title = updatedUserDto.Addresses.Title, ZipCode = updatedUserDto.Addresses.Zipcode };
+			int userId =  _authService.VerifyToken(token);
 
-			await _mediator.Send(updateAddressCommand);
-			return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
+			UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
+			var updatedUser = await _mediator.Send(updateUserCommand);
+
+			UpdateAddressCommand updateAddressCommand = new() { AddressDtos = updatedUserDto.Addresses, UserId = userId };
+
+			var updatedAddress = await _mediator.Send(updateAddressCommand);
+
+			UpdatedUserDto newUser = new() { Email = updatedUser.Email, FirstName = updatedUser.FirstName, LastName = updatedUser.LastName, PhoneNumber = updatedUser.PhoneNumber, ProfileImage = updatedUser.ProfileImage, Addresses = updatedAddress };
+
+			return Ok(new { data = newUser, Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
 		}
 		[HttpDelete("Delete")]
 		public async Task<IActionResult> Delete([FromQuery] BlockedUserDto blockedUserDto)

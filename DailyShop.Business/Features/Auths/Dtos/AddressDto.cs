@@ -15,12 +15,12 @@ namespace DailyShop.Business.Features.Auths.Dtos
         [JsonPropertyName("description")]
         public string Description { get; set; }
         [JsonPropertyName("address")]
-        public string Address { get; set; }
+        public string Adres { get; set; }
         [JsonPropertyName("city")]
         public string City { get; set; }
         [JsonPropertyName("country")]
         public string Country { get; set; }
-        [JsonPropertyName("zipcode")]
+        [JsonPropertyName("zipCode")]
         public string Zipcode { get; set; }
     }
 }

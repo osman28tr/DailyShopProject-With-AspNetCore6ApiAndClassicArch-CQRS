@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
 {
-    public class UpdateUserCommand : IRequest<int>
+    public class UpdateUserCommand : IRequest<UpdatedUserDto>
     {
         public UpdatedUserDto UpdatedUserDto { get; set; }
-        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, int>
+        public int Id { get; set; }
+        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UpdatedUserDto>
         {
             private readonly IAppUserRepository _appUserRepository;
             private readonly IMapper _mapper;
@@ -25,24 +26,19 @@ namespace DailyShop.Business.Features.AppUsers.Commands.UpdateUser
                 _mapper = mapper;
             }
 
-            public async Task<int> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+            public async Task<UpdatedUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                AppUser newUser = new()
-                {
-                    FirstName = request.UpdatedUserDto.FirstName,
-                    LastName = request.UpdatedUserDto.LastName,
-                    Email = request.UpdatedUserDto.Email,
-                    PhoneNumber = request.UpdatedUserDto.PhoneNumber,
-                    ProfileImage = request.UpdatedUserDto.ProfileImage,
-                };
-                AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.UpdatedUserDto.Id);
-                oldUser.FirstName = newUser.FirstName;
-                oldUser.LastName = newUser.LastName;
-                oldUser.Email = newUser.Email;
-                oldUser.PhoneNumber = newUser.PhoneNumber;
-                oldUser.ProfileImage = newUser.ProfileImage;
-                await _appUserRepository.UpdateAsync(oldUser);
-                return oldUser.Id;
+                AppUser oldUser = await _appUserRepository.GetAsync(a => a.Id == request.Id);
+
+                oldUser.FirstName = request.UpdatedUserDto.FirstName;
+                oldUser.LastName = request.UpdatedUserDto.LastName;
+                oldUser.Email = request.UpdatedUserDto.Email;
+                oldUser.PhoneNumber = request.UpdatedUserDto.PhoneNumber;
+                oldUser.ProfileImage = request.UpdatedUserDto.ProfileImage;
+
+                AppUser updatedUser = await _appUserRepository.UpdateAsync(oldUser);
+                var mappedUserDto = _mapper.Map<UpdatedUserDto>(updatedUser);
+                return mappedUserDto;
             }
         }
     }
