@@ -21,6 +21,6 @@ namespace DailyShop.Business.Features.Auths.Dtos
         [JsonPropertyName("country")]
         public string Country { get; set; }
         [JsonPropertyName("zipCode")]
-        public string Zipcode { get; set; }
+        public string? Zipcode { get; set; }
     }
 }

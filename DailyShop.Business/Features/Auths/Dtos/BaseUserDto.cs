@@ -10,14 +10,14 @@ namespace DailyShop.Business.Features.Auths.Dtos
     public class BaseUserDto
     {
         [JsonPropertyName("profileImage")]
-        public string ProfileImage { get; set; }
+        public string? ProfileImage { get; set; }
         [JsonPropertyName("name")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         [JsonPropertyName("surname")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [JsonPropertyName("phone")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

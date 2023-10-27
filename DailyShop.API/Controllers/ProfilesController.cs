@@ -1,6 +1,4 @@
-﻿using DailyShop.Business.Features.Addresses.Commands.DeleteAddress;
-using DailyShop.Business.Features.Addresses.Commands.InsertAddress;
-using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
+﻿using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
 using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
@@ -32,18 +30,6 @@ namespace DailyShop.API.Controllers
 		{
 			 var address = await _mediator.Send(new GetListAddressByUserIdQuery { Id = id });
 			 return Ok(address);
-		}
-		[HttpDelete("DeleteAddress")]
-		public async Task<IActionResult> DeleteAddress([FromQuery] int userId,string title)
-		{
-			DeletedAddressDto deletedAddressDto = await _mediator.Send(new DeleteAddressCommand { UserId = userId, Title = title });
-			return Ok(deletedAddressDto);
-		}
-		[HttpPost("AddAddress")]
-		public async Task<IActionResult> AddAddress([FromBody] InsertAddressCommand insertAddressCommand)
-		{
-			InsertedAddressDto insertedAddressDto = await _mediator.Send(insertAddressCommand);
-			return Created("", insertedAddressDto);
 		}
 		[HttpPut("Update")]
 		public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
