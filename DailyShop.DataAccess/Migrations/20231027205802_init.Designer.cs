@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    [Migration("20231023171120_add_column_isapproved_in_product_table")]
-    partial class add_column_isapproved_in_product_table
+    [Migration("20231027205802_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -257,6 +257,8 @@ namespace DailyShop.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentCategoryId");
+
                     b.ToTable("Categories", (string)null);
                 });
 
@@ -273,7 +275,6 @@ namespace DailyShop.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -349,10 +350,9 @@ namespace DailyShop.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -363,6 +363,51 @@ namespace DailyShop.DataAccess.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages", (string)null);
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<byte?>("Rating")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Size", b =>
@@ -378,7 +423,6 @@ namespace DailyShop.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -468,6 +512,13 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.Category", null)
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId");
+                });
+
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Category", "Category")
@@ -481,9 +532,22 @@ namespace DailyShop.DataAccess.Migrations
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Product", "Product")
                         .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.Review", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "AppUser")
+                        .WithMany("Reviews")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("DailyShop.Entities.Concrete.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
                 });
@@ -522,16 +586,22 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.Navigation("ProductImages");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.AppUser", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

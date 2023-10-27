@@ -254,6 +254,8 @@ namespace DailyShop.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentCategoryId");
+
                     b.ToTable("Categories", (string)null);
                 });
 
@@ -507,6 +509,13 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.Category", null)
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId");
+                });
+
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Category", "Category")
@@ -574,6 +583,8 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>

@@ -14,9 +14,9 @@ namespace DailyShop.Business.Features.Categories.Dtos
         public int Id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
-        //public ICollection<Product>? Products { get; set; }
-        //public ICollection<ProductColor>? ProductColors { get; set; }
-        //public ICollection<ProductSize>? ProductSizes { get; set; }
-        //public ICollection<ProductImage>? ProductImages { get; set; }
+        [JsonPropertyName("parentCategoryId")]
+        public int? ParentCategoryId { get; set; }
+        [JsonPropertyName("subCategories")]
+        public ICollection<GetListCategoryDto>? SubCategories { get; set; }
     }
 }

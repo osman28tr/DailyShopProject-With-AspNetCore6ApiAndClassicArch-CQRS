@@ -29,7 +29,18 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
 
             public async Task<List<GetListCategoryDto>> Handle(GetListCategoryQuery request, CancellationToken cancellationToken)
             {
-                List<Category> categories = await _categoryRepository.Query().ToListAsync();
+                //List<int> categoryIds = await _categoryRepository.Query().Where(c => c.ParentCategoryId == null).Select(x => x.Id).ToListAsync();
+
+                List<Category> categories = await _categoryRepository.Query().Include(c => c.SubCategories).ThenInclude(c => c.SubCategories).ThenInclude(c=>c.SubCategories).Where(c => c.ParentCategoryId == null).ToListAsync();
+
+                //int depth = 5; // İstediğiniz derinlik seviyesini belirleyin
+                //var query = _categoryRepository.Query();
+                //query = IncludeSubCategories(query, depth);
+
+                //List<Category> targetCategories = await query
+                //    .Where(c => categoryIds.Contains(c.Id))
+                //    .ToListAsync();
+
                 List<GetListCategoryDto> mappedGetListCategory = _mapper.Map<List<GetListCategoryDto>>(categories);
                 return mappedGetListCategory;
             }
