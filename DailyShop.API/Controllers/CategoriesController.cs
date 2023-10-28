@@ -1,4 +1,5 @@
-﻿using DailyShop.Business.Features.Categories.Queries.GetListCategory;
+﻿using DailyShop.Business.Features.Categories.Dtos;
+using DailyShop.Business.Features.Categories.Queries.GetListCategory;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,17 @@ namespace DailyShop.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
+            List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();
             var result = await _mediator.Send(new GetListCategoryQuery());
-            return Ok(result);
+            
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (result[i].ParentCategoryId == null)
+                {
+                    getListCategoryDtos.Add(result[i]);
+                }
+            }
+            return Ok(getListCategoryDtos);
         }
     }
 }
