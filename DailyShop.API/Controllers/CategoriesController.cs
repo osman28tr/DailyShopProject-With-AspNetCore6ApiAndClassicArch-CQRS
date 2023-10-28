@@ -16,7 +16,7 @@ namespace DailyShop.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
+        [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
             List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();

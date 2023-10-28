@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DailyShop.Business.Features.Categories.Dtos;
+using DailyShop.Business.Features.Categories.Models;
 using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace DailyShop.Business.Features.Categories.Profiles
         public MappingProfiles()
         {
             CreateMap<Category,GetListCategoryDto>().ReverseMap();
+            CreateMap<Category,InsertedCategoryDto>().ReverseMap();
+            CreateMap<Category,InsertCategoryViewModel>().ReverseMap();
         }
     }
 }
