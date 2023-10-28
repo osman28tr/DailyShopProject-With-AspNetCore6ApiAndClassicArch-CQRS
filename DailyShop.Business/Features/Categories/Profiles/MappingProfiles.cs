@@ -17,6 +17,8 @@ namespace DailyShop.Business.Features.Categories.Profiles
             CreateMap<Category,GetListCategoryDto>().ReverseMap();
             CreateMap<Category,InsertedCategoryDto>().ReverseMap();
             CreateMap<Category,InsertCategoryViewModel>().ReverseMap();
+            CreateMap<Category,UpdatedCategoryDto>().ReverseMap();
+            CreateMap<Category,UpdateCategoryViewModel>().ReverseMap();
         }
     }
 }
