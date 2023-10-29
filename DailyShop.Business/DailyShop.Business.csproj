@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Categories\Commands\DeleteCategory\" />
     <Folder Include="Features\Products\Commands\InsertProduct\" />
     <Folder Include="Features\Products\Commands\DeleteProduct\" />
     <Folder Include="Features\Products\Commands\UpdateProduct\" />

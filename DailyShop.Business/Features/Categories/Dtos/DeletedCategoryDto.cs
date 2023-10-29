@@ -5,10 +5,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Categories.Models
+namespace DailyShop.Business.Features.Categories.Dtos
 {
-    public class UpdateCategoryViewModel
+    public class DeletedCategoryDto
     {
-        public string Name { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
     }
 }

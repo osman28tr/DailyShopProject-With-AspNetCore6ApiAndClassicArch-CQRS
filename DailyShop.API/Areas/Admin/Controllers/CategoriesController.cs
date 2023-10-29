@@ -1,4 +1,5 @@
-﻿using DailyShop.Business.Features.Categories.Commands.InsertCategory;
+﻿using DailyShop.Business.Features.Categories.Commands.DeleteCategory;
+using DailyShop.Business.Features.Categories.Commands.InsertCategory;
 using DailyShop.Business.Features.Categories.Commands.UpdateCategory;
 using DailyShop.Business.Features.Categories.Dtos;
 using DailyShop.Business.Features.Categories.Queries.GetListCategory;
@@ -37,15 +38,27 @@ namespace DailyShop.API.Areas.Admin.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] InsertedCategoryDto insertedCategoryDto)
         {
-            var insertedCategory = _mediator.Send(new InsertCategoryCommand { InsertedCategoryDto = insertedCategoryDto });
-            return Ok(new { Message = $"{insertedCategory.Result.Name} isimli kategori başarıyla eklendi." });
+            var insertedCategory = await _mediator.Send(new InsertCategoryCommand { InsertedCategoryDto = insertedCategoryDto });
+            return Ok(new { Message = $"{insertedCategory.Name} isimli kategori başarıyla eklendi." });
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] UpdatedCategoryDto updatedCategoryDto)
         {
-            int id = int.Parse(HttpContext.GetRouteData().Values["id"].ToString());
-            var updatedCategory = _mediator.Send(new UpdateCategoryCommand { UpdatedCategoryDto = updatedCategoryDto, Id = id });
-            return Ok(new { Message = $"{updatedCategory.Result.Name} isimli kategori başarıyla güncellendi." });
+            int id = GetIdByRequest();
+            var updatedCategory = await _mediator.Send(new UpdateCategoryCommand { UpdatedCategoryDto = updatedCategoryDto, Id = id });
+            return Ok(new { Message = $"{updatedCategory.Name} isimli kategori başarıyla güncellendi." });
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete()
+        {
+            int id = GetIdByRequest();
+            DeletedCategoryDto deletedCategoryDto = new() { Id = id };
+            var deletedCategory = await _mediator.Send(new DeleteCategoryCommand { DeletedCategoryDto = deletedCategoryDto });
+            return Ok(new { Message = $"{deletedCategory.Name} isimli kategori başarıyla silindi." });
+        }
+        private int GetIdByRequest()
+        {
+            return int.Parse(HttpContext.GetRouteData().Values["id"].ToString());
         }
     }
 }
