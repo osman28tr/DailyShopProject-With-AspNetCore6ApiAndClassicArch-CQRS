@@ -10,8 +10,8 @@ namespace DailyShop.Business.Features.Categories.Dtos
     public class InsertedCategoryDto
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [JsonPropertyName("parentCategoryId")]
-        public int ParentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
     }
 }

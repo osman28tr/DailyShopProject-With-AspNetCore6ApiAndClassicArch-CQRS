@@ -22,6 +22,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<WebSiteSetting> WebSiteSettings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<AppUser>(a =>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DailyShop.API.Areas.Admin.Controllers
 {
-    [Route("Admin/api/[controller]")]
+    [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
     public class CategoriesController : ControllerBase

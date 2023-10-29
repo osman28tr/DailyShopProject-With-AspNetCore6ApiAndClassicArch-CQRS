@@ -10,8 +10,8 @@ namespace DailyShop.Business.Features.Categories.Dtos
     public class UpdatedCategoryDto
     {
         [JsonPropertyName("parentCategoryId")]
-        public int ParentCategoryId { get; set; }
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
+        public int? ParentCategoryId { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
     }
 }
