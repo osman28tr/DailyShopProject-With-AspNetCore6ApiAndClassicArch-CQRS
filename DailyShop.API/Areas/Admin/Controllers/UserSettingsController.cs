@@ -24,9 +24,10 @@ namespace DailyShop.API.Areas.Admin.Controllers
             var users = await _mediator.Send(new GetListUserQuery());
             return Ok(users);
         }
-        [HttpPut("BlockUser")]
-        public async Task<IActionResult> BlockUser(BlockedUserDto blockedUserDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> BlockUser()
         {
+            BlockedUserDto blockedUserDto = new() { Id = int.Parse(HttpContext.GetRouteData().Values["id"].ToString()) };
             var message = await _mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
             return Ok(message);
         }
