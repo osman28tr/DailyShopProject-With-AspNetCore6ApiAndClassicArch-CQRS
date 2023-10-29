@@ -16,7 +16,6 @@
     <Folder Include="Features\Products\Commands\DeleteProduct\" />
     <Folder Include="Features\Products\Commands\UpdateProduct\" />
     <Folder Include="Features\Products\Queries\GetByIdProduct\" />
-    <Folder Include="Features\WebSiteSettings\Profiles\" />
   </ItemGroup>
 
   <ItemGroup>

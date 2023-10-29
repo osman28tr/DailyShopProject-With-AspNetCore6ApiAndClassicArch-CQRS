@@ -8,7 +8,6 @@ namespace DailyShop.Business.Features.WebSiteSettings.Dtos
 {
     public class UpdatedWebSiteSettingDto
     {
-        public int? Id { get; set; } = 1;
         public string? HtmlContent { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }

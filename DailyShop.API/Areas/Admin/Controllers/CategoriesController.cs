@@ -1,4 +1,5 @@
-﻿using DailyShop.Business.Features.Categories.Commands.DeleteCategory;
+﻿using DailyShop.API.Helpers;
+using DailyShop.Business.Features.Categories.Commands.DeleteCategory;
 using DailyShop.Business.Features.Categories.Commands.InsertCategory;
 using DailyShop.Business.Features.Categories.Commands.UpdateCategory;
 using DailyShop.Business.Features.Categories.Dtos;
@@ -13,18 +14,13 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : BaseController
     {
-        private readonly IMediator _mediator;
-        public CategoriesController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
             List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();
-            var result = await _mediator.Send(new GetListCategoryQuery());
+            var result = await Mediator.Send(new GetListCategoryQuery());
 
             for (int i = 0; i < result.Count; i++)
             {
@@ -38,14 +34,14 @@ namespace DailyShop.API.Areas.Admin.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] InsertedCategoryDto insertedCategoryDto)
         {
-            var insertedCategory = await _mediator.Send(new InsertCategoryCommand { InsertedCategoryDto = insertedCategoryDto });
+            var insertedCategory = await Mediator.Send(new InsertCategoryCommand { InsertedCategoryDto = insertedCategoryDto });
             return Ok(new { Message = $"{insertedCategory.Name} isimli kategori başarıyla eklendi." });
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] UpdatedCategoryDto updatedCategoryDto)
         {
             int id = GetIdByRequest();
-            var updatedCategory = await _mediator.Send(new UpdateCategoryCommand { UpdatedCategoryDto = updatedCategoryDto, Id = id });
+            var updatedCategory = await Mediator.Send(new UpdateCategoryCommand { UpdatedCategoryDto = updatedCategoryDto, Id = id });
             return Ok(new { Message = $"{updatedCategory.Name} isimli kategori başarıyla güncellendi." });
         }
         [HttpDelete("{id}")]
@@ -53,7 +49,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
         {
             int id = GetIdByRequest();
             DeletedCategoryDto deletedCategoryDto = new() { Id = id };
-            var deletedCategory = await _mediator.Send(new DeleteCategoryCommand { DeletedCategoryDto = deletedCategoryDto });
+            var deletedCategory = await Mediator.Send(new DeleteCategoryCommand { DeletedCategoryDto = deletedCategoryDto });
             return Ok(new { Message = $"{deletedCategory.Name} isimli kategori başarıyla silindi." });
         }
         private int GetIdByRequest()
