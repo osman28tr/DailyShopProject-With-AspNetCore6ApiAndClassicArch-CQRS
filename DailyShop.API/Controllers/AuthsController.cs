@@ -1,5 +1,6 @@
 ﻿using Core.Security.Dtos;
 using Core.Security.JWT;
+using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Auths.Commands.LoginUser;
 using DailyShop.Business.Features.Auths.Commands.RegisterUser;
 using DailyShop.Business.Features.Auths.Dtos;
@@ -11,13 +12,8 @@ namespace DailyShop.API.Controllers
 {
     [Route("api/[controller]")]
 	[ApiController]
-	public class AuthsController : ControllerBase
+	public class AuthsController : BaseController
 	{
-		private readonly IMediator _mediator;
-		public AuthsController(IMediator mediator)
-		{
-			_mediator = mediator;
-		}
 		[HttpPost("Register")]
 		public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
 		{
@@ -26,7 +22,7 @@ namespace DailyShop.API.Controllers
 				UserForRegisterDto = userForRegisterDto,
 				IpAddress = GetIpAddress()
 			};
-			var result = await _mediator.Send(registerUserCommand);
+			var result = await Mediator.Send(registerUserCommand);
 
 			SetAccessTokenToCookie(result.AccessToken);
 
@@ -36,7 +32,7 @@ namespace DailyShop.API.Controllers
 		public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
 		{
 			LoginUserCommand loginUserCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
-			var result = await _mediator.Send(loginUserCommand);
+			var result = await Mediator.Send(loginUserCommand);
 			SetAccessTokenToCookie(result.AccessToken);
 			return Ok(new { authorization = result.AccessToken.Token, user = result.LoggedUserDto, Message = "Başarıyla giriş yaptınız" });
 		}
