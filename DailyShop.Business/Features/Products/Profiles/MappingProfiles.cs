@@ -14,6 +14,10 @@ namespace DailyShop.Business.Features.Products.Profiles
         public MappingProfiles()
         {
             CreateMap<Product, GetListProductDto>().ReverseMap();
+            CreateMap<Product, InsertedProductDto>().ReverseMap();
+            CreateMap<ProductImage,InsertedProductImageDto>().ReverseMap();
+            CreateMap<Color, InsertedProductColorDto>().ReverseMap();
+            CreateMap<Size, InsertedProductSizeDto>().ReverseMap();
         }
     }
 }

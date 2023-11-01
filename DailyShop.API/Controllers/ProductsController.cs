@@ -1,4 +1,6 @@
-﻿using DailyShop.Business.Features.Products.Queries.GetListProduct;
+﻿using DailyShop.Business.Features.Products.Commands.InsertProduct;
+using DailyShop.Business.Features.Products.Dtos;
+using DailyShop.Business.Features.Products.Queries.GetListProduct;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +10,6 @@ namespace DailyShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -23,6 +24,12 @@ namespace DailyShop.API.Controllers
         {
             var productValues = await _mediator.Send(new GetListProductQuery());
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(InsertedProductDto insertedProductDto)
+        {
+            await _mediator.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto });
+            return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
     }
 }
