@@ -67,13 +67,27 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
-        Context.Entry(entity).State = EntityState.Modified;
+        //Context.Entry(entity).State = EntityState.Detached;
+        //Context.Entry(entity).State = EntityState.Modified;
+        DetachLocal(Context, entity, entity.Id);
         await Context.SaveChangesAsync();
         return entity;
     }
-
+    private void DetachLocal<TEntity>(DbContext context, TEntity t, int entryId)
+    where TEntity : Entity
+    {
+        var local = context.Set<TEntity>()
+            .Local
+            .FirstOrDefault(entry => entry.Id.Equals(entryId));
+        if (local != null)
+        {
+            context.Entry(local).State = EntityState.Detached;
+        }
+        context.Entry(t).State = EntityState.Modified;
+    }
     public async Task<TEntity> DeleteAsync(TEntity entity)
     {
+        Context.ChangeTracker.Clear();
         Context.Entry(entity).State = EntityState.Deleted;
         await Context.SaveChangesAsync();
         return entity;
@@ -83,7 +97,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         return Context.Set<TEntity>().FirstOrDefault(predicate);
     }
-
     public IPaginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null,
                                       Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                       Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,

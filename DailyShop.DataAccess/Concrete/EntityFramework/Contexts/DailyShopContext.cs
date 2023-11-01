@@ -41,7 +41,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
             {
                 a.ToTable("Categories");
                 a.Property(p => p.Id).HasColumnName("Id");
-                a.HasMany(p => p.Products);
+                a.HasMany(p => p.Products).WithOne(c => c.Category).OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Product>(a =>
             {

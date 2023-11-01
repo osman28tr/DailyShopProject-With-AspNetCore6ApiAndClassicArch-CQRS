@@ -2,6 +2,7 @@
 using DailyShop.Business.Features.Categories.Dtos;
 using DailyShop.Business.Features.Categories.Models;
 using DailyShop.Business.Services.Repositories;
+using DailyShop.Entities.Concrete;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace DailyShop.Business.Features.Categories.Commands.DeleteCategory
     public class DeleteCategoryCommand:IRequest<DeleteCategoryViewModel>
     {
         public DeletedCategoryDto DeletedCategoryDto { get; set; }
+        public GetListCategoryDto GetListCategoryDto { get; set; }
+
         public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, DeleteCategoryViewModel>
         {
             private readonly ICategoryRepository _categoryRepository;
@@ -27,9 +30,31 @@ namespace DailyShop.Business.Features.Categories.Commands.DeleteCategory
 
             public async Task<DeleteCategoryViewModel> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
             {
-                var category = await _categoryRepository.GetAsync(x => x.Id == request.DeletedCategoryDto.Id);
+                //var category = await _categoryRepository.GetAsync(x => x.Id == request.DeletedCategoryDto.Id);
+                var category = _mapper.Map<Category>(request.GetListCategoryDto);
+
+                if (category.SubCategories.Any())
+                {
+                    foreach (var subCategory in category.SubCategories)
+                    {
+                        subCategory.ParentCategoryId = null;
+                        //var findCategory = await _categoryRepository.GetAsync(x=>x.Id==subCategory.Id);
+                        // Alt kategoriyi güncelleyin
+                        await _categoryRepository.UpdateAsync(subCategory);
+                        await _categoryRepository.DeleteAsync(subCategory);
+                    }
+                }
+
+                // Üst kategori ile olan ilişkiyi kesin
+                if (category.ParentCategoryId != null)
+                {
+                    category.ParentCategoryId = null;
+                    await _categoryRepository.UpdateAsync(category);
+                }
+
                 var deletedCategory = await _categoryRepository.DeleteAsync(category);
                 var mappedCategory = _mapper.Map<DeleteCategoryViewModel>(deletedCategory);
+                //await _categoryRepository.DeleteAsync(category);
                 return mappedCategory;
             }
         }

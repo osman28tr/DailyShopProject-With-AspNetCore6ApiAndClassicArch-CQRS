@@ -3,6 +3,7 @@ using DailyShop.Business.Features.Categories.Commands.DeleteCategory;
 using DailyShop.Business.Features.Categories.Commands.InsertCategory;
 using DailyShop.Business.Features.Categories.Commands.UpdateCategory;
 using DailyShop.Business.Features.Categories.Dtos;
+using DailyShop.Business.Features.Categories.Models;
 using DailyShop.Business.Features.Categories.Queries.GetListCategory;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -48,9 +49,19 @@ namespace DailyShop.API.Areas.Admin.Controllers
         public async Task<IActionResult> Delete()
         {
             int id = GetIdByRequest();
-            DeletedCategoryDto deletedCategoryDto = new() { Id = id };
-            var deletedCategory = await Mediator.Send(new DeleteCategoryCommand { DeletedCategoryDto = deletedCategoryDto });
-            return Ok(new { Message = $"{deletedCategory.Name} isimli kategori başarıyla silindi." });
+            List<GetListCategoryDto> listCategory = await Mediator.Send(new GetListCategoryQuery());
+            DeleteCategoryViewModel deleteCategoryViewModel = new DeleteCategoryViewModel();
+            foreach (var category in listCategory)
+            {
+                if (category.Id == id)
+                {
+                      deleteCategoryViewModel= await Mediator.Send(new DeleteCategoryCommand { GetListCategoryDto = category });
+                    break;
+                }
+            }
+            //DeletedCategoryDto deletedCategoryDto = new() { Id = id };
+            //var deletedCategory = await Mediator.Send(new DeleteCategoryCommand { DeletedCategoryDto = deletedCategoryDto });
+            return Ok(new { Message = $"{deleteCategoryViewModel.Name} isimli kategori başarıyla silindi." });
         }
         private int GetIdByRequest()
         {
