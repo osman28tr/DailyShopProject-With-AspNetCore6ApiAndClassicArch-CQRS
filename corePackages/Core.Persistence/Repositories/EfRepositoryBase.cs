@@ -60,7 +60,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     public async Task<TEntity> AddAsync(TEntity entity)
     {
-        Context.Entry(entity).State = EntityState.Added;
+        //Context.Entry(entity).State = EntityState.Added;
+        await Context.AddAsync(entity);
         await Context.SaveChangesAsync();
         return entity;
     }

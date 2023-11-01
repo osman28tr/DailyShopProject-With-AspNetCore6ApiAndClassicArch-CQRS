@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Products.Dtos
+namespace DailyShop.Business.Features.ProductColors.Dtos
 {
-    public class InsertedProductImageDto
+    public class InsertedProductColorDto
     {
         [JsonPropertyName("name")]
         public string? Name { get; set; }

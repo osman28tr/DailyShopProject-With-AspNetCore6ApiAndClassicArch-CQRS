@@ -28,6 +28,7 @@ namespace DailyShop.Entities.Concrete
         {
             Colors = new HashSet<Color>();
             Sizes = new HashSet<Size>();
+            ProductImages = new HashSet<ProductImage>();
         }
         public Product(int id):base(id)
         {

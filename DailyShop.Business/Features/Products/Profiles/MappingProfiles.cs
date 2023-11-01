@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using DailyShop.Business.Features.ProductColors.Dtos;
+using DailyShop.Business.Features.ProductImages.Dtos;
 using DailyShop.Business.Features.Products.Dtos;
+using DailyShop.Business.Features.Products.Models;
+using DailyShop.Business.Features.ProductSizes.Dtos;
 using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,13 +13,18 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Products.Profiles
 {
-    public class MappingProfiles:Profile
+    public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {
             CreateMap<Product, GetListProductDto>().ReverseMap();
-            CreateMap<Product, InsertedProductDto>().ReverseMap();
-            CreateMap<ProductImage,InsertedProductImageDto>().ReverseMap();
+            CreateMap<Product, InsertedProductDto>()
+                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+                .ReverseMap();
+            CreateMap<Product, InsertProductViewModel>().ReverseMap();
+            CreateMap<ProductImage, InsertedProductImageDto>().ReverseMap();
             CreateMap<Color, InsertedProductColorDto>().ReverseMap();
             CreateMap<Size, InsertedProductSizeDto>().ReverseMap();
         }

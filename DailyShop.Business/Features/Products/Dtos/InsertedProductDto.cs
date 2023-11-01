@@ -1,4 +1,7 @@
-﻿using DailyShop.Entities.Concrete;
+﻿using DailyShop.Business.Features.ProductColors.Dtos;
+using DailyShop.Business.Features.ProductImages.Dtos;
+using DailyShop.Business.Features.ProductSizes.Dtos;
+using DailyShop.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
