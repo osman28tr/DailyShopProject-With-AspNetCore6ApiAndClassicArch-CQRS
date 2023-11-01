@@ -41,7 +41,7 @@ namespace DailyShop.Business.Features.Categories.Commands.DeleteCategory
                         //var findCategory = await _categoryRepository.GetAsync(x=>x.Id==subCategory.Id);
                         // Alt kategoriyi güncelleyin
                         await _categoryRepository.UpdateAsync(subCategory);
-                        await _categoryRepository.DeleteAsync(subCategory);
+                        await _categoryRepository.DeleteAsync(subCategory, true);
                     }
                 }
 
@@ -52,7 +52,7 @@ namespace DailyShop.Business.Features.Categories.Commands.DeleteCategory
                     await _categoryRepository.UpdateAsync(category);
                 }
 
-                var deletedCategory = await _categoryRepository.DeleteAsync(category);
+                var deletedCategory = await _categoryRepository.DeleteAsync(category, true);
                 var mappedCategory = _mapper.Map<DeleteCategoryViewModel>(deletedCategory);
                 //await _categoryRepository.DeleteAsync(category);
                 return mappedCategory;

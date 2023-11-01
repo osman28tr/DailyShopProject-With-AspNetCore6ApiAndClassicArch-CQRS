@@ -41,7 +41,7 @@ namespace DailyShop.Business.Features.Addresses.Commands.UpdateAddress
                     AppUser user = await _appUserRepository.GetAsync(x => x.Id == request.UserId);
                     foreach (var address in addresses)
                     {
-                        await _addressRepository.DeleteAsync(address);
+                        await _addressRepository.DeleteAsync(address, false);
                     }
                     List<Address> mappedNewAddress = _mapper.Map<List<Address>>(request.AddressDtos);
                     foreach (var mappedAddress in mappedNewAddress)

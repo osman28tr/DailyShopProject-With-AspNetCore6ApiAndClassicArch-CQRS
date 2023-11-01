@@ -85,9 +85,17 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         }
         context.Entry(t).State = EntityState.Modified;
     }
-    public async Task<TEntity> DeleteAsync(TEntity entity)
-    {
-        Context.ChangeTracker.Clear();
+    public async Task<TEntity> DeleteAsync(TEntity entity,bool isCategory)
+    {  
+        if(isCategory)
+        {
+            Context.ChangeTracker.Clear();
+        }
+        else
+        {
+            Context.ChangeTracker.AutoDetectChangesEnabled = true;
+            Context.SaveChanges();
+        }
         Context.Entry(entity).State = EntityState.Deleted;
         await Context.SaveChangesAsync();
         return entity;
