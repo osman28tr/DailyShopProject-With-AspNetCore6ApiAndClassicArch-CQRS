@@ -14,6 +14,7 @@ namespace DailyShop.API.Controllers
     [ApiController]
     public class ProductsController : BaseController
     {
+        //deneme
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
