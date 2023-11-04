@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Linq.Dynamic.Core.Tokenizer;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,10 +60,16 @@ namespace DailyShop.Business.Services.AuthService
 
 		public int VerifyToken(string token)
 		{
-			var tokenHandler = new JwtSecurityTokenHandler();
-			TokenOptions? tokenOptions = _configuration.GetSection("TokenOptions").Get<TokenOptions>();
-			tokenHandler.ValidateToken(token, new TokenValidationParameters
-			{
+			var validatedToken = GetValidatedToken(token);
+			int userId = int.Parse(validatedToken.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
+			return userId;
+		}
+		private JwtSecurityToken GetValidatedToken(string token)
+		{
+            var tokenHandler = new JwtSecurityTokenHandler();
+            TokenOptions? tokenOptions = _configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
                 ValidateIssuer = true,
                 ValidIssuer = tokenOptions?.Issuer,
                 ValidateAudience = true,
@@ -72,9 +79,8 @@ namespace DailyShop.Business.Services.AuthService
                 IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions?.SecurityKey),
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
-			var jwtToken = (JwtSecurityToken)validatedToken;
-			int userId = int.Parse(jwtToken.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
-			return userId;
-		}
+            var jwtToken = (JwtSecurityToken)validatedToken;
+			return jwtToken;
+        }
 	}
 }

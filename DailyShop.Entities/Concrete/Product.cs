@@ -9,6 +9,7 @@ namespace DailyShop.Entities.Concrete
 {
     public class Product:Entity
     {
+        public int? UserId { get; set; }
         public int? CategoryId { get; set; }
         public string? Name { get; set; }
         public decimal? Price { get; set; }
@@ -20,6 +21,7 @@ namespace DailyShop.Entities.Concrete
         public bool? IsDeleted { get; set; }
         public bool? IsApproved { get; set; }
         public Category? Category { get; set; }
+        public AppUser? User { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
         public ICollection<Color>? Colors { get; set; }
         public ICollection<Size>? Sizes { get; set; }

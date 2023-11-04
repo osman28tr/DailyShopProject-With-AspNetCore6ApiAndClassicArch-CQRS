@@ -16,7 +16,7 @@ namespace DailyShop.API.Controllers
 {
     [Route("api/[controller]")]
 	[ApiController]
-	public class ProfilesController : BaseController
+	public class ProfilesController : BaseTokenController
 	{
 		private readonly IAuthService _authService;
 
@@ -54,11 +54,5 @@ namespace DailyShop.API.Controllers
 			string message = await Mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
 			return Ok(new { Message = message });
 		}
-		private string GetToken()
-		{
-            var authorization = Request.Headers.Authorization;
-            var token = authorization.ToString().Split(" ")[1];
-			return token;
-        }
 	}
 }

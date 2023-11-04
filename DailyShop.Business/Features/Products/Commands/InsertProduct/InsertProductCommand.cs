@@ -15,6 +15,7 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
     public class InsertProductCommand : IRequest
     {
         public InsertedProductDto InsertedProductDto { get; set; }
+        public int? UserId { get; set; }
         public class InsertProductCommandHandler : IRequestHandler<InsertProductCommand>
         {
             private readonly IProductRepository _productRepository;
@@ -53,7 +54,7 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                 //}
                 //product.Sizes = productSizes;
                 //product.ProductImages = productImages;
-
+                product.UserId = request.UserId;
                 await _productRepository.AddAsync(product);
                 //var mappedProduct = _mapper.Map<InsertProductViewModel>(insertedProduct);
                 //return mappedProduct;

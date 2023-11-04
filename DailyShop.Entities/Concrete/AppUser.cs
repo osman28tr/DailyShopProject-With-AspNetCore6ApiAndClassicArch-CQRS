@@ -12,6 +12,7 @@ namespace DailyShop.Entities.Concrete
         public string? Role { get; set; }
         public ICollection<Address>? Addresses { get; set; }
         public ICollection<Review>? Reviews { get; set; }
+        public ICollection<Product>? Products { get; set; }
         public AppUser()
         {
             

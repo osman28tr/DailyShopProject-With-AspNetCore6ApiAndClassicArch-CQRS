@@ -16,6 +16,8 @@ namespace DailyShop.Business.Features.Products.Dtos
         public int? CategoryId { get; set; }
         [JsonPropertyName("name")]
         public string? Name { get; set; }
+        [JsonPropertyName("sellerName")]
+        public string? SellerName { get; set; }
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         [JsonPropertyName("image")]
@@ -33,10 +35,10 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("isApproved")]
         public bool? IsApproved { get; set; }
         [JsonPropertyName("images")]
-        public ICollection<ProductImage>? ProductImages { get; set; }
+        public ICollection<InsertedProductImageDto>? ProductImages { get; set; }
         [JsonPropertyName("colors")]
-        public ICollection<Color>? Colors { get; set; }
+        public ICollection<InsertedProductColorDto>? Colors { get; set; }
         [JsonPropertyName("sizes")]
-        public ICollection<Size>? Sizes { get; set; }
+        public ICollection<InsertedProductSizeDto>? Sizes { get; set; }
     }
 }

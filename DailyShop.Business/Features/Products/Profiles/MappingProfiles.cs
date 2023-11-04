@@ -14,12 +14,19 @@ namespace DailyShop.Business.Features.Products.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Product, GetListProductDto>().ReverseMap();
+            CreateMap<Product, GetListProductDto>()
+                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
+                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+                .ReverseMap();
+
             CreateMap<Product, InsertedProductDto>()
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
                 .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
                 .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
                 .ReverseMap();
+
             CreateMap<Product, InsertProductViewModel>().ReverseMap();
             CreateMap<ProductImage, InsertedProductImageDto>().ReverseMap();
             CreateMap<Color, InsertedProductColorDto>().ReverseMap();
