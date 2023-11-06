@@ -1,4 +1,5 @@
-﻿using Core.Persistence.Paging;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using Core.Persistence.Paging;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.JWT;
@@ -60,6 +61,11 @@ namespace DailyShop.Business.Services.AuthService
 
 		public int VerifyToken(string token)
 		{
+			if (token == null)
+			{
+				throw new BusinessException("Lütfen giriş yapınız.");
+			}
+			
 			var validatedToken = GetValidatedToken(token);
 			int userId = int.Parse(validatedToken.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
 			return userId;

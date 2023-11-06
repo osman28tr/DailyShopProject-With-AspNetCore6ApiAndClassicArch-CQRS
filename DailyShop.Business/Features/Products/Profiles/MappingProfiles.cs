@@ -22,9 +22,6 @@ namespace DailyShop.Business.Features.Products.Profiles
                 .ReverseMap();
 
             CreateMap<Product, InsertedProductDto>()
-                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
-                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
-                .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
                 .ReverseMap();
 
             CreateMap<Product, InsertProductViewModel>().ReverseMap();

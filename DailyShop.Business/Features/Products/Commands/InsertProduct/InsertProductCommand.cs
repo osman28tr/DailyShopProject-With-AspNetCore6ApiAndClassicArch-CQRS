@@ -28,36 +28,24 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
 
             public async Task Handle(InsertProductCommand request, CancellationToken cancellationToken)
             {
-                Product product = _mapper.Map<Product>(request.InsertedProductDto);
-
-                //product.ProductImages = new List<ProductImage>();
-                //product.Colors = new List<Color>();
-                //product.Sizes = new List<Size>();
-
-                //ICollection<Color> productColors = _mapper.Map<ICollection<Color>>(request.InsertedProductDto.Colors);
-
-                //ICollection<Size> productSizes = _mapper.Map<ICollection<Size>>(request.InsertedProductDto.Sizes);
-
-                //ICollection<ProductImage> productImages = _mapper.Map<ICollection<ProductImage>>(request.InsertedProductDto.ProductImages);
-
-                //foreach (var productColor in productColors)
-                //{
-                //    product.Colors.Add(productColor);
-                //}
-                //foreach (var productSize in productSizes)
-                //{
-                //    product.Sizes.Add(productSize);
-                //}
-                //foreach (var productImage in productImages)
-                //{
-                //    product.ProductImages.Add(productImage);
-                //}
-                //product.Sizes = productSizes;
-                //product.ProductImages = productImages;
+                Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.InsertedProductDto.BodyImage, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
+                foreach (var productImage in request.InsertedProductDto.ProductImages)
+                {
+                    ProductImage image = new() { Name = productImage };
+                    product.ProductImages.Add(image);
+                }
+                foreach (var productColor in request.InsertedProductDto.Colors)
+                {
+                    Color color = new() { Name = productColor };
+                    product.Colors.Add(color);
+                }
+                foreach (var productSize in request.InsertedProductDto.Sizes)
+                {
+                    Size size = new() { Name = productSize };
+                    product.Sizes.Add(size);
+                }
                 product.UserId = request.UserId;
                 await _productRepository.AddAsync(product);
-                //var mappedProduct = _mapper.Map<InsertProductViewModel>(insertedProduct);
-                //return mappedProduct;
             }
         }
     }
