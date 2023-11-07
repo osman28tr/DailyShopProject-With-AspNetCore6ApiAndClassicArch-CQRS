@@ -16,6 +16,8 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.EntityConfigurations
             builder.ToTable("Products");
             builder.Property(p => p.Id).HasColumnName("Id");
             builder.HasOne(p => p.Category);
+            builder.HasMany(p => p.ProductImages).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(p=>p.Colors).WithMany(p=>p.Products).UsingEntity<Product>()
         }
     }
 }

@@ -50,8 +50,6 @@ builder.Services.AddAuthentication(options =>
 			   ValidateIssuerSigningKey = true,
 			   IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions?.SecurityKey),
 			   ClockSkew = TimeSpan.Zero
-
-
 		   };
 
 		   options.Events = new JwtBearerEvents
@@ -128,10 +126,11 @@ if (app.Environment.IsDevelopment())
 	//app.UseSwaggerUI();
 	app.UseSwaggerUI(opt => { opt.DisplayRequestDuration(); opt.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyShop"); });
 }
-if(app.Environment.IsProduction())
+if (app.Environment.IsProduction())
 	app.ConfigureCustomExceptionMiddleware();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

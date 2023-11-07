@@ -35,10 +35,10 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("isApproved")]
         public bool? IsApproved { get; set; }
         [JsonPropertyName("images")]
-        public ICollection<InsertedProductImageDto>? ProductImages { get; set; }
+        public ICollection<string>? ProductImages { get; set; }
         [JsonPropertyName("colors")]
-        public ICollection<InsertedProductColorDto>? Colors { get; set; }
+        public ICollection<string>? Colors { get; set; }
         [JsonPropertyName("sizes")]
-        public ICollection<InsertedProductSizeDto>? Sizes { get; set; }
+        public ICollection<string>? Sizes { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Net;
 
 namespace Core.CrossCuttingConcerns.Exceptions;
@@ -34,6 +35,8 @@ public class ExceptionMiddleware
         if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
         if (exception.GetType() == typeof(AuthorizationException))
             return CreateAuthorizationException(context, exception);
+        //if (exception.GetType() == typeof(SecurityTokenExpiredException))
+        //    return CreateTokenException(context, exception);
         return CreateInternalException(context, exception);
     }
 
@@ -94,4 +97,13 @@ public class ExceptionMiddleware
             Instance = ""
         }.ToString());
     }
+    //private Task CreateTokenException(HttpContext context, Exception exception)
+    //{
+    //    context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
+
+    //    return context.Response.WriteAsync(new ProblemDetails
+    //    {
+    //        Status = StatusCodes.Status500InternalServerError
+    //    })
+    //}
 }
