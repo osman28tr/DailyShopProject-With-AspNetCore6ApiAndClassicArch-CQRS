@@ -29,11 +29,18 @@ namespace DailyShop.API.Controllers
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
         [HttpPost]
-        public async Task<IActionResult> Add(InsertedProductDto insertedProductDto)
+        public async Task<IActionResult> Add([FromForm] InsertedProductDto insertedProductDto)
         {
-            int userId = _authService.VerifyToken(GetToken());
-            await Mediator.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = userId });
+            var userId = _authService.VerifyToken(GetToken());
+            await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = userId })!;
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
+        }
+
+        [HttpGet("{categoryId}/{isDeleteShow}")]
+        public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
+        {
+            //var productValues = await Mediator.Send(new GetListProductQuery { CategoryId = categoryId, IsDeleteShow = isDeleteShow });
+            return Ok(new { data = "productValues", message = "Ürün verileri başarıyla getirildi." });
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DailyShop.Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         [JsonPropertyName("coverImage")]
-        public string? BodyImage { get; set; }
+        public IFormFile? BodyImage { get; set; }
         [JsonPropertyName("description")]
         public string? Description { get; set; }
         [JsonPropertyName("status")]
@@ -29,6 +30,6 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("sizes")]
         public ICollection<string>? Sizes { get; set; }
         [JsonPropertyName("images")]
-        public ICollection<string>? ProductImages { get; set; }
+        public List<IFormFile>? ProductImages { get; set; }
     }
 }

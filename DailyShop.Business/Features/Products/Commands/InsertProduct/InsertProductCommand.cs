@@ -28,10 +28,10 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
 
             public async Task Handle(InsertProductCommand request, CancellationToken cancellationToken)
             {
-                Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.InsertedProductDto.BodyImage, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
+                Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.InsertedProductDto.BodyImage.Name, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
                 foreach (var productImage in request.InsertedProductDto.ProductImages)
                 {
-                    ProductImage image = new() { Name = productImage };
+                    ProductImage image = new() { Name = productImage.FileName };
                     product.ProductImages.Add(image);
                 }
                 foreach (var productColor in request.InsertedProductDto.Colors)
