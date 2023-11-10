@@ -17,10 +17,9 @@ namespace DailyShop.Entities.Concrete
         public Cart(int id)
         {
             Id = id;
-        }
-        public int Quantity { get; set; }
+        }       
         public string Status { get; set; }
-        public ICollection<Product>? Products { get; set; }
         public AppUser? User { get; set; }
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }
