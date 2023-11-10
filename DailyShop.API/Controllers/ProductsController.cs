@@ -65,10 +65,10 @@ namespace DailyShop.API.Controllers
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
 
-        [HttpGet("/{productId}/{categoryId}/{isDeleteShow}")]
-        public async Task<IActionResult> GetListByCategoryId(int productId,int categoryId, bool isDeleteShow)
+        [HttpGet("/{categoryId}/{isDeleteShow}")]
+        public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
         {
-            var productValues = await Mediator.Send(new GetByIdProductQuery { CategoryId = categoryId, IsDeleted = isDeleteShow, ProductId = productId });
+            var productValues = await Mediator.Send(new GetByIdProductQuery { CategoryId = categoryId, IsDeleted = isDeleteShow });
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
     }

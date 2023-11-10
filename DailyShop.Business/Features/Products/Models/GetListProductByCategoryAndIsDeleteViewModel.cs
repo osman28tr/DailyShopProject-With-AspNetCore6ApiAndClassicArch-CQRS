@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Products.Models
 {
-    public class GetByIdProductViewModel
+    public class GetListProductByCategoryAndIsDeleteViewModel
     {
-        public GetByIdProductViewModel()
+        public GetListProductByCategoryAndIsDeleteViewModel()
         {
             ReviewsModel = new List<GetListReviewByProductViewModel>();
         }
