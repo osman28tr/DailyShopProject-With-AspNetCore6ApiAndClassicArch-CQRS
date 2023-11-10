@@ -37,6 +37,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProduct
                         mappedProduct.SellerName = "DailyShop";
                     }
                 }
+                
                 return mappedGetListProduct;
             }
         }

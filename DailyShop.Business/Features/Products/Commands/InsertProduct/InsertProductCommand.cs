@@ -15,6 +15,8 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
     public class InsertProductCommand : IRequest
     {
         public InsertedProductDto InsertedProductDto { get; set; }
+        public string BodyImagePath { get; set; }
+        public ICollection<string> ProductImagesPath { get; set; }
         public int? UserId { get; set; }
         public class InsertProductCommandHandler : IRequestHandler<InsertProductCommand>
         {
@@ -28,22 +30,31 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
 
             public async Task Handle(InsertProductCommand request, CancellationToken cancellationToken)
             {
-                Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.InsertedProductDto.BodyImage.Name, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
-                foreach (var productImage in request.InsertedProductDto.ProductImages)
+                Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.BodyImagePath, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
+                if(request.ProductImagesPath != null)
                 {
-                    ProductImage image = new() { Name = productImage.FileName };
-                    product.ProductImages.Add(image);
+                    foreach (var productImage in request.ProductImagesPath)
+                    {
+                        ProductImage image = new() { Name = productImage };
+                        product.ProductImages.Add(image);
+                    }
                 }
-                foreach (var productColor in request.InsertedProductDto.Colors)
+                if (request.InsertedProductDto.Colors.Any())
                 {
-                    Color color = new() { Name = productColor };
-                    product.Colors.Add(color);
+                    foreach (var productColor in request.InsertedProductDto.Colors)
+                    {
+                        Color color = new() { Name = productColor };
+                        product.Colors.Add(color);
+                    }
                 }
-                foreach (var productSize in request.InsertedProductDto.Sizes)
+                if (request.InsertedProductDto.Sizes.Any())
                 {
-                    Size size = new() { Name = productSize };
-                    product.Sizes.Add(size);
-                }
+                    foreach (var productSize in request.InsertedProductDto.Sizes)
+                    {
+                        Size size = new() { Name = productSize };
+                        product.Sizes.Add(size);
+                    }
+                }              
                 product.UserId = request.UserId;
                 await _productRepository.AddAsync(product);
             }
