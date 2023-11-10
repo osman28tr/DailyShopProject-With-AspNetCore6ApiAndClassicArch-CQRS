@@ -14,7 +14,6 @@
   <ItemGroup>
     <Folder Include="Features\Products\Commands\DeleteProduct\" />
     <Folder Include="Features\Products\Commands\UpdateProduct\" />
-    <Folder Include="Features\Products\Queries\GetByIdProduct\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,5 +21,4 @@
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
-
 </Project>

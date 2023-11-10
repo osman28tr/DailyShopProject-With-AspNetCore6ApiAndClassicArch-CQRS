@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection.Metadata;
+using DailyShop.API.Models;
+using DailyShop.Business.Features.Products.Queries.GetByIdProduct;
 
 namespace DailyShop.API.Controllers
 {
@@ -28,33 +30,12 @@ namespace DailyShop.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            var productValues = await Mediator.Send(new GetListProductQuery());
-            string bodyImagePath = Directory.GetCurrentDirectory() + "/wwwroot/ProductImages/" + productValues.Last().BodyImage;
-            IFormFile file = null;
-            if (System.IO.File.Exists(bodyImagePath))
-            {
-                byte[] fileBytes = System.IO.File.ReadAllBytes(bodyImagePath);
-                var fileStream = new MemoryStream(fileBytes);
-
-                file = new FormFile(fileStream, 0, fileBytes.Length, "File", Path.GetFileName(bodyImagePath));
-                //productValues.Last().BodyImageFile = file;
-                var asd = File(fileStream, "application/octet-stream", file.FileName) ;
-                var response = new
-                {
-                    message = productValues,
-                    fileresponse = new
-                    {
-                        filename = file.FileName,
-                        contenttype = file.ContentType,
-                        content = Convert.ToBase64String(fileBytes)
-                    }
-                };
-                return Ok(response);
-            }
-            //return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
-            return NotFound();   
+			var productValues = await Mediator.Send(new GetListProductQuery());
+            // Return the result as a JSON response
+            return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
+            //return Ok(result);
         }
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> Add([FromForm] InsertedProductDto insertedProductDto)
         {
             string imageName = "";
@@ -77,17 +58,18 @@ namespace DailyShop.API.Controllers
                     var streamImage = new FileStream(saveLocationImage, FileMode.Create);
                     await insertedProductDto.ProductImages[i].CopyToAsync(streamImage);
                     productImagesPath.Add(imageNameImage);
+                   
                 }
             }
             await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = 1, BodyImagePath = imageName, ProductImagesPath = productImagesPath })!;
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
 
-        [HttpGet("{categoryId}/{isDeleteShow}")]
-        public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
+        [HttpGet("/{productId}/{categoryId}/{isDeleteShow}")]
+        public async Task<IActionResult> GetListByCategoryId(int productId,int categoryId, bool isDeleteShow)
         {
-            //var productValues = await Mediator.Send(new GetListProductQuery { CategoryId = categoryId, IsDeleteShow = isDeleteShow });
-            return Ok(new { data = "productValues", message = "Ürün verileri başarıyla getirildi." });
+            var productValues = await Mediator.Send(new GetByIdProductQuery { CategoryId = categoryId, IsDeleted = isDeleteShow, ProductId = productId });
+            return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
     }
 }

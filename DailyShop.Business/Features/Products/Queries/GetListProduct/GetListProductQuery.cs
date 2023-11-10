@@ -4,12 +4,15 @@ using DailyShop.Business.Features.Products.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
+
 
 namespace DailyShop.Business.Features.Products.Queries.GetListProduct
 {
@@ -30,7 +33,8 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProduct
             {
                 List<Product> products = await _productRepository.Query().Include(p => p.Colors).Include(p => p.Sizes).Include(p => p.ProductImages).Include(p => p.User).ToListAsync();
                 List<GetListProductDto> mappedGetListProduct = _mapper.Map<List<GetListProductDto>>(products);
-                foreach (var mappedProduct in mappedGetListProduct)
+              
+				foreach (var mappedProduct in mappedGetListProduct)
                 {
                     if(mappedProduct.SellerName=="admin admin")
                     {
