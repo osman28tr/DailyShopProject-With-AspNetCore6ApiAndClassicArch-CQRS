@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection.Metadata;
-using DailyShop.API.Models;
 using DailyShop.Business.Features.Products.Queries.GetByIdProduct;
 
 namespace DailyShop.API.Controllers
