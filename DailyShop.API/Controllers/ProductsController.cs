@@ -1,17 +1,12 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Products.Commands.InsertProduct;
 using DailyShop.Business.Features.Products.Dtos;
-using DailyShop.Business.Features.Products.Models;
 using DailyShop.Business.Features.Products.Queries.GetListProduct;
 using DailyShop.Business.Services.AuthService;
-using MediatR;
-using System.IO;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Reflection.Metadata;
+using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.Business.Features.Products.Queries.GetByIdProduct;
+using DailyShop.Business.Features.Products.Queries.GetByIdProductDetail;
 
 namespace DailyShop.API.Controllers
 {
@@ -68,6 +63,16 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
         {
             var productValues = await Mediator.Send(new GetByIdProductQuery { CategoryId = categoryId, IsDeleted = isDeleteShow });
+            return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
+        }
+
+        [HttpGet("{productId:int}")]
+        public async Task<IActionResult> GetProductById(int productId)
+        {
+            var productValues = await Mediator?.Send( new GetByIdProductDetailQuery() { ProductId = productId })!;
+            if (productValues == null)
+	            throw new BusinessException("Böyle bir ürün bulunamadı veya kaldırıldı! ");
+
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
     }
