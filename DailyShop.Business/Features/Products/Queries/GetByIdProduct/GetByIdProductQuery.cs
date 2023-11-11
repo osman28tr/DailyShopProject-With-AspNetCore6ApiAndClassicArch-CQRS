@@ -29,17 +29,25 @@ namespace DailyShop.Business.Features.Products.Queries.GetByIdProduct
 
             public async Task<List<GetListProductByCategoryAndIsDeleteViewModel>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
             {
-                var product = await _productRepository.Query().Where(p => p.CategoryId == request.CategoryId && p.IsDeleted == request.IsDeleted).Include(r => r.Reviews).ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).Include(s => s.Sizes).Include(pi => pi.ProductImages).ToListAsync();
+                var products = await _productRepository.Query().Where(p => p.CategoryId == request.CategoryId && p.IsDeleted == request.IsDeleted).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).Include(s => s.Sizes).Include(pi => pi.ProductImages).ToListAsync(cancellationToken: cancellationToken);
 
-                var mappedProduct = _mapper.Map<List<GetListProductByCategoryAndIsDeleteViewModel>>(product);
+                var mappedProduct = _mapper.Map<List<GetListProductByCategoryAndIsDeleteViewModel>>(products);
 
-                for (int i = 0; i < product.Count; i++)
+                foreach (var product in products)
                 {
-                    foreach (var review in product[i].Reviews)
-                    {
-                        GetListReviewByProductViewModel reviewModel = new() { Name = review.Name, ReviewDescription = review.Description, ReviewRating = review.Rating, ReviewAvatar = review.Avatar, ReviewStatus = review.Status, ReviewCreatedDate = review.CreatedAt, ReviewUpdatedDate = review.UpdatedAt, UserName = review.AppUser.FirstName + " " + review.AppUser.LastName };
-                        mappedProduct[i].ReviewsModel.Add(reviewModel);
-                    }
+	                if (product.Reviews == null) continue;
+	                foreach (var review in product.Reviews)
+	                {
+		                GetListReviewByProductViewModel reviewModel = new()
+		                {
+			                Name = review.Name, ReviewDescription = review.Description,
+			                ReviewRating = review.Rating, ReviewAvatar = review.Avatar,
+			                ReviewStatus = review.Status, ReviewCreatedDate = review.CreatedAt,
+			                ReviewUpdatedDate = review.UpdatedAt,
+			                UserName = review.AppUser?.FirstName + " " + review.AppUser?.LastName
+		                };
+		                mappedProduct[products.IndexOf(product)].ReviewsModel.Add(reviewModel);
+	                }
                 }
                 return mappedProduct;
             }
