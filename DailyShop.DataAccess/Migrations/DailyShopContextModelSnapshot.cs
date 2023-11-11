@@ -344,21 +344,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.ToTable("Colors");
                 });
 
-            modelBuilder.Entity("DailyShop.Entities.Concrete.ColorProduct", b =>
-                {
-                    b.Property<int>("ColorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColorId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ColorProducts");
-                });
-
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -661,25 +646,6 @@ namespace DailyShop.DataAccess.Migrations
                         .HasForeignKey("ParentCategoryId");
                 });
 
-            modelBuilder.Entity("DailyShop.Entities.Concrete.ColorProduct", b =>
-                {
-                    b.HasOne("DailyShop.Entities.Concrete.Color", "Color")
-                        .WithMany("ColorProducts")
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DailyShop.Entities.Concrete.Product", "Product")
-                        .WithMany("ColorProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Color");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Category", "Category")
@@ -764,16 +730,9 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("DailyShop.Entities.Concrete.Color", b =>
-                {
-                    b.Navigation("ColorProducts");
-                });
-
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
                 {
                     b.Navigation("CartItems");
-
-                    b.Navigation("ColorProducts");
 
                     b.Navigation("ProductImages");
 

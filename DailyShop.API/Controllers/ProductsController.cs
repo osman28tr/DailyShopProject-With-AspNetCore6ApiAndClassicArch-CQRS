@@ -37,28 +37,16 @@ namespace DailyShop.API.Controllers
             //var userId = _authService.VerifyToken(GetToken());
             if (insertedProductDto.BodyImage != null && insertedProductDto.ProductImages.Any())
             {
-                var resourcePath = Directory.GetCurrentDirectory();
-                var extension = Path.GetExtension(insertedProductDto.BodyImage.FileName);
-                imageName = Guid.NewGuid() + extension;
-                var saveLocation = resourcePath + "/wwwroot/ProductImages/" + imageName;
-                var stream = new FileStream(saveLocation, FileMode.Create);
-                await insertedProductDto.BodyImage.CopyToAsync(stream);
-                //insertedProductDto.BodyImage = imageName;
-                for (int i = 0; i < insertedProductDto.ProductImages.Count; i++)
+                AddProductImage(insertedProductDto.BodyImage);
+
+                foreach (var productImage in insertedProductDto.ProductImages)
                 {
-                    var productImageExtension = Path.GetExtension(insertedProductDto.ProductImages[i].FileName);
-                    var imageNameImage = Guid.NewGuid() + productImageExtension;
-                    var saveLocationImage = resourcePath + "/wwwroot/ProductImages/" + imageNameImage;
-                    var streamImage = new FileStream(saveLocationImage, FileMode.Create);
-                    await insertedProductDto.ProductImages[i].CopyToAsync(streamImage);
-                    productImagesPath.Add(imageNameImage);
-                   
+                    AddProductImage(productImage);
                 }
             }
             await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = 1, BodyImagePath = imageName, ProductImagesPath = productImagesPath })!;
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
-
         [HttpGet("/{categoryId}/{isDeleteShow}")]
         public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
         {
@@ -74,6 +62,18 @@ namespace DailyShop.API.Controllers
 	            throw new BusinessException("Böyle bir ürün bulunamadı veya kaldırıldı! ");
 
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
+        }
+        private async Task AddProductImage(IFormFile imageFile)
+        {
+            string imageName = "";
+
+            var resourcePath = Directory.GetCurrentDirectory();
+            var extension = Path.GetExtension(imageFile.FileName);
+            imageName = Guid.NewGuid() + extension;
+            var saveLocation = resourcePath + "/wwwroot/ProductImages/" + imageName;
+            var stream = new FileStream(saveLocation, FileMode.Create);
+            await imageFile.CopyToAsync(stream);
+            //insertedProductDto.BodyImage = imageName;
         }
     }
 }
