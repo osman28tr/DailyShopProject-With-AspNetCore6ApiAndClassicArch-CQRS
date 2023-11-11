@@ -27,7 +27,7 @@ namespace DailyShop.Business.Features.AppUsers.Queries.GetListUser
 
             public async Task<List<GetListUserDto>> Handle(GetListUserQuery request, CancellationToken cancellationToken)
             {
-                List<AppUser> appUsers = await _appUserRepository.Query().Where(x => x.Role == "member").ToListAsync();
+                List<AppUser> appUsers = await _appUserRepository.Query().ToListAsync();
                 List<GetListUserDto> mappedUserDto = _mapper.Map<List<GetListUserDto>>(appUsers);
                 return mappedUserDto;
             }

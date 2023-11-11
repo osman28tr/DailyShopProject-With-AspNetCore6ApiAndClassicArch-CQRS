@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Core.Security.JWT;
 using System.Text.Json.Serialization;
+using DailyShop.Business.Middlewares.Auth;
+using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -129,6 +131,7 @@ if (app.Environment.IsDevelopment())
 if (app.Environment.IsProduction())
 	app.ConfigureCustomExceptionMiddleware();
 
+app.ConfigureCustomAuthExceptionMiddleware();
 app.UseRouting();
 
 app.UseAuthentication();
