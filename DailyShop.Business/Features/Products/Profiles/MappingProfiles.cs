@@ -28,7 +28,14 @@ namespace DailyShop.Business.Features.Products.Profiles
                 .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages.Select(x => x.Name)))
                 .ReverseMap();
 
-            CreateMap<Product, InsertedProductDto>()
+            CreateMap<Product, GetByIdProductDetailViewModel>()
+	            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
+	            .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors.Select(x => x.Name)))
+	            .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes.Select(x => x.Name)))
+	            .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages.Select(x => x.Name)))
+	            .ReverseMap();
+
+			CreateMap<Product, InsertedProductDto>()
                 .ReverseMap();
 
             CreateMap<Product, InsertProductViewModel>().ReverseMap();
