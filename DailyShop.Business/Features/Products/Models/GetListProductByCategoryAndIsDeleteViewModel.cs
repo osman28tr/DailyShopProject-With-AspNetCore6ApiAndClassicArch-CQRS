@@ -13,6 +13,7 @@ namespace DailyShop.Business.Features.Products.Models
         {
             ReviewsModel = new List<GetListReviewByProductViewModel>();
         }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public decimal? Price { get; set; }
         public string? BodyImage { get; set; }
