@@ -48,8 +48,8 @@ namespace DailyShop.API.Controllers
             await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = 1, BodyImagePath = "", ProductImagesPath = productImagesPath })!;
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
-        [HttpGet("/{categoryId}/{isDeleteShow}")]
-        public async Task<IActionResult> GetListByCategoryId(int categoryId, bool isDeleteShow)
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetListByCategoryId(int categoryId, [FromQuery] bool isDeleteShow)
         {
             var productValues = await Mediator.Send(new GetByIdProductQuery { CategoryId = categoryId, IsDeleted = isDeleteShow });
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });

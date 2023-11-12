@@ -36,8 +36,8 @@ public class GetByIdProductDetailQuery : IRequest<GetByIdProductDetailViewModel>
 			}
 			var mappedProduct = _mapper.Map<GetByIdProductDetailViewModel>(product);
 
-			if (product?.Reviews == null) return mappedProduct;
-			foreach (var review in product?.Reviews)
+			if (product.Reviews == null) return mappedProduct;
+			foreach (var review in product.Reviews)
 			{
 				GetListReviewByProductViewModel reviewModel = new()
 				{
