@@ -32,19 +32,20 @@ namespace DailyShop.API.Controllers
 		[HttpPost]
         public async Task<IActionResult> Add([FromForm] InsertedProductDto insertedProductDto)
         {
-            string imageName = "";
             List<string> productImagesPath = new List<string>();
             //var userId = _authService.VerifyToken(GetToken());
             if (insertedProductDto.BodyImage != null && insertedProductDto.ProductImages.Any())
             {
-                AddProductImage(insertedProductDto.BodyImage);
-
+                string bodyImageName = await AddProductImageToFile(insertedProductDto.BodyImage);
+                //insertedProductDto.BodyImage = imageName;
+                
                 foreach (var productImage in insertedProductDto.ProductImages)
                 {
-                    AddProductImage(productImage);
+                    string imageName = await AddProductImageToFile(productImage);
+                    //productImage.Name = imageName;
                 }
             }
-            await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = 1, BodyImagePath = imageName, ProductImagesPath = productImagesPath })!;
+            await Mediator?.Send(new InsertProductCommand { InsertedProductDto = insertedProductDto, UserId = 1, BodyImagePath = "", ProductImagesPath = productImagesPath })!;
             return Ok(new { message = "Ürün ekleme işlemi başarıyla gerçekleştirildi." });
         }
         [HttpGet("/{categoryId}/{isDeleteShow}")]
@@ -63,7 +64,7 @@ namespace DailyShop.API.Controllers
 
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
-        private async Task AddProductImage(IFormFile imageFile)
+        private async Task<string> AddProductImageToFile(IFormFile imageFile)
         {
             string imageName = "";
 
@@ -73,7 +74,8 @@ namespace DailyShop.API.Controllers
             var saveLocation = resourcePath + "/wwwroot/ProductImages/" + imageName;
             var stream = new FileStream(saveLocation, FileMode.Create);
             await imageFile.CopyToAsync(stream);
-            //insertedProductDto.BodyImage = imageName;
+
+            return imageName;
         }
     }
 }
