@@ -23,12 +23,14 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
         {
             private readonly IProductRepository _productRepository;
             private readonly IProductColorRepository _colorRepository;
+            private readonly IProductSizeRepository _sizeRepository;
             private readonly IMapper _mapper;
-            public InsertProductCommandHandler(IProductRepository productRepository, IMapper mapper, IProductColorRepository colorRepository)
+            public InsertProductCommandHandler(IProductRepository productRepository, IMapper mapper, IProductColorRepository colorRepository, IProductSizeRepository sizeRepository)
             {
                 _productRepository = productRepository;
                 _mapper = mapper;
                 _colorRepository = colorRepository;
+                _sizeRepository = sizeRepository;
             }
 
             public async Task Handle(InsertProductCommand request, CancellationToken cancellationToken)
@@ -36,6 +38,7 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                 Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.BodyImagePath, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
 
                 List<Color> colors = await _colorRepository.Query().ToListAsync();
+                List<Size> sizes = await _sizeRepository.Query().ToListAsync();
 
                 if (request.ProductImagesPath != null && request.ProductImagesPath.Any())
                 {
@@ -63,8 +66,16 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                 {
                     foreach (var productSize in request.InsertedProductDto.Sizes)
                     {
-                        Size size = new() { Name = productSize };
-                        product.Sizes?.Add(size);
+                        if (sizes.Find(x => x.Name.ToLower() == productSize.ToLower()) != null)
+                        {
+                            int sizeId = sizes.Find(x => x.Name.ToLower() == productSize.ToLower()).Id;
+                            product.Sizes?.Add(new ProductSize() { SizeId = sizeId });
+                        }
+                        else
+                        {
+                            Size size = new() { Name = productSize };
+                            product.Sizes?.Add(new ProductSize() { Size = size });
+                        }
                     }
                 }
                 product.UserId = request.UserId;

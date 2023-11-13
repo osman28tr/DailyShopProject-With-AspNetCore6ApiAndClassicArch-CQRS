@@ -33,7 +33,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetByIdProduct
 					.Where(p => p.CategoryId == request.CategoryId && (request.IsDeleted == true
 						            ? p.IsDeleted == true || p.IsDeleted == false
 						            : p.IsDeleted == false)
-					).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c=>c.Color).Include(s => s.Sizes).Include(pi => pi.ProductImages).ToListAsync(cancellationToken: cancellationToken);
+					).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c=>c.Color).Include(s => s.Sizes).ThenInclude(s=>s.Size).Include(pi => pi.ProductImages).ToListAsync(cancellationToken: cancellationToken);
 
 				var mappedProduct = _mapper.Map<List<GetListProductByCategoryAndIsDeleteViewModel>>(products);
 

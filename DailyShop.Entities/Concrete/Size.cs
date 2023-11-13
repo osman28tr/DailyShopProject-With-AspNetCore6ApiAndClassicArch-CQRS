@@ -7,12 +7,12 @@ namespace DailyShop.Entities.Concrete
         public string? Name { get; set; }
         public Size()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<ProductSize>();
         }
         public Size(int id):base(id)
         {
             Id = id;
         }
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<ProductSize>? Products { get; set; }
     }
 }

@@ -27,7 +27,7 @@ public class GetByIdProductDetailQuery : IRequest<GetByIdProductDetailViewModel>
 		public async Task<GetByIdProductDetailViewModel> Handle(GetByIdProductDetailQuery request,
 			CancellationToken cancellationToken)
 		{
-			var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c=>c.Color).Include(s => s.Sizes).Include(pi => pi.ProductImages).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+			var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c=>c.Color).Include(s => s.Sizes).ThenInclude(s=>s.Size).Include(pi => pi.ProductImages).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
 			if (product?.IsApproved == null || (bool) !product.IsApproved)
 			{

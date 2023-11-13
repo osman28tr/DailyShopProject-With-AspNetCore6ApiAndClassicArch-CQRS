@@ -31,7 +31,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProduct
 
             public async Task<List<GetListProductDto>> Handle(GetListProductQuery request, CancellationToken cancellationToken)
             {
-                List<Product> products = await _productRepository.Query().Include(p => p.Colors).ThenInclude(c=>c.Color).Include(p => p.Sizes).Include(p => p.ProductImages).Include(p => p.User).ToListAsync();
+                List<Product> products = await _productRepository.Query().Include(p => p.Colors).ThenInclude(c=>c.Color).Include(p => p.Sizes).ThenInclude(s=>s.Size).Include(p => p.ProductImages).Include(p => p.User).ToListAsync();
                 List<GetListProductDto> mappedGetListProduct = _mapper.Map<List<GetListProductDto>>(products);
               
 				foreach (var mappedProduct in mappedGetListProduct)
