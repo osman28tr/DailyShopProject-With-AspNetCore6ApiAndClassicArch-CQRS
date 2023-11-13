@@ -12,12 +12,12 @@ namespace DailyShop.Entities.Concrete
         public string? Name { get; set; }
         public Color()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<ProductColor>();
         }
         public Color(int id):base(id)
         {
             Id = id;
         }
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<ProductColor>? Products { get; set; }
     }
 }

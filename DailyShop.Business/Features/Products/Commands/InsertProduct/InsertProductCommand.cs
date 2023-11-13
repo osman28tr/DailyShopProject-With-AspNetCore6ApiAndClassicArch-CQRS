@@ -22,17 +22,21 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
         public class InsertProductCommandHandler : IRequestHandler<InsertProductCommand>
         {
             private readonly IProductRepository _productRepository;
+            private readonly IProductColorRepository _colorRepository;
             private readonly IMapper _mapper;
-            public InsertProductCommandHandler(IProductRepository productRepository, IMapper mapper)
+            public InsertProductCommandHandler(IProductRepository productRepository, IMapper mapper, IProductColorRepository colorRepository)
             {
                 _productRepository = productRepository;
                 _mapper = mapper;
+                _colorRepository = colorRepository;
             }
 
             public async Task Handle(InsertProductCommand request, CancellationToken cancellationToken)
             {
                 Product product = new() { CategoryId = request.InsertedProductDto.CategoryId, BodyImage = request.BodyImagePath, Name = request.InsertedProductDto.Name, Price = request.InsertedProductDto.Price, Description = request.InsertedProductDto.Description, Status = request.InsertedProductDto.Status, Stock = request.InsertedProductDto.Stock };
-             
+
+                List<Color> colors = await _colorRepository.Query().ToListAsync();
+
                 if (request.ProductImagesPath != null && request.ProductImagesPath.Any())
                 {
                     foreach (var productImage in request.ProductImagesPath)
@@ -44,8 +48,16 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                 if (request.InsertedProductDto.Colors != null && request.InsertedProductDto.Colors.Any())
                     foreach (var productColor in request.InsertedProductDto.Colors)
                     {
-                        Color color = new() { Name = productColor };
-                        product.Colors?.Add(color);
+                        if (colors.Find(x => x.Name.ToLower() == productColor.ToLower()) != null)
+                        {
+                            int colorId = colors.Find(x => x.Name.ToLower() == productColor.ToLower()).Id;
+                            product.Colors?.Add(new ProductColor() { ColorId = colorId });
+                        }
+                        else
+                        {
+                            Color color = new() { Name = productColor };
+                            product.Colors?.Add(new ProductColor() { Color = color });
+                        }
                     }
                 if (request.InsertedProductDto.Sizes != null && request.InsertedProductDto.Sizes.Any())
                 {
@@ -57,7 +69,7 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                 }
                 product.UserId = request.UserId;
                 await _productRepository.AddAsync(product);
-              
+
             }
         }
     }
