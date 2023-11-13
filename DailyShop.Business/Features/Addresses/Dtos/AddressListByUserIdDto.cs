@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Addresses.Dtos
@@ -15,6 +16,7 @@ namespace DailyShop.Business.Features.Addresses.Dtos
         public string ProfileImage { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        [JsonPropertyName("address")]
         public string Adres { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
