@@ -1,5 +1,4 @@
-﻿using DailyShop.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Products.Models
 {
-    public class GetListProductByCategoryAndIsDeleteViewModel
+    public class GetListProductByUserIdViewModel
     {
-        public GetListProductByCategoryAndIsDeleteViewModel()
+        public GetListProductByUserIdViewModel()
         {
             ReviewsModel = new List<GetListReviewByProductViewModel>();
         }
@@ -20,12 +19,10 @@ namespace DailyShop.Business.Features.Products.Models
         public string? Description { get; set; }
         public string? Status { get; set; }
         public int? Stock { get; set; }
-        public string? UserName { get; set; }
-        public byte? Rating { get; set; }          
+        public byte? Rating { get; set; }
         public ICollection<string>? ProductImages { get; set; }
         public ICollection<string>? Colors { get; set; }
         public ICollection<string>? Sizes { get; set; }
         public ICollection<GetListReviewByProductViewModel>? ReviewsModel { get; set; }
-        //public ICollection<Review>? Reviews { get; set; }
     }
 }
