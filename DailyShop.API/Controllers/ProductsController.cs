@@ -66,14 +66,7 @@ namespace DailyShop.API.Controllers
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
 
-        [HttpGet("GetProductByUserId/{userId:int}")]
-        public async Task<IActionResult> GetProductByUserId(int userId)
-        {
-            var productValues = await Mediator?.Send(new GetListProductByUserIdQuery() { UserId = userId })!;
-            if (productValues == null)
-                throw new BusinessException("Bu kullanıcıya ait bir ürün bulunamadı veya kaldırıldı! ");
-            return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
-        }
+        
         private async Task<string> AddProductImageToFile(IFormFile imageFile)
         {
             string imageName = "";
