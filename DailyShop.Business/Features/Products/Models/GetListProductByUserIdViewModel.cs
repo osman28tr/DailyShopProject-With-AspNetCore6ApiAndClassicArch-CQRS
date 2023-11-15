@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Products.Models
@@ -20,6 +21,8 @@ namespace DailyShop.Business.Features.Products.Models
         public string? Status { get; set; }
         public int? Stock { get; set; }
         public byte? Rating { get; set; }
+        [JsonPropertyName("isApproved")]
+        public bool? IsApproved { get; set; }
         public ICollection<string>? ProductImages { get; set; }
         public ICollection<string>? Colors { get; set; }
         public ICollection<string>? Sizes { get; set; }
