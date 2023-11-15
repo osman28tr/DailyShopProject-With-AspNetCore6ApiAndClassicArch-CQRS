@@ -10,13 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DailyShop.Business.Features.Products.Queries.GetByIdProduct
+namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryAndIsDelete
 {
-	public class GetByIdProductQuery : IRequest<List<GetListProductByCategoryAndIsDeleteViewModel>>
+	public class GetListProductByCategoryAndIsDeleteQuery : IRequest<List<GetListProductByCategoryAndIsDeleteViewModel>>
 	{
 		public int CategoryId { get; set; }
 		public bool IsDeleted { get; set; }
-		public class GetByIdProductQueryHandler : IRequestHandler<GetByIdProductQuery, List<GetListProductByCategoryAndIsDeleteViewModel>>
+		public class GetByIdProductQueryHandler : IRequestHandler<GetListProductByCategoryAndIsDeleteQuery, List<GetListProductByCategoryAndIsDeleteViewModel>>
 		{
 			private readonly IProductRepository _productRepository;
 			private readonly IMapper _mapper;
@@ -27,7 +27,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetByIdProduct
 				_mapper = mapper;
 			}
 
-			public async Task<List<GetListProductByCategoryAndIsDeleteViewModel>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
+			public async Task<List<GetListProductByCategoryAndIsDeleteViewModel>> Handle(GetListProductByCategoryAndIsDeleteQuery request, CancellationToken cancellationToken)
 			{
 				var products = await _productRepository.Query()
 					.Where(p => p.CategoryId == request.CategoryId && (request.IsDeleted == true
