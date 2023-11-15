@@ -15,6 +15,7 @@ using System.Text.Json.Serialization;
 using DailyShop.Business.Middlewares.Auth;
 using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -145,6 +146,11 @@ app.UseEndpoints(endpoints =>
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
+});
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ProductImages")),
+    RequestPath = "/wwwroot/ProductImages"
 });
 
 app.UseEndpoints(endpoints =>

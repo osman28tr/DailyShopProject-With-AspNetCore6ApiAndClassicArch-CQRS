@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -24,6 +25,7 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("image")]
         public string? BodyImage { get; set; }
         [JsonPropertyName("imageFile")]
+        [NotMapped]
         public IFormFile? BodyImageFile { get; set; }
         [JsonPropertyName("description")]
         public string? Description { get; set; }
@@ -38,6 +40,7 @@ namespace DailyShop.Business.Features.Products.Dtos
         [JsonPropertyName("isApproved")]
         public bool? IsApproved { get; set; }
         [JsonPropertyName("imagesFile")]
+        [NotMapped]
         public ICollection<IFormFile>? ProductImagesFile { get; set; }
         [JsonPropertyName("images")]
         public ICollection<string>? ProductImages { get; set; }

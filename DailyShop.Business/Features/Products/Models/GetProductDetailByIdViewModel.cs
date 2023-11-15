@@ -1,8 +1,8 @@
 ﻿namespace DailyShop.Business.Features.Products.Models;
 
-public class GetByIdProductDetailViewModel
+public class GetProductDetailByIdViewModel
 {
-	public GetByIdProductDetailViewModel()
+	public GetProductDetailByIdViewModel()
 	{
 		ReviewsModel = new List<GetListReviewByProductViewModel>();
 	}
