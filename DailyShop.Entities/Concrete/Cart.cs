@@ -12,7 +12,7 @@ namespace DailyShop.Entities.Concrete
         public int UserId { get; set; }
         public Cart()
         {
-            
+            CartItems = new List<CartItem>();
         }
         public Cart(int id)
         {
