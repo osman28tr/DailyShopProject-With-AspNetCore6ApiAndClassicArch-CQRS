@@ -9,6 +9,12 @@ namespace DailyShop.Business.Features.Carts.Models
 {
     public class GetListCartByUserViewModel
     {
+        public GetListCartByUserViewModel()
+        {
+            ProductImages = new List<string>();
+            Colors = new List<string>();
+            Sizes = new List<string>();
+        }
         public int CartItemId { get; set; }
         public string? Status { get; set; }
         public string? ProductName { get; set; }
