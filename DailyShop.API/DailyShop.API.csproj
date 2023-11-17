@@ -22,17 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Images\72733347-83f5-4de3-94fb-355bdc70249d.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\72733347-83f5-4de3-94fb-355bdc70249d.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.21" />

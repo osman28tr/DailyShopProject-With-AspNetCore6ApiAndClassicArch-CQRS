@@ -13,10 +13,12 @@ namespace DailyShop.API.Controllers
     public class CartsController : BaseTokenController
     {
         private readonly IAuthService _authService;
+        private readonly ImageHelper _imageHelper;
 
-        public CartsController(IAuthService authService)
+        public CartsController(IAuthService authService, ImageHelper imageHelper)
         {
             _authService = authService;
+            _imageHelper = imageHelper;
         }
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] List<InsertedCartItemDto> cartItemDtos, [FromQuery] int productId)
@@ -31,7 +33,22 @@ namespace DailyShop.API.Controllers
         {
             int userId = _authService.VerifyToken(GetToken());
             var cartItems = await Mediator.Send(new GetListCartByUserQuery() { UserId = userId });
+            foreach (var cartItem in cartItems)
+            {
+                cartItem.BodyImage = GetImageByHelper(cartItem.BodyImage);
+                if (cartItem.ProductImages != null)
+                {
+                    cartItem.ProductImages = cartItem.ProductImages.Select(x =>
+                        GetImageByHelper(x)).ToList();
+                }
+            }
             return Ok(new { message = "Sepet verileri getirildi.", data = cartItems });
+        }
+        [NonAction]
+        public string GetImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
         }
     }
 }

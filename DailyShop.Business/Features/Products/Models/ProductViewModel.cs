@@ -11,6 +11,9 @@ namespace DailyShop.Business.Features.Products.Models
         public ProductViewModel()
         {
             ReviewsModel = new List<GetListReviewByProductViewModel>();
+            ProductImages = new List<string>();
+            Colors = new List<string>();
+            Sizes = new List<string>();
         }
         public int Id { get; set; }
         public string? Name { get; set; }
