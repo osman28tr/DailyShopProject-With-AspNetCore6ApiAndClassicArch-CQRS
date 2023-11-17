@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Core.Security.JWT;
 using System.Text.Json.Serialization;
+using DailyShop.API.Helpers;
 using DailyShop.Business.Middlewares.Auth;
 using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore;
@@ -33,6 +34,8 @@ builder.Services.AddPersistanceRegistration();
 
 builder.Services.AddScoped<DbContext, DailyShopContext>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddTransient<ImageHelper>();
 
 TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(options =>

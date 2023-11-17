@@ -34,6 +34,8 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByUserId
                     .ThenInclude(c => c.Color)
                     .Include(s => s.Sizes).ThenInclude(s => s.Size).ToListAsync();
 
+                if (products == null) throw new BusinessException("Bu kullanıcıya ait bir ürün bulunamadı.");
+
                 var mappedProducts = _mapper.Map<List<GetListProductByUserIdViewModel>>(products);
 
                 foreach (var mappedProduct in mappedProducts)

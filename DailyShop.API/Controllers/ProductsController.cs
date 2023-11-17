@@ -6,6 +6,7 @@ using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.Business.Features.Products.Commands.DeleteProduct;
+using DailyShop.Business.Features.Products.Models;
 using DailyShop.Business.Features.Products.Queries.GetListProductByCategoryAndIsDelete;
 using DailyShop.Business.Features.Products.Queries.GetProductDetailById;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
@@ -19,11 +20,12 @@ namespace DailyShop.API.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public ProductsController(IAuthService authService, IWebHostEnvironment webHostEnvironment)
+        private readonly ImageHelper _imageHelper;
+        public ProductsController(IAuthService authService, IWebHostEnvironment webHostEnvironment, ImageHelper imageHelper)
         {
             _authService = authService;
             _webHostEnvironment = webHostEnvironment;
+            _imageHelper = imageHelper;
         }
 
         [HttpGet]
@@ -32,13 +34,11 @@ namespace DailyShop.API.Controllers
             var productValues = await Mediator.Send(new GetListProductQuery());
             foreach (var product in productValues)
             {
-                product.BodyImage = String.Format("{0}://{1}{2}/wwwroot/ProductImages/{3}", Request.Scheme, Request.Host,
-                    Request.PathBase, product.BodyImage);
+                product.BodyImage = GetImageByHelper(product.BodyImage);
                 if (product.ProductImages != null)
                 {
                     product.ProductImages = product.ProductImages.Select(x =>
-                        String.Format("{0}://{1}{2}/wwwroot/ProductImages/{3}", Request.Scheme, Request.Host,
-                            Request.PathBase, x)).ToList();
+                        GetImageByHelper(x)).ToList();
                 }
             }
             // Return the result as a JSON response
@@ -76,6 +76,15 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> GetListByCategoryId(int categoryId, [FromQuery] bool isDeleteShow)
         {
             var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery { CategoryId = categoryId, IsDeleted = isDeleteShow });
+            foreach (var product in productValues)
+            {
+                product.BodyImage = GetImageByHelper(product.BodyImage);
+                if (product.ProductImages != null)
+                {
+                    product.ProductImages = product.ProductImages.Select(x =>
+                        GetImageByHelper(x)).ToList();
+                }
+            }
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
 
@@ -83,8 +92,13 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> GetProductById(int productId)
         {
             var productValues = await Mediator?.Send(new GetProductDetailByIdQuery() { ProductId = productId })!;
-            if (productValues == null)
-                throw new BusinessException("Böyle bir ürün bulunamadı veya kaldırıldı! ");
+
+            productValues.BodyImage = GetImageByHelper(productValues.BodyImage);
+            if (productValues.ProductImages != null)
+            {
+                productValues.ProductImages = productValues.ProductImages.Select(x =>
+                    GetImageByHelper(x)).ToList();
+            }
 
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
@@ -121,6 +135,12 @@ namespace DailyShop.API.Controllers
             var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot/ProductImages", imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
+        }
+        [NonAction]
+        public string GetImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
         }
     }
 }

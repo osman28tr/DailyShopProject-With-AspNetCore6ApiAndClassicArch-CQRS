@@ -32,6 +32,8 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
             {
                 throw new BusinessException("Ürün onaylanmamıştır.");
             }
+
+            if (product == null) throw new BusinessException("Ürün bulunamadı veya kaldırıldı.");
             var mappedProduct = _mapper.Map<GetProductDetailByIdViewModel>(product);
 
             if (product.Reviews == null) return mappedProduct;
