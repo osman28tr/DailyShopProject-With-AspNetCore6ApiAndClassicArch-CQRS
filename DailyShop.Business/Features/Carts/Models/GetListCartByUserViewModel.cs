@@ -16,6 +16,7 @@ namespace DailyShop.Business.Features.Carts.Models
             Sizes = new List<string>();
         }
         public int CartItemId { get; set; }
+        public int ProductId { get; set; }
         public string? Status { get; set; }
         public string? ProductName { get; set; }
         public decimal? ProductPrice { get; set; }

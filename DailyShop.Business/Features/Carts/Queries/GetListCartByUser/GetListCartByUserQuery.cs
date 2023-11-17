@@ -45,6 +45,7 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                         {
                             Status = c.Status,
                             ProductName = cartItem.Product.Name,
+                            ProductId = cartItem.ProductId,
                             ProductPrice = cartItem.Product.Price,
                             Quantity = cartItem.Quantity,
                             TotalPrice = cartItem.TotalPrice,
