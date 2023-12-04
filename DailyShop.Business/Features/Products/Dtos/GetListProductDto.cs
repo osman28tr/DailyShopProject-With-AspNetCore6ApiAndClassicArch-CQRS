@@ -12,6 +12,12 @@ namespace DailyShop.Business.Features.Products.Dtos
 {
     public class GetListProductDto
     {
+        public GetListProductDto()
+        {
+            ProductImages = new List<string>();
+            Colors = new List<string>();
+            Sizes = new List<string>();
+        }
         [JsonPropertyName("id")]
         public int Id { get; set; }
         [JsonPropertyName("categoryId")]

@@ -21,11 +21,11 @@ namespace DailyShop.API.Controllers
             _imageHelper = imageHelper;
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] List<InsertedCartItemDto> cartItemDtos, [FromQuery] int productId)
+        public async Task<IActionResult> Add(InsertedCartItemDto cartItemDto, [FromQuery] int productId)
         {
             int userId = _authService.VerifyToken(GetToken());
-            await Mediator.Send(new InsertCartCommand { InsertedCartItemDtos = cartItemDtos, UserId = userId, ProductId = productId });
-            return Ok();
+            await Mediator.Send(new InsertCartCommand { InsertedCartItemDto = cartItemDto, UserId = userId, ProductId = productId });
+            return Ok("Ürün başarıyla sepete eklendi.");
         }
 
         [HttpGet]
@@ -35,10 +35,10 @@ namespace DailyShop.API.Controllers
             var cartItems = await Mediator.Send(new GetListCartByUserQuery() { UserId = userId });
             foreach (var cartItem in cartItems)
             {
-                cartItem.BodyImage = GetImageByHelper(cartItem.BodyImage);
-                if (cartItem.ProductImages != null)
+                cartItem.Product.BodyImage = GetImageByHelper(cartItem.Product.BodyImage);
+                if (cartItem.Product.ProductImages != null)
                 {
-                    cartItem.ProductImages = cartItem.ProductImages.Select(x =>
+                    cartItem.Product.ProductImages = cartItem.Product.ProductImages.Select(x =>
                         GetImageByHelper(x)).ToList();
                 }
             }

@@ -102,6 +102,22 @@ namespace DailyShop.API.Controllers
 
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
+        [HttpGet("GetListProductByUser")]
+        public async Task<IActionResult> GetListProductByUser()
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            var products = await Mediator.Send(new GetListProductByUserIdQuery { UserId = userId });
+            foreach (var product in products)
+            {
+                product.BodyImage = GetImageByHelper(product.BodyImage);
+                if (product.ProductImages != null)
+                {
+                    product.ProductImages = product.ProductImages.Select(x =>
+                        GetImageByHelper(x)).ToList();
+                }
+            }
+            return Ok(new { message = "ürün verileri getirildi.", data = products });
+        }
 
         [HttpDelete("DeleteProduct/{productId:int}")]
         public async Task<IActionResult> DeleteProduct(int productId)
