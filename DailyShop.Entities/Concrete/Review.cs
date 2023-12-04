@@ -10,6 +10,7 @@ namespace DailyShop.Entities.Concrete
     public class Review:Entity
     {
         public int? ProductId { get; set; }
+        public int? AppUserId { get; set; }
         public string? Name { get; set; }
         public byte? Rating { get; set; }
         public string? Description { get; set; }

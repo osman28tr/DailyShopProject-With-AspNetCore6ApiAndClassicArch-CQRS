@@ -16,6 +16,8 @@ namespace DailyShop.Business.Features.Reviews.Profiles
             CreateMap<Review, GetListReviewByUserIdDto>()
                 .ForMember(r => r.Date, opt => opt.MapFrom(c => c.CreatedAt))
                 .ReverseMap();
+
+            CreateMap<Review, InsertedReviewDto>().ReverseMap();
         }
     }
 }

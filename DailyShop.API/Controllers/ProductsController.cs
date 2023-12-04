@@ -133,7 +133,6 @@ namespace DailyShop.API.Controllers
             }
             return Ok(new { message = "Ürün başarıyla silindi." });
         }
-
         private async Task<string> AddProductImageToFile(IFormFile imageFile)
         {
             string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
