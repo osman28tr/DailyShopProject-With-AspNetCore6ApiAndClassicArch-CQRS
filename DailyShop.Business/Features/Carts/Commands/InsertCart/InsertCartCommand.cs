@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.Business.Features.Carts.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
@@ -13,7 +14,7 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
 {
     public class InsertCartCommand:IRequest
     {
-        public List<InsertedCartItemDto> InsertedCartItemDtos { get; set; }
+        public InsertedCartItemDto InsertedCartItemDto { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public class InsertCartCommandHandler:IRequestHandler<InsertCartCommand>
@@ -29,21 +30,39 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
 
             public async Task Handle(InsertCartCommand request, CancellationToken cancellationToken)
             {
-                Cart cart = new() { UserId = request.UserId, Status = "" };
-                if (request.InsertedCartItemDtos.Any())
+                try
                 {
-                    foreach (var cartItem in request.InsertedCartItemDtos)
+                    Cart cartByUser = _cartRepository.Query().FirstOrDefault(c => c.UserId == request.UserId);
+                    if (cartByUser == null)
                     {
+                        Cart cart = new() { UserId = request.UserId, Status = "" };
                         cart.CartItems.Add(new CartItem()
                         {
                             ProductId = request.ProductId,
-                            Quantity = cartItem.Quantity,
-                            TotalPrice = cartItem.TotalPrice
+                            Quantity = request.InsertedCartItemDto.Quantity,
+                            TotalPrice = request.InsertedCartItemDto.TotalPrice,
+                            Color = request.InsertedCartItemDto.Color,
+                            Size = request.InsertedCartItemDto.Size,
                         });
+                        await _cartRepository.AddAsync(cart);
+                    }
+                    else
+                    {
+                        cartByUser.CartItems.Add(new CartItem()
+                        {
+                            ProductId = request.ProductId,
+                            Quantity = request.InsertedCartItemDto.Quantity,
+                            TotalPrice = request.InsertedCartItemDto.TotalPrice,
+                            Color = request.InsertedCartItemDto.Color,
+                            Size = request.InsertedCartItemDto.Size,
+                        });
+                        await _cartRepository.UpdateAsync(cartByUser);
                     }
                 }
-
-                await _cartRepository.AddAsync(cart);
+                catch (Exception hata)
+                {
+                    throw new BusinessException("Sepete eklerken bir hata oluştu.");
+                }
             }
         }
     }
