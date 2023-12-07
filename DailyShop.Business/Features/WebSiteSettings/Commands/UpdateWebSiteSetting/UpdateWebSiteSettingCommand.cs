@@ -10,12 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.CrossCuttingConcerns.Exceptions;
 
 namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSetting
 {
     public class UpdateWebSiteSettingCommand:IRequest<string>
     {
         public UpdatedWebSiteSettingDto UpdatedWebSiteSettingDto { get; set; }
+        public string SiteIconPath { get; set; }
         public class UpdateWebSiteSettingCommandHandler : IRequestHandler<UpdateWebSiteSettingCommand,string>
         {
             private readonly IWebSiteSettingRepository _webSiteSettingRepository;
@@ -29,12 +31,30 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
 
             public async Task<string> Handle(UpdateWebSiteSettingCommand request, CancellationToken cancellationToken)
             {
-                var webSiteSetting = _mapper.Map<WebSiteSetting>(request.UpdatedWebSiteSettingDto);
-                var findWebSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
-                webSiteSetting.Id = findWebSiteSetting.Id;
-                await _webSiteSettingRepository.UpdateAsync(webSiteSetting);
+                try
+                {
+                    var webSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
 
-                return "Web site ayarlarınız başarıyla güncellendi.";
+                    var mappedWebSiteSetting = _mapper.Map<WebSiteSetting>(request.UpdatedWebSiteSettingDto);
+                    mappedWebSiteSetting.Icon = request.SiteIconPath;
+
+                    if (webSiteSetting != null)
+                    {
+                        mappedWebSiteSetting.UpdatedAt = DateTime.Now;
+                        await _webSiteSettingRepository.UpdateAsync(mappedWebSiteSetting);
+                        return "Web site ayarlarınız başarıyla güncellendi.";
+                    }
+                    else
+                    {
+                        mappedWebSiteSetting.CreatedAt = DateTime.Now;
+                        await _webSiteSettingRepository.AddAsync(mappedWebSiteSetting);
+                        return "Web site ayarlarınız başarıyla eklendi.";
+                    }
+                }
+                catch (Exception hata)
+                {
+                    throw new BusinessException("Bir hata oluştu.");
+                }
             }
         }
     }
