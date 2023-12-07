@@ -14,6 +14,7 @@ namespace DailyShop.Business.Features.Addresses.Dtos
         //public string Email { get; set; }
         //public string PhoneNumber { get; set; }
         //public string ProfileImage { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         [JsonPropertyName("address")]
@@ -21,5 +22,6 @@ namespace DailyShop.Business.Features.Addresses.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
+        public string State { get; set; }
     }
 }
