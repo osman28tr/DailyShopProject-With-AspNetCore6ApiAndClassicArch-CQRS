@@ -10,17 +10,19 @@ namespace DailyShop.Business.Features.Products.Queries.GetProductDetailById;
 public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 {
     public int ProductId { get; set; }
-    public string Role { get; set; }
+    public int UserId { get; set; }
 
     public class
         GetByIdProductDetailQueryHandler : IRequestHandler<GetProductDetailByIdQuery, GetProductDetailByIdViewModel>
     {
         private readonly IProductRepository _productRepository;
+        private readonly IAppUserRepository _appUserRepository;
         private readonly IMapper _mapper;
 
-        public GetByIdProductDetailQueryHandler(IProductRepository productRepository, IMapper mapper)
+        public GetByIdProductDetailQueryHandler(IProductRepository productRepository,IAppUserRepository appUserRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _appUserRepository = appUserRepository;
             _mapper = mapper;
         }
 
@@ -29,7 +31,9 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
         {
             var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c => c.Color).Include(s => s.Sizes).ThenInclude(s => s.Size).Include(pi => pi.ProductImages).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if ((product?.IsApproved == null || (bool)!product.IsApproved) && request.Role != "admin")
+            var user = await _appUserRepository.Query().FirstOrDefaultAsync(x => x.Id == request.UserId);
+
+            if ((product?.IsApproved == null || (bool)!product.IsApproved) && user.Role != "admin")
             {
                 throw new BusinessException("Ürün onaylanmamıştır.");
             }
