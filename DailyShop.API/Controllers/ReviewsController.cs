@@ -22,7 +22,7 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> GetListByUserId(int userId)
         {
             var reviews = await Mediator.Send(new GetListReviewByUserIdQuery() { UserId = userId });
-            return Ok(reviews);
+            return Ok(new { message = "Kullanıcının yorumları getirildi.", data = reviews });
         }
 
         [HttpPost("AddReviewToProduct/{id}")]

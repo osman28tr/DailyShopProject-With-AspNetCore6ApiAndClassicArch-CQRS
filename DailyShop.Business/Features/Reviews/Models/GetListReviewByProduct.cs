@@ -25,6 +25,7 @@ namespace DailyShop.Business.Features.Reviews.Models
         public bool? IsApproved { get; set; }
         public Category? Category { get; set; }
         public AppUser? User { get; set; }
+        [JsonPropertyName("images")]
         public ICollection<ProductImage>? ProductImages { get; set; }
         public ICollection<ProductColor>? Colors { get; set; }
         public ICollection<ProductSize>? Sizes { get; set; }
