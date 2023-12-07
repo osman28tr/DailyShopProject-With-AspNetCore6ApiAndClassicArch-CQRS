@@ -1,4 +1,5 @@
 ﻿using DailyShop.API.Helpers;
+using DailyShop.Business.Features.Carts.Commands.DeleteCart;
 using DailyShop.Business.Features.Carts.Commands.InsertCart;
 using DailyShop.Business.Features.Carts.Commands.UpdateCart;
 using DailyShop.Business.Features.Carts.Dtos;
@@ -53,6 +54,14 @@ namespace DailyShop.API.Controllers
             await Mediator.Send(new UpdateCartCommand()
                 { UpdatedCartItemDto = updatedCartItemDto, CartItemId = id, UserId = userId });
             return Ok(new { Message = "Sepetiniz başarıyla güncellendi." });
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            await Mediator.Send(new DeleteCartCommand() { UserId = userId, CartItemId = id });
+            return Ok(new { Message = "İlgili ürün sepetinizden başarıyla kaldırıldı." });
         }
         [NonAction]
         public string GetImageByHelper(string imageName)
