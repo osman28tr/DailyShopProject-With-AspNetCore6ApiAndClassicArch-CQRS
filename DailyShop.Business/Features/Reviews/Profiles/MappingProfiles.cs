@@ -6,17 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DailyShop.Business.Features.Products.Models;
+using Core.Security.Entities;
 
 namespace DailyShop.Business.Features.Reviews.Profiles
 {
-    public class MappingProfiles:Profile
+    public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {
             CreateMap<Review, GetListReviewByUserIdDto>()
                 .ForMember(r => r.Date, opt => opt.MapFrom(c => c.CreatedAt))
+                //.AfterMap((src, dest, context) => dest.Product = context.Mapper.Map<GetListReviewByProductViewModel, Product>(src))
                 .ReverseMap();
-
             CreateMap<Review, InsertedReviewDto>().ReverseMap();
         }
     }

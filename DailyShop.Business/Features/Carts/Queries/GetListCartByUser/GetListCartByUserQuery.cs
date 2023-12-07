@@ -39,6 +39,7 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
 
                 if (cartItems == null)
                     throw new BusinessException("Sepetinizde hiçbir ürün yok.");
+                
 
                 var mappedCartItem = new List<GetListCartByUserViewModel>();
 
@@ -51,22 +52,7 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                             Quantity = cartItem.Quantity,
                             Id = cartItem.Id,
                         };
-                        cartItemModel.Product.Id = cartItem.ProductId;
-                        cartItemModel.Product.Price = cartItem.Product.Price;
-                        cartItemModel.Product.Stock = cartItem.Product.Stock;
-                        cartItemModel.Product.Rating = cartItem.Product.Rating;
-                        cartItemModel.Quantity = cartItem.Quantity;
-                        cartItemModel.Product.Name = cartItem.Product.Name;
                         cartItemModel.Product.BodyImage = cartItem.Product.BodyImage;
-                        cartItemModel.Product.CategoryId = cartItem.Product.CategoryId;
-                        cartItemModel.Product.Description = cartItem.Product.Description;
-                        cartItemModel.Product.Status = cartItem.Product.Status;
-                        cartItemModel.Product.Date = cartItem.Product.CreatedAt;
-                        cartItemModel.Product.IsDeleted = cartItem.Product.IsDeleted;
-                        cartItemModel.Product.IsApproved = cartItem.Product.IsApproved;
-                        cartItemModel.Product.Color = cartItem.Color;
-                        cartItemModel.Product.Size = cartItem.Size;
-
                         foreach (var review in cartItem.Product.Reviews)
                         {
                             GetListReviewByProductViewModel cartItemReview = new()

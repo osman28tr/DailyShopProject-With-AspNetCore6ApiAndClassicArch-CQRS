@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using DailyShop.Business.Features.Reviews.Models;
 
 namespace DailyShop.Business.Features.Reviews.Dtos
 {
@@ -14,7 +15,7 @@ namespace DailyShop.Business.Features.Reviews.Dtos
         public string? Name { get; set; }
         [JsonPropertyName("rating")]
         public byte? Rating { get; set; }
-        [JsonPropertyName("description")]
+        [JsonPropertyName("comment")]
         public string? Description { get; set; }
         [JsonPropertyName("avatar")]
         public string? Avatar { get; set; }
@@ -23,7 +24,7 @@ namespace DailyShop.Business.Features.Reviews.Dtos
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }
         [JsonPropertyName("product")]
-        public Product? Product { get; set; }
+        public GetListReviewByProduct? Product { get; set; }
         [JsonPropertyName("appuser")]
         public AppUser? AppUser { get; set; }
     }
