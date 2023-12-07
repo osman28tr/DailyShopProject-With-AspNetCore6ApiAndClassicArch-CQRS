@@ -16,7 +16,10 @@ namespace DailyShop.Business.Features.Reviews.Profiles
         public MappingProfiles()
         {
             CreateMap<Review, GetListReviewByUserIdDto>()
-                .ForMember(r => r.Date, opt => opt.MapFrom(c => c.CreatedAt))
+                .ForMember(r => r.CreatedAt, opt => opt.MapFrom(c => c.CreatedAt))
+                .ForPath(x => x.Product.Name, opt => opt.MapFrom(src => src.Product.Name))
+                .ForPath(x => x.Product.Id, opt => opt.MapFrom(src => src.Product.Id))
+                .ForPath(x => x.Product.BodyImage, opt => opt.MapFrom(src => src.Product.BodyImage))
                 //.AfterMap((src, dest, context) => dest.Product = context.Mapper.Map<GetListReviewByProductViewModel, Product>(src))
                 .ReverseMap();
             CreateMap<Review, InsertedReviewDto>().ReverseMap();

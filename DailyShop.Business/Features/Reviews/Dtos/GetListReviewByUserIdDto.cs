@@ -15,7 +15,7 @@ namespace DailyShop.Business.Features.Reviews.Dtos
         public byte? Rating { get; set; }
         [JsonPropertyName("comment")]
         public string? Description { get; set; }
-        [JsonPropertyName("avatar")]
+        [JsonPropertyName("status")]
         public string? Status { get; set; }
         [JsonPropertyName("date")]
         public DateTime CreatedAt { get; set; }

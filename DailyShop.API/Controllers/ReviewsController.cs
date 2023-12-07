@@ -14,14 +14,20 @@ namespace DailyShop.API.Controllers
     public class ReviewsController : BaseTokenController
     {
         private readonly IAuthService _authService;
-        public ReviewsController(IAuthService authService)
+        private readonly ImageHelper _imageHelper;
+        public ReviewsController(IAuthService authService, ImageHelper imageHelper)
         {
             _authService = authService;
+            _imageHelper = imageHelper;
         }
-        [HttpGet("GetListByUserId?UserId={userId}")]
-        public async Task<IActionResult> GetListByUserId(int userId)
+        [HttpGet("GetListByUserId")]
+        public async Task<IActionResult> GetListByUserId([FromQuery] int userId)
         {
             var reviews = await Mediator.Send(new GetListReviewByUserIdQuery() { UserId = userId });
+            reviews.ForEach(review =>
+            {
+                review.Product.BodyImage = GetImageByHelper(review.Product.BodyImage);
+            });
             return Ok(new { message = "Kullanıcının yorumları getirildi.", data = reviews });
         }
 
@@ -32,6 +38,12 @@ namespace DailyShop.API.Controllers
             await Mediator.Send(new InsertReviewCommand()
                 { ProductId = id, UserId = userId, InsertedReviewDto = insertedReviewDto });
             return Ok(new { message = "Yorumunuz onaylanmak üzere sisteme gönderilmiştir." });
+        }
+        [NonAction]
+        public string GetImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
         }
     }
 }
