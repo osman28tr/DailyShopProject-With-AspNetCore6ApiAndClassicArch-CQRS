@@ -19,9 +19,10 @@ namespace DailyShop.API.Controllers
             _authService = authService;
         }
         [HttpGet("GetListByUserId")]
-        public async Task<IActionResult> GetListByUserId([FromQuery] GetListReviewByUserIdQuery getListReviewByUserIdQuery)
+        public async Task<IActionResult> GetListByUserId()
         {
-            var reviews = await Mediator.Send(getListReviewByUserIdQuery);
+            int userId = _authService.VerifyToken(GetToken());
+            var reviews = await Mediator.Send(new GetListReviewByUserIdQuery() { UserId = userId });
             return Ok(reviews);
         }
 
@@ -31,7 +32,7 @@ namespace DailyShop.API.Controllers
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertReviewCommand()
                 { ProductId = id, UserId = userId, InsertedReviewDto = insertedReviewDto });
-            return Ok("Yorumunuz onaylanmak üzere sisteme gönderilmiştir.");
+            return Ok(new { message = "Yorumunuz onaylanmak üzere sisteme gönderilmiştir." });
         }
     }
 }

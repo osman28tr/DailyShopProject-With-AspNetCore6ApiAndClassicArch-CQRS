@@ -1,5 +1,6 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Carts.Commands.InsertCart;
+using DailyShop.Business.Features.Carts.Commands.UpdateCart;
 using DailyShop.Business.Features.Carts.Dtos;
 using DailyShop.Business.Features.Carts.Queries.GetListCartByUser;
 using DailyShop.Business.Services.AuthService;
@@ -43,6 +44,15 @@ namespace DailyShop.API.Controllers
                 }
             }
             return Ok(new { message = "Sepet verileri getirildi.", data = cartItems });
+        }
+
+        [HttpPut("Update/{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdatedCartItemDto updatedCartItemDto)
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            await Mediator.Send(new UpdateCartCommand()
+                { UpdatedCartItemDto = updatedCartItemDto, CartItemId = id, UserId = userId });
+            return Ok(new { Message = "Sepetiniz başarıyla güncellendi." });
         }
         [NonAction]
         public string GetImageByHelper(string imageName)

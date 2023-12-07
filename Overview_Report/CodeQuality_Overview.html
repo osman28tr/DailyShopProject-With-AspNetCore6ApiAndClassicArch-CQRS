@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>DailyShop Overview</title>
+    <style>
+        #mainCenter {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #TitleContainer {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid #d1cfcf;
+            justify-content: space-between;
+        }
+
+        .LineChart {
+            width: 100%;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        #ProjectName {
+            font-size: 19px;
+            font-weight: 900;
+            height: 50px;
+            line-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainCenter">
+        <div id="TitleContainer">
+            <div id="ProjectName">DailyShop</div>
+        </div>
+        <div id="LineChartBox">
+            <div class="LineChart" id="CodeMetricsChart" />
+        </div>
+        <div id="LineChartBox">
+            <div class="LineChart" id="TestMetricsChart" />
+        </div>
+    </div>
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        })
+
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                //var maintainChart = ec.init(document.getElementById("MaintainabilityChart"));
+                //var cyclochart = ec.init(document.getElementById("CyclomaticChart"));
+                var metricsChart = ec.init(document.getElementById("CodeMetricsChart"));
+                var testMetricsChart = ec.init(document.getElementById("TestMetricsChart"));
+
+                var testMetricsOption = {
+                    title: {
+                        text: "Overall Test Cases and Line Coverage"
+                    },
+                    tooltip: {
+                        trigger: "axis",
+                        axisPointer: {
+                            type: "cross",
+                            crossStyle: {
+                                color: "#999"
+                            }
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: { show: true },
+                            magicType: { show: true, type: ['line', 'bar'] }
+                        }
+                    },
+                    legend: {
+                        data: ["Test Cases", "Line Coverage"]
+                    },
+                    xAxis: [{
+                        type: "category",
+                        data: ["05/12/2023"],
+                        //data: ["27/08/2022", "28/08/2022", "29/08/2022", "30/08/2022", "31/08/2022"],
+                        axisPointer: {
+                            type: "shadow"
+                        }
+                    }],
+                    yAxis: [
+                        {
+                            type: "value",
+                            name: "Test Cases",
+                            position: "right"
+                        },
+                        {
+                            type: "value",
+                            name: "Line Coverage",
+                            interval: 20,
+                            axisLabel: {
+                                formatter: "{value} %"
+                            },
+                            position: "left"
+                        }
+                    ],
+                    series: [
+                        {
+                            name: "Line Coverage",
+                            type: "line",
+                            //tooltip: {
+                            //    valueFormatter: function (value) {
+                            //        return "value" + "%";
+                            //    }
+                            //},
+                            data: [100 ],
+                            //data:[75, 85, 90, 95, 100],
+                            yAxisIndex: 1
+                        },
+                        {
+                            name: "Test Cases",
+                            type: "bar",
+                            data: [2]
+                            //data:[20, 23, 25, 28, 30]
+                        }
+                    ]
+                };
+
+                // for some reason calling too many plots is showing an Maximum call stack error
+                // so this code will not be used in deployment
+                //var maintainOption = {
+                //    title: {
+                //        text: "Overall Maintainability Index"
+                //    },
+                //    tooltip: {
+                //        trigger: "axis",
+                //        axisPointer: {
+                //            type: "cross"
+                //        }
+                //    },
+                //    toolbox: {
+                //        feature: {
+                //            restore: { show: true }
+                //        }
+                //    },
+                //    legend: {
+                //        data: ['Maintainability Index']
+                //    },
+                //    xAxis: [{
+                //        type: "category",
+                //        data: ["05/12/2023"],
+                //        name: "Date",
+                //    }],
+                //    yAxis: [
+                //        {
+                //            type: "value",
+                //            name: "Maintainability Index",
+                //            position: "left",
+                //            axisLabel: {
+                //                formatter: "{value} %"
+                //            }
+                //        }
+                //    ],
+                //    series: [
+                //        {
+                //            name: "Maintainability Index",
+                //            type: "line",
+                //            data: [2],
+                //            color: "#CC0066"
+                //        }
+                //    ]
+
+                //};
+
+                //var cycloOption = {
+                //    title: {
+                //        text: "Overall Cyclomatic Complexity"
+                //    },
+                //    tooltip: {
+                //        trigger: "axis",
+                //        axisPointer: {
+                //            type: "cross"
+                //        }
+                //    },
+                //    toolbox: {
+                //        feature: {
+                //            restore: { show: true }
+                //        }
+                //    },
+                //    legend: {
+                //        data: ['Cyclomatic Complexity']
+                //    },
+                //    xAxis: [{
+                //        type: "category",
+                //        data: ["05/12/2023"],
+                //        name: "Date",
+                //    }],
+                //    yAxis: [
+                //        {
+                //            type: "value",
+                //            name: "Cyclomatic Complexity",
+                //            position: "left",
+                //            axisLabel: {
+                //                formatter: "{value}"
+                //            }
+                //        }
+                //    ],
+                //    series: [
+                //        {
+                //            name: "Cyclomatic Complexity",
+                //            type: "line",
+                //            data: [2],
+                //            color: "#CC0066"
+                //        }
+                //    ]
+                //};
+
+                var metricsOption = {
+                    title: {
+                        text: "Overall Code Metrics"
+                    },
+                    tooltip: {
+                        trigger: "axis",
+                        axisPointer: {
+                            type: "cross"
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: { show: true }
+                        }
+                    },
+                    legend: {
+                        data: ['Depth of Inheritance', 'Class Coupling', 'Maintainability Index', 'Cyclomatic Complexity']
+                    },
+                    grid: {
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: "category",
+                        data: ["05/12/2023"],
+                        name: "Date",
+                        position: "left",
+                    },
+                    yAxis: {
+                        type: "value",
+                        name: "Code Metrics",
+                        position: "left"
+                    },
+                    series: [
+                        {
+                            name: "Depth of Inheritance",
+                            type: "bar",
+                            data: [2]
+                        },
+                        {
+                            name: "Class Coupling",
+                            type: "bar",
+                            data: [2]
+                        },
+                        {
+                            name: "Maintainability Index",
+                            type: "bar",
+                            data: [2]
+                        },
+                        {
+                            name: "Cyclomatic Complexity",
+                            type: "bar",
+                            data: [2]
+                        }
+                    ]
+                };
+
+                //maintainChart.setOption(maintainOption);
+                //cyclochart.setOption(cycloOption);
+                metricsChart.setOption(metricsOption);
+                testMetricsChart.setOption(testMetricsOption);
+
+                //window.addEventListener("resize", maintainChart.resize);
+                //window.addEventListener("resize", cyclochart.resize);
+                window.addEventListener("resize", metricsChart.resize);
+                window.addEventListener("resize", testMetricsChart.resize);
+            }
+        );
+
+    </script>
+</body>
+</html>

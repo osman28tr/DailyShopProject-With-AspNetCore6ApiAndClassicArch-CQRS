@@ -8,5 +8,6 @@ namespace DailyShop.Business.Features.Carts.Dtos
 {
     public class UpdatedCartItemDto
     {
+        public int Quantity { get; set; }
     }
 }
