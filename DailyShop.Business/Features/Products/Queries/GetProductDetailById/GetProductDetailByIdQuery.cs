@@ -10,6 +10,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetProductDetailById;
 public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 {
     public int ProductId { get; set; }
+    public string Role { get; set; }
 
     public class
         GetByIdProductDetailQueryHandler : IRequestHandler<GetProductDetailByIdQuery, GetProductDetailByIdViewModel>
@@ -28,7 +29,7 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
         {
             var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c => c.Color).Include(s => s.Sizes).ThenInclude(s => s.Size).Include(pi => pi.ProductImages).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (product?.IsApproved == null || (bool)!product.IsApproved)
+            if ((product?.IsApproved == null || (bool)!product.IsApproved) && request.Role != "admin")
             {
                 throw new BusinessException("Ürün onaylanmamıştır.");
             }

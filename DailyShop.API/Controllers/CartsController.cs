@@ -38,11 +38,6 @@ namespace DailyShop.API.Controllers
             foreach (var cartItem in cartItems)
             {
                 cartItem.Product.BodyImage = GetImageByHelper(cartItem.Product.BodyImage);
-                if (cartItem.Product.ProductImages != null)
-                {
-                    cartItem.Product.ProductImages = cartItem.Product.ProductImages.Select(x =>
-                        GetImageByHelper(x)).ToList();
-                }
             }
             return Ok(new { message = "Sepet verileri getirildi.", data = cartItems });
         }

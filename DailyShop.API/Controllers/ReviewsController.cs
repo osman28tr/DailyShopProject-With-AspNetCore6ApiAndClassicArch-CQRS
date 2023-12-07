@@ -18,10 +18,9 @@ namespace DailyShop.API.Controllers
         {
             _authService = authService;
         }
-        [HttpGet("GetListByUserId")]
-        public async Task<IActionResult> GetListByUserId()
+        [HttpGet("GetListByUserId?UserId={userId}")]
+        public async Task<IActionResult> GetListByUserId(int userId)
         {
-            int userId = _authService.VerifyToken(GetToken());
             var reviews = await Mediator.Send(new GetListReviewByUserIdQuery() { UserId = userId });
             return Ok(reviews);
         }
