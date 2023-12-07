@@ -28,12 +28,6 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                 CancellationToken cancellationToken)
             {
                 var cartItems = await _cartRepository.Query().Where(c => c.UserId == request.UserId)
-                    .Include(ci => ci.CartItems).ThenInclude(p => p.Product).ThenInclude(pi => pi.ProductImages)
-                    .Include(ci => ci.CartItems).ThenInclude(p => p.Product).ThenInclude(product => product.Colors)
-                    .ThenInclude(c => c.Color)
-                    .Include(ci => ci.CartItems).ThenInclude(p => p.Product).ThenInclude(product => product.Sizes)
-                    .ThenInclude(c => c.Size)
-                    .Include(ci => ci.CartItems).ThenInclude(p => p.Product).ThenInclude(product => product.Reviews)
                     .Include(c => c.CartItems)
                     .ToListAsync(cancellationToken: cancellationToken);
 
@@ -51,22 +45,12 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                         {
                             Quantity = cartItem.Quantity,
                             Id = cartItem.Id,
+                            Color = cartItem.Color,
+                            Size = cartItem.Size
                         };
                         cartItemModel.Product.BodyImage = cartItem.Product.BodyImage;
-                        foreach (var review in cartItem.Product.Reviews)
-                        {
-                            GetListReviewByProductViewModel cartItemReview = new()
-                            {
-                                Name = review.Name,
-                                ReviewAvatar = review.Avatar,
-                                ReviewRating = review.Rating,
-                                ReviewDescription = review.Description,
-                                ReviewStatus = review.Status,
-                                ReviewCreatedDate = review.CreatedAt,
-                                ReviewUpdatedDate = review.UpdatedAt
-                            };
-                            cartItemModel.Product.Reviews.Add(cartItemReview);
-                        }
+                        cartItemModel.Product.Name = cartItem.Product.Name;
+                        cartItemModel.Product.Price = cartItem.Product.Price;
                         mappedCartItem.Add(cartItemModel);
                     }
                 });

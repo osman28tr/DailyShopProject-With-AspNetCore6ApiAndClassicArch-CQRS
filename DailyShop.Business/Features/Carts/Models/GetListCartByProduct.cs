@@ -11,14 +11,13 @@ namespace DailyShop.Business.Features.Carts.Models
 {
     public class GetListCartByProduct
     {
-        public GetListCartByProduct()
-        {
-            ProductImages = new List<string>();
-            Reviews = new List<GetListReviewByProductViewModel>();
-        }
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+        [JsonPropertyName("price")]
+        public decimal? Price { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
         [JsonPropertyName("image")]
         public string? BodyImage { get; set; }
-        public ICollection<string>? ProductImages { get; set; }
-        public ICollection<GetListReviewByProductViewModel>? Reviews { get; set; }
     }
 }
