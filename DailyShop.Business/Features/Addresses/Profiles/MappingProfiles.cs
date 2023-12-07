@@ -16,11 +16,7 @@ namespace DailyShop.Business.Features.Addresses.Profiles
         public MappingProfiles()
         {
             //CreateMap<List<Address>,List<AddressListByUserIdDto>>().ReverseMap();
-            CreateMap<Address, AddressListByUserIdDto>().ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.AppUser.FirstName))
-                .ForMember(c => c.LastName, opt => opt.MapFrom(c => c.AppUser.LastName))
-                .ForMember(c => c.Email, opt => opt.MapFrom(c => c.AppUser.Email))
-                .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(c => c.AppUser.PhoneNumber))
-                .ForMember(c => c.ProfileImage, opt => opt.MapFrom(c => c.AppUser.ProfileImage))
+            CreateMap<Address, AddressListByUserIdDto>()
                 .ReverseMap();
             CreateMap<Address,UpdateAddressCommand>().ReverseMap();
             CreateMap<Address, UpdatedAddressDto>().ReverseMap();

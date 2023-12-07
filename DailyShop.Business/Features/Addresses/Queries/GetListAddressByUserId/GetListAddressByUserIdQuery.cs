@@ -27,8 +27,9 @@ namespace DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId
 			}
 
 			public async Task<List<AddressListByUserIdDto>> Handle(GetListAddressByUserIdQuery request, CancellationToken cancellationToken)
-			{
-				List<Address> addresses = await _addressRepository.Query().Where(a => a.AppUserId == request.Id).Include(t => t.AppUser).ToListAsync();
+            {
+                List<Address> addresses =
+                    await _addressRepository.Query().Where(a => a.AppUserId == request.Id).ToListAsync();
 				var addressListDto = _mapper.Map<List<AddressListByUserIdDto>>(addresses);
 				return addressListDto;
 			}

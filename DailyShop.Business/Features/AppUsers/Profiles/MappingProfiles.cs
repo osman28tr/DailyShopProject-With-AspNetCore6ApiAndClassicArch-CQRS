@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.AppUsers.Profiles
 {
-    public class MappingProfiles:Profile
+    public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {
-            CreateMap<AppUser, GetListUserDto>().ReverseMap();
+            CreateMap<AppUser, GetListUserDto>()
+                .ForMember(x => x.Reviews, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<AppUser, UpdatedUserDto>().ReverseMap();
         }
     }
