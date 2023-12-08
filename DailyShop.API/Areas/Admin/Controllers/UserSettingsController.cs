@@ -3,6 +3,7 @@ using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
 using DailyShop.Business.Features.AppUsers.Dtos;
 using DailyShop.Business.Features.AppUsers.Queries.GetListUser;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
+    [Authorize]
     public class UserSettingsController : BaseController
     {
         [HttpGet("Index")]

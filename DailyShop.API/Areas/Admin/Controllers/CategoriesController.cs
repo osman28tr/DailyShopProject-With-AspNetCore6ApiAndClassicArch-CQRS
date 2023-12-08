@@ -6,6 +6,7 @@ using DailyShop.Business.Features.Categories.Dtos;
 using DailyShop.Business.Features.Categories.Models;
 using DailyShop.Business.Features.Categories.Queries.GetListCategory;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : BaseController
     {
         [HttpGet("Index")]

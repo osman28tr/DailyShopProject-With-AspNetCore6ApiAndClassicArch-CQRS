@@ -10,6 +10,7 @@ using DailyShop.Business.Features.Products.Models;
 using DailyShop.Business.Features.Products.Queries.GetListProductByCategoryAndIsDelete;
 using DailyShop.Business.Features.Products.Queries.GetProductDetailById;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
 
 namespace DailyShop.API.Controllers

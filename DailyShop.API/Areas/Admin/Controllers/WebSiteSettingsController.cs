@@ -1,6 +1,7 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSetting;
 using DailyShop.Business.Features.WebSiteSettings.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
+    [Authorize]
     public class WebSiteSettingsController : BaseController
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

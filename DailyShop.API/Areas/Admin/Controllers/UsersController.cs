@@ -3,6 +3,7 @@ using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
 using DailyShop.Entities.Concrete;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly ImageHelper _imageHelper;
