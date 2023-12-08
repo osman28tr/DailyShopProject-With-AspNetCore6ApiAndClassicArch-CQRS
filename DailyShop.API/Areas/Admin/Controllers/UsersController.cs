@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DailyShop.API.Areas.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Admin/[controller]")]
     [Area("Admin")]
     [ApiController]
     public class UsersController : BaseController

@@ -25,7 +25,10 @@ namespace DailyShop.Business.Features.AppUsers.Commands.BlockUser
             public async Task<string> Handle(BlockUserCommand request, CancellationToken cancellationToken)
             {
                 AppUser blockedUser = await _appUserRepository.GetAsync(a => a.Id == request.BlockedUserDto.Id);
-                blockedUser.Status = false;
+                if (blockedUser.Status == true)
+                    blockedUser.Status = false;
+                else
+                    blockedUser.Status = true;
                 await _appUserRepository.UpdateAsync(blockedUser);
                 return "Kullanıcı başarıyla engellendi.";
             }

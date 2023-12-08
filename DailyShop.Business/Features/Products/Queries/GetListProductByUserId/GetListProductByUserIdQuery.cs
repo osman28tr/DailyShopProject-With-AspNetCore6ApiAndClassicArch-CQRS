@@ -29,10 +29,19 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByUserId
             public async Task<List<GetListProductByUserIdViewModel>> Handle(GetListProductByUserIdQuery request, CancellationToken cancellationToken)
             {
                 var products = await _productRepository.Query().Where(p => p.UserId == request.UserId)
-                    .Include(u=>u.User)
-                    .Include(c => c.ProductImages).Include(r => r.Reviews).ThenInclude(ap=>ap.AppUser).Include(c => c.Colors)
+                    .Include(u => u.User)
+                    .Include(c => c.ProductImages).Include(r => r.Reviews).ThenInclude(ap => ap.AppUser).Include(c => c.Colors)
                     .ThenInclude(c => c.Color)
                     .Include(s => s.Sizes).ThenInclude(s => s.Size).ToListAsync();
+
+                //var products = await _productRepository.Query().Where(p => p.UserId == request.UserId)
+                //    .Include(u => u.User).ToListAsync();
+
+                //var productImages = products.AsQueryable().Include(x => x.ProductImages).LoadAsync();
+                //var reviews = products.AsQueryable().Include(x => x.Reviews).LoadAsync();
+                //var colors = products.AsQueryable().Include(x=>x.Colors).ThenInclude(x=>x.Color).LoadAsync();
+                //var sizes = products.AsQueryable().Include(x => x.Sizes).ThenInclude(x => x.Size).LoadAsync();
+
 
                 if (products == null) throw new BusinessException("Bu kullanıcıya ait bir ürün bulunamadı.");
 
