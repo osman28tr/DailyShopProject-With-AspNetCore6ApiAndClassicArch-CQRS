@@ -14,7 +14,7 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProductStatus
     public class UpdateProductStatusCommand:IRequest
     {
         public int ProductId { get; set; }
-        public bool Status { get; set; }
+        public bool IsApproved { get; set; }
         public class UpdateProductStatusCommandHandler:IRequestHandler<UpdateProductStatusCommand>
         {
             private readonly IProductRepository _productRepository;
@@ -29,13 +29,9 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProductStatus
                 if (product == null)
                     throw new BusinessException("Böyle bir ürün bulunamadı.");
 
-                if (request.Status == null)
-                    product.Status = "Onay bekliyor.";
-                else if (request.Status == true)
-                    product.Status = "Onaylandı.";
-                else
-                    product.Status = "Onaylanmadı.";
-                await _productRepository.UpdateAsync(product);
+                product.IsApproved = request.IsApproved;
+                product.UpdatedAt = DateTime.Now;
+                await _productRepository.UpdateAsync(product)
             }
         }
     }
