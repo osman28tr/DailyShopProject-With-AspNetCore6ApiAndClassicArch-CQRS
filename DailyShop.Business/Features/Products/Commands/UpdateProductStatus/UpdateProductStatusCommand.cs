@@ -31,7 +31,7 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProductStatus
 
                 product.IsApproved = request.IsApproved;
                 product.UpdatedAt = DateTime.Now;
-                await _productRepository.UpdateAsync(product)
+                await _productRepository.UpdateAsync(product);
             }
         }
     }
