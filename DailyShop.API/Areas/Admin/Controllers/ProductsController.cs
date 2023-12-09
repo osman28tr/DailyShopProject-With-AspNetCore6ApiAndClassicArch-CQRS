@@ -14,10 +14,10 @@ namespace DailyShop.API.Areas.Admin.Controllers
     public class ProductsController : BaseController
     {
         [HttpPut("UpdateStatus/{id}")]
-        public async Task<IActionResult> UpdateStatus(int id,bool isApproved)
+        public async Task<IActionResult> UpdateStatus(int id,bool status)
         {
             await Mediator.Send(new UpdateProductStatusCommand()
-                { ProductId = id, IsApproved = isApproved });
+                { ProductId = id, Status = status });
             return Ok(new { Message = "Ürün durumu başarıyla güncellendi." });
         }
     }
