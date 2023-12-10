@@ -135,7 +135,7 @@ namespace DailyShop.API.Controllers
                     DeleteImage(productImage);
                 }
             }
-            return Ok(new { message = "Ürün başarıyla silindi." });
+            return Ok(new { message = $"{deletedProduct.Name} adlı ürün başarıyla silindi." });
         }
         private async Task<string> AddProductImageToFile(IFormFile imageFile)
         {

@@ -8,6 +8,7 @@ namespace DailyShop.Business.Features.Products.Models
 {
     public class DeleteProductViewModel
     {
+        public string Name { get; set; }
         public string BodyImage { get; set; }
         public List<string> ProductImages { get; set; }
     }

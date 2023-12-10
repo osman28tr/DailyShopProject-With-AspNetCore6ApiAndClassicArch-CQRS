@@ -32,7 +32,9 @@ namespace DailyShop.Business.Features.Products.Commands.DeleteProduct
                     .Include(pi => pi.ProductImages).FirstOrDefaultAsync();
                 if (deletedProduct != null)
                 {
-                    await _productRepository.DeleteAsync(deletedProduct, false);
+                    deletedProduct.IsDeleted = true;
+                    deletedProduct.UpdatedAt = DateTime.Now;
+                    await _productRepository.UpdateAsync(deletedProduct);
                     var mappedDeletedProduct = _mapper.Map<DeleteProductViewModel>(deletedProduct);
                     return mappedDeletedProduct;
                 }
