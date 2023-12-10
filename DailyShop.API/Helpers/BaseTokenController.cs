@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace DailyShop.API.Helpers
 {
@@ -10,6 +11,10 @@ namespace DailyShop.API.Helpers
         protected string GetToken()
         {
             var authorization = Request.Headers.Authorization;
+            if (authorization == StringValues.Empty)
+            {
+                return null;
+            }
             var token = authorization.ToString().Split(" ")[1];
             return token;
         }

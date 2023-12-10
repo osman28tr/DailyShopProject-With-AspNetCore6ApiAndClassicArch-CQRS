@@ -33,9 +33,9 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 
             var user = await _appUserRepository.Query().FirstOrDefaultAsync(x => x.Id == request.UserId);
 
-            if ((product?.IsApproved == null || (bool)!product.IsApproved) && user.Role == "admin")
+            if ((product?.IsApproved == null || (bool)!product.IsApproved) || product.IsDeleted == true)
             {
-                if ((user == null) || user.Role != "admin")
+                if (((user != null) && user.Role != "admin") || user == null)
                 {
                     throw new BusinessException("Ürün onaylanmamıştır.");
                 }

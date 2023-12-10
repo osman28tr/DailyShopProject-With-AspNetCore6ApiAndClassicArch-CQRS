@@ -92,8 +92,12 @@ namespace DailyShop.API.Controllers
         [HttpGet("{productId:int}")]
         public async Task<IActionResult> GetProductById(int productId)
         {
-            int userId = _authService.VerifyToken(GetToken());
-
+            int userId = 0;
+            if (GetToken() != null)
+            {
+                userId = _authService.VerifyToken(GetToken());
+            }
+            
             var productValues = await Mediator?.Send(new GetProductDetailByIdQuery()
                 { ProductId = productId, UserId = userId })!;
 
