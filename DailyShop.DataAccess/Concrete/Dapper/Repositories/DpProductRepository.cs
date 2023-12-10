@@ -14,7 +14,7 @@ namespace DailyShop.DataAccess.Concrete.Dapper.Repositories
 {
     public class DpProductRepository:IDpProductRepository
     {
-        private SqlConnection connection = new SqlConnection(Context.Connection());
+        public SqlConnection connection = new SqlConnection(Context.Connection());
         public async Task<List<string>> GetProductDetailColorByIdAsync(int productId)
         {
             return (await connection.QueryAsync<string>(

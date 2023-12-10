@@ -15,6 +15,7 @@ using System.Text.Json.Serialization;
 using DailyShop.API.Helpers;
 using DailyShop.Business.Middlewares.Auth;
 using DailyShop.Business.Services.AuthService;
+using DailyShop.DataAccess.Concrete.Dapper.Contexts;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -31,7 +32,7 @@ builder.Services.AddDbContext<DailyShopContext>(opt =>
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
 });
 builder.Services.AddPersistanceRegistration();
-
+builder.Services.GetConfiguration(builder.Configuration);
 builder.Services.AddScoped<DbContext, DailyShopContext>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

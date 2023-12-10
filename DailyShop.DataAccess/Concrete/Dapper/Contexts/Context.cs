@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DailyShop.DataAccess.Concrete.Dapper.Contexts
 {
-    public class Context
+    public static class Context
     {
+        private static IConfiguration Configuration { get; set; }
+
+        public static IServiceCollection GetConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            Configuration = configuration;
+            return services;
+        }
         public static string Connection()
         {
-            return "Data Source=DESKTOP-7LR4Q85\\SQLEXPRESS;Initial Catalog=DailyShopDb;Integrated Security=true;TrustServerCertificate=true;";
+            return Configuration.GetConnectionString("MSSQL");
         }
     }
 }
