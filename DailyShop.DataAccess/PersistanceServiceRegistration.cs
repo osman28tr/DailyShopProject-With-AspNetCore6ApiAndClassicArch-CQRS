@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DailyShop.Business.Services.Repositories.Dapper;
+using DailyShop.DataAccess.Concrete.Dapper.Repositories;
 
 namespace DailyShop.DataAccess
 {
@@ -27,6 +29,7 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IReviewRepository, ReviewRepository>();
 			services.AddScoped<IWebSiteSettingRepository, WebSiteSettingRepository>();
 			services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IDpProductRepository, DpProductRepository>();
 			
 			return services;
 		}
