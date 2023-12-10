@@ -19,7 +19,7 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
         private readonly IAppUserRepository _appUserRepository;
         private readonly IMapper _mapper;
 
-        public GetByIdProductDetailQueryHandler(IProductRepository productRepository,IAppUserRepository appUserRepository, IMapper mapper)
+        public GetByIdProductDetailQueryHandler(IProductRepository productRepository, IAppUserRepository appUserRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _appUserRepository = appUserRepository;
@@ -33,9 +33,12 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 
             var user = await _appUserRepository.Query().FirstOrDefaultAsync(x => x.Id == request.UserId);
 
-            if ((product?.IsApproved == null || (bool)!product.IsApproved) && user.Role != "admin")
+            if ((product?.IsApproved == null || (bool)!product.IsApproved) && user.Role == "admin")
             {
-                throw new BusinessException("Ürün onaylanmamıştır.");
+                if ((user == null) || user.Role != "admin")
+                {
+                    throw new BusinessException("Ürün onaylanmamıştır.");
+                }
             }
 
             if (product == null) throw new BusinessException("Ürün bulunamadı veya kaldırıldı.");
