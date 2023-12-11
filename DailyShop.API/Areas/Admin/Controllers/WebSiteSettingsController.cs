@@ -1,6 +1,7 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSetting;
 using DailyShop.Business.Features.WebSiteSettings.Dtos;
+using DailyShop.Business.Features.WebSiteSettings.Queries.GetWebSiteSetting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,20 +16,35 @@ namespace DailyShop.API.Areas.Admin.Controllers
     public class WebSiteSettingsController : BaseController
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ImageHelper _imageHelper;
 
-        public WebSiteSettingsController(IWebHostEnvironment webHostEnvironment)
+        public WebSiteSettingsController(IWebHostEnvironment webHostEnvironment, ImageHelper imageHelper)
         {
             _webHostEnvironment = webHostEnvironment;
+            _imageHelper = imageHelper;
         }
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdatedWebSiteSettingDto updatedWebSiteSettingDto)
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            //string siteIconPath = await AddWebSiteImageToFile(updatedWebSiteSettingDto.Icon);
+			var result = await Mediator.Send(new GetWebSiteSettingQuery());
+            result.SiteIcon = GetImageByHelper(result.SiteIcon);
+			return Ok(new { data = result , message = "Site ayarları başarıyla getirildi." });
+		}
 
-            //string result = await Mediator.Send(new UpdateWebSiteSettingCommand()
-            //    { UpdatedWebSiteSettingDto = updatedWebSiteSettingDto, SiteIconPath = siteIconPath });
 
-            return Ok("new { message = result }");
+        [HttpPut]
+        public async Task<IActionResult> Update([FromForm] UpdatedWebSiteSettingDto updatedWebSiteSettingDto)
+        {
+			string siteIconPath = null;
+
+			if (updatedWebSiteSettingDto.SiteIcon != null)
+			    siteIconPath = await AddWebSiteImageToFile(updatedWebSiteSettingDto.SiteIcon);
+
+            string result = await Mediator.Send(new UpdateWebSiteSettingCommand()
+            { UpdatedWebSiteSettingDto = updatedWebSiteSettingDto, SiteIconPath = siteIconPath });
+
+            return Ok(new { message = result });
         }
         private async Task<string> AddWebSiteImageToFile(IFormFile imageFile)
         {
@@ -41,5 +57,11 @@ namespace DailyShop.API.Areas.Admin.Controllers
             }
             return imageName;
         }
-    }
+        [NonAction]
+		public string GetImageByHelper(string imageName)
+		{
+			string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName , "WebSiteIcons");
+			return getImage;
+		}
+	}
 }

@@ -14,15 +14,14 @@ namespace DailyShop.Business.Features.WebSiteSettings.Dtos
         [JsonPropertyName("id")]
         public int Id { get; set; }
         [JsonPropertyName("about")]
-        public string? HtmlContent { get; set; }
+        public string? About { get; set; }
         [JsonPropertyName("email")]
         public string? Email { get; set; }
         [JsonPropertyName("phone")]
         public string? Phone { get; set; }
         [JsonPropertyName("address")]
-        public string? Adres { get; set; }
-        //[JsonPropertyName("siteIcon")]
-        //[NotMapped]
-        //public IFormFile? Icon { get; set; }
+        public string? Address { get; set; }
+        [JsonPropertyName("siteIcon")]
+        public IFormFile? SiteIcon { get; set; }
     }
 }
