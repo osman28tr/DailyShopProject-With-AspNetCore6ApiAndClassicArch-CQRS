@@ -30,7 +30,7 @@ namespace DailyShop.Business.Features.Reviews.Commands.InsertReview
                 var addMappedReview = _mapper.Map<Review>(request.InsertedReviewDto);
                 addMappedReview.ProductId = request.ProductId;
                 addMappedReview.AppUserId = request.UserId;
-                addMappedReview.Status = "Yeni";
+                addMappedReview.Status = "New";
                 addMappedReview.CreatedAt = DateTime.Now;
                 addMappedReview.UpdatedAt = DateTime.Now;
                 await _reviewRepository.AddAsync(addMappedReview);

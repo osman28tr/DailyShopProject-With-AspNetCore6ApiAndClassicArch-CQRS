@@ -9,7 +9,6 @@ namespace DailyShop.Business.Features.Products.Models
 {
     public class GetListProductByCategoryAndIsDeleteViewModel:ProductViewModel
     {
-
         //public ICollection<Review>? Reviews { get; set; }
     }
 }
