@@ -29,11 +29,22 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
 
 			public async Task<List<GetListProductByCategoryAndIsDeleteViewModel>> Handle(GetListProductByCategoryAndIsDeleteQuery request, CancellationToken cancellationToken)
 			{
+				// sadece onaylanmış ürünler listelensin ama bakan kişi admin ise onaylanmamış ürünler de listelensin
 				var products = await _productRepository.Query()
-					.Where(p => p.CategoryId == request.CategoryId && (request.IsDeleted == true
-						            ? p.IsDeleted == true || p.IsDeleted == false
-						            : p.IsDeleted == false)
-					).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c=>c.Color).Include(s => s.Sizes).ThenInclude(s=>s.Size).Include(pi => pi.ProductImages).ToListAsync(cancellationToken: cancellationToken);
+					.Where(p => p.CategoryId == request.CategoryId &&
+								(request.IsDeleted == true
+									? p.IsDeleted == true || p.IsDeleted == false
+									: p.IsDeleted == false)
+					)
+					.Include(r => r.Reviews)!
+						.ThenInclude(ru => ru.AppUser)
+					.Include(u => u.User)
+					.Include(c => c.Colors)
+						.ThenInclude(c => c.Color)
+					.Include(s => s.Sizes)
+						.ThenInclude(s => s.Size)
+					.Include(pi => pi.ProductImages)
+					.ToListAsync(cancellationToken: cancellationToken);
 
 				var mappedProduct = _mapper.Map<List<GetListProductByCategoryAndIsDeleteViewModel>>(products);
 
@@ -44,14 +55,18 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
 					{
 						GetListReviewByProductViewModel reviewModel = new()
 						{
-							Name = review.Name,
 							ReviewDescription = review.Description,
 							ReviewRating = review.Rating,
-							ReviewAvatar = review.Avatar,
 							ReviewStatus = review.Status,
 							ReviewCreatedDate = review.CreatedAt,
 							ReviewUpdatedDate = review.UpdatedAt,
-							UserName = review.AppUser?.FirstName + " " + review.AppUser?.LastName
+							Id = review.Id,
+							User = new ReviewUser()
+							{
+								Id = review.AppUser.Id,
+								Name = review.AppUser?.FirstName + " " + review.AppUser?.LastName,
+								Image = review.AppUser?.ProfileImage
+							}
 						};
 						mappedProduct[products.IndexOf(product)].ReviewsModel.Add(reviewModel);
 					}
