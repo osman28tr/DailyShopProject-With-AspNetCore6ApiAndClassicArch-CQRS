@@ -1,6 +1,7 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
+using DailyShop.Business.Features.Reviews.Commands.UpdateStatusReview;
 using DailyShop.Entities.Concrete;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +39,14 @@ namespace DailyShop.API.Areas.Admin.Controllers
             }
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
         }
+
+        [HttpPut("UpdateReviewStatus/{reviewId:int}")]
+        public async Task<IActionResult> UpdateReviewStatus(int reviewId, string status)
+        {
+            await Mediator.Send(new UpdateStatusReviewCommand() { ReviewId = reviewId, Status = status });
+            return Ok(new { Message = "Yorum durumu başarıyla güncellendi." });
+        }
+
         [NonAction]
         public string GetImageByHelper(string imageName)
         {
