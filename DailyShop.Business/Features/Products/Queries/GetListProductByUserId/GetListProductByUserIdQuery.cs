@@ -55,14 +55,18 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByUserId
                         {
                             GetListReviewByProductViewModel reviewModel = new()
                             {
-                                Name = review.Name,
                                 ReviewDescription = review.Description,
                                 ReviewRating = review.Rating,
-                                ReviewAvatar = review.Avatar,
                                 ReviewStatus = review.Status,
                                 ReviewCreatedDate = review.CreatedAt,
                                 ReviewUpdatedDate = review.UpdatedAt,
-                                UserName = review.AppUser.FirstName + " " + review.AppUser.LastName
+                                Id = review.Id,
+                                User = new ReviewUser()
+                                {
+                                    Id = review.AppUser.Id,
+                                    Name = review.AppUser.FirstName + " " + review.AppUser.LastName,
+                                    Image = review.AppUser.ProfileImage
+                                }
                             };
                             mappedProduct.ReviewsModel.Add(reviewModel);
                         }

@@ -9,17 +9,28 @@ namespace DailyShop.Business.Features.Products.Models
 {
     public class GetListReviewByProductViewModel
     {
-        [JsonPropertyName("comment")]
-        public string? Name { get; set; }
-        public string? UserName { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
         [JsonPropertyName("rating")]
         public byte? ReviewRating { get; set; }
+        [JsonPropertyName("comment")]
         public string? ReviewDescription { get; set; }
-        public string? ReviewAvatar { get; set; }
         [JsonPropertyName("status")]
         public string? ReviewStatus { get; set; }
         [JsonPropertyName("date")]
         public DateTime? ReviewCreatedDate { get; set; }
         public DateTime? ReviewUpdatedDate { get; set; }
+        [JsonPropertyName("user")]
+        public ReviewUser? User { get; set; }
     }
+}
+
+public class ReviewUser
+{
+	[JsonPropertyName("id")]
+	public int Id { get; set; }
+	[JsonPropertyName("name")]
+	public string? Name { get; set; }
+	[JsonPropertyName("profileImage")]
+	public string? Image { get; set; }
 }

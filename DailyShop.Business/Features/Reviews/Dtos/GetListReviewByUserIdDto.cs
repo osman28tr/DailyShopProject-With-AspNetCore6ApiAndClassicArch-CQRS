@@ -11,6 +11,8 @@ namespace DailyShop.Business.Features.Reviews.Dtos
 {
     public class GetListReviewByUserIdDto
     {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
         [JsonPropertyName("rating")]
         public byte? Rating { get; set; }
         [JsonPropertyName("comment")]
