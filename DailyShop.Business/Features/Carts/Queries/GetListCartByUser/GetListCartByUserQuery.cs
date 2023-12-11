@@ -28,7 +28,7 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                 CancellationToken cancellationToken)
             {
                 var cartItems = await _cartRepository.Query().Where(c => c.UserId == request.UserId)
-                    .Include(c => c.CartItems)
+                    .Include(c => c.CartItems).ThenInclude(p => p.Product)
                     .ToListAsync(cancellationToken: cancellationToken);
 
                 if (cartItems == null)
