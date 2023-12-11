@@ -79,8 +79,8 @@ namespace DailyShop.Business.Features.Products.Commands.InsertProduct
                     }
                 }
                 product.UserId = request.UserId;
+                product.IsDeleted = false;
                 await _productRepository.AddAsync(product);
-
             }
         }
     }

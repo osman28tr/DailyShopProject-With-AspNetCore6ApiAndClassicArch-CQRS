@@ -30,6 +30,7 @@ namespace DailyShop.Business.Features.Products.Models
         public ICollection<string>? ProductImages { get; set; }
         public ICollection<string>? Colors { get; set; }
         public ICollection<string>? Sizes { get; set; }
+        [JsonPropertyName("reviews")]
         public ICollection<GetListReviewByProductViewModel>? ReviewsModel { get; set; }
     }
 }

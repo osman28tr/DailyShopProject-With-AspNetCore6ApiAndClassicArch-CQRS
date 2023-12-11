@@ -19,7 +19,6 @@ namespace DailyShop.Business.Features.Products.Models
         public decimal? Price { get; set; }
         [JsonPropertyName("image")]
         public string? BodyImage { get; set; }
-        [JsonIgnore]
         public string? Description { get; set; }
         public string? Status { get; set; }
         public int? Stock { get; set; }
@@ -30,6 +29,7 @@ namespace DailyShop.Business.Features.Products.Models
         public ICollection<string>? ProductImages { get; set; }
         public ICollection<string>? Colors { get; set; }
         public ICollection<string>? Sizes { get; set; }
+        [JsonPropertyName("reviews")]
         public ICollection<GetListReviewByProductViewModel>? ReviewsModel { get; set; }
     }
 }
