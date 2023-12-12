@@ -11,8 +11,6 @@ namespace DailyShop.Business.Features.WebSiteSettings.Dtos
 {
     public class UpdatedWebSiteSettingDto
     {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
         [JsonPropertyName("about")]
         public string? About { get; set; }
         [JsonPropertyName("email")]

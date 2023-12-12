@@ -13,7 +13,10 @@ namespace DailyShop.Business.Features.WebSiteSettings.Profiles
 	{
 		public MappingProfiles()
 		{
-			CreateMap<WebSiteSetting, UpdatedWebSiteSettingDto>().ReverseMap();
+			CreateMap<WebSiteSetting, UpdatedWebSiteSettingDto>()
+                .ForMember(dest => dest.About, opt => opt.MapFrom(src => src.HtmlContent))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Adres))
+                .ReverseMap();
 			CreateMap<WebSiteSetting, WebSiteSettingDto>()
 				 .ForMember(dest => dest.About, opt => opt.MapFrom(src => src.HtmlContent))
 				 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))

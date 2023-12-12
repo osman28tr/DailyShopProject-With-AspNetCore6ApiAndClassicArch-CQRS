@@ -28,9 +28,14 @@ namespace DailyShop.API.Areas.Admin.Controllers
         public async Task<IActionResult> Get()
         {
 			var result = await Mediator.Send(new GetWebSiteSettingQuery());
-            result.SiteIcon = GetImageByHelper(result.SiteIcon);
-			return Ok(new { data = result , message = "Site ayarları başarıyla getirildi." });
-		}
+            if (result != null)
+            {
+                result.SiteIcon = GetImageByHelper(result.SiteIcon);
+                return Ok(new { data = result, message = "Site ayarları başarıyla getirildi." });
+            }
+
+            return Ok(null);
+        }
 
 
         [HttpPut]
@@ -44,7 +49,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
             string result = await Mediator.Send(new UpdateWebSiteSettingCommand()
             { UpdatedWebSiteSettingDto = updatedWebSiteSettingDto, SiteIconPath = siteIconPath });
 
-            return Ok(new { message = result });
+            return Ok(new { Message = result });
         }
         private async Task<string> AddWebSiteImageToFile(IFormFile imageFile)
         {

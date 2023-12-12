@@ -41,6 +41,7 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
                     if (webSiteSetting != null)
                     {
                         mappedWebSiteSetting.UpdatedAt = DateTime.Now;
+                        mappedWebSiteSetting.Id = webSiteSetting.Id;
                         await _webSiteSettingRepository.UpdateAsync(mappedWebSiteSetting);
                         return "Web site ayarlarınız başarıyla güncellendi.";
                     }
