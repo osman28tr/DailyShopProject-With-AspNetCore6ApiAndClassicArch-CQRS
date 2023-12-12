@@ -33,11 +33,8 @@ namespace DailyShop.API.Areas.Admin.Controllers
                 result.SiteIcon = GetImageByHelper(result.SiteIcon);
                 return Ok(new { data = result, message = "Site ayarları başarıyla getirildi." });
             }
-
             return Ok(null);
         }
-
-
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdatedWebSiteSettingDto updatedWebSiteSettingDto)
         {

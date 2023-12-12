@@ -156,6 +156,11 @@ app.UseStaticFiles(new StaticFileOptions()
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ProductImages")),
     RequestPath = "/wwwroot/ProductImages"
 });
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WebSiteIcons")),
+    RequestPath = "/wwwroot/WebSiteIcons"
+});
 
 app.UseEndpoints(endpoints =>
 {
