@@ -62,8 +62,10 @@ namespace DailyShop.Business.Features.Carts.Queries.GetListCartByUser
                         cartItemModel.Product.BodyImage = cartItem.Product.BodyImage;
                         cartItemModel.Product.Name = cartItem.Product.Name;
                         cartItemModel.Product.Price = cartItem.Product.Price;
+                        cartItemModel.Product.Id = cartItem.ProductId;
                         mappedCartItem.Add(cartItemModel);
                     }
+                    
                 });
                 return mappedCartItem;
             }
