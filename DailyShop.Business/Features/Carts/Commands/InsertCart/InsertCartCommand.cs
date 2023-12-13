@@ -48,6 +48,11 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
                     }
                     else
                     {
+                        if (cartByUser.CartItems.Any(c => c.ProductId == request.ProductId &&
+                                                          c.Color == request.InsertedCartItemDto.Color &&
+                                                          c.Size == request.InsertedCartItemDto.Size))
+                            throw new BusinessException("Bu ürün zaten sepetinizde bulunmaktadır.");
+
                         cartByUser.CartItems.Add(new CartItem()
                         {
                             ProductId = request.ProductId,
@@ -61,7 +66,7 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
                 }
                 catch (Exception hata)
                 {
-                    throw new BusinessException("Sepete eklerken bir hata oluştu.");
+                    throw new BusinessException(hata.Message);
                 }
             }
         }
