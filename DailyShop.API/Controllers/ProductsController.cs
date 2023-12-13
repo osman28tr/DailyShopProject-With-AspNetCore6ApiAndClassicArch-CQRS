@@ -76,7 +76,9 @@ namespace DailyShop.API.Controllers
         [HttpGet("category/{categoryId}")]
         public async Task<IActionResult> GetListByCategoryId(int categoryId, [FromQuery] bool isDeleteShow)
         {
-            var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery { CategoryId = categoryId, IsDeleted = isDeleteShow });
+            int userId = _authService.VerifyToken(GetToken());
+            var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery
+                { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId });
             foreach (var product in productValues)
             {
                 product.BodyImage = GetImageByHelper(product.BodyImage);
