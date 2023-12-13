@@ -29,6 +29,12 @@ namespace DailyShop.DataAccess.Concrete.Dapper.Repositories
                 .AsList();
         }
 
+        public async Task<Product> GetProductByIdAsync(int? productId)
+        {
+            return (await connection.QueryFirstAsync<Product>(
+                $"select * from Products where Id = {productId}"));
+        }
+
         public async Task<List<string>> GetProductDetailSizeByIdAsync(int productId)
         {
             return (await connection.QueryAsync<string>(
