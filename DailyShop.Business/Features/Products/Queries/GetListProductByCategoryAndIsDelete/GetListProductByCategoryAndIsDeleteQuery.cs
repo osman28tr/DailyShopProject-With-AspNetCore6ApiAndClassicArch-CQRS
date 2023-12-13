@@ -41,21 +41,45 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                 List<Product> products = new List<Product>();
                 if (user.Role == "admin")
                 {
-                    products = await _productRepository.Query()
-                        .Where(p => p.CategoryId == request.CategoryId
-                        )
-                        .Include(r => r.Reviews)!
-                        .ThenInclude(ru => ru.AppUser)
-                        .ToListAsync(cancellationToken: cancellationToken);
+                    if (request.IsDeleted == true)
+                    {
+                        products = await _productRepository.Query()
+                            .Where(p => p.CategoryId == request.CategoryId
+                            )
+                            .Include(r => r.Reviews)!
+                            .ThenInclude(ru => ru.AppUser)
+                            .ToListAsync(cancellationToken: cancellationToken);
+                    }
+                    else
+                    {
+                        products = await _productRepository.Query()
+                            .Where(p => p.CategoryId == request.CategoryId && p.IsDeleted == false
+                            )
+                            .Include(r => r.Reviews)!
+                            .ThenInclude(ru => ru.AppUser)
+                            .ToListAsync(cancellationToken: cancellationToken);
+                    }
                 }
                 else
                 {
-                    products = await _productRepository.Query()
-                        .Where(p => p.CategoryId == request.CategoryId
-                        && p.IsDeleted == false)
-                        .Include(r => r.Reviews)!
-                        .ThenInclude(ru => ru.AppUser)
-                        .ToListAsync(cancellationToken: cancellationToken);
+                    if (request.IsDeleted == true)
+                    {
+                        products = await _productRepository.Query()
+                            .Where(p => p.CategoryId == request.CategoryId
+                                        && p.IsApproved == true)
+                            .Include(r => r.Reviews)!
+                            .ThenInclude(ru => ru.AppUser)
+                            .ToListAsync(cancellationToken: cancellationToken);
+                    }
+                    else
+                    {
+                        products = await _productRepository.Query()
+                            .Where(p => p.CategoryId == request.CategoryId
+                                        && p.IsApproved == true && p.IsDeleted == false)
+                            .Include(r => r.Reviews)!
+                            .ThenInclude(ru => ru.AppUser)
+                            .ToListAsync(cancellationToken: cancellationToken);
+                    }
                 }
 
                 var mappedProducts = _mapper.Map<List<GetListProductByCategoryAndIsDeleteViewModel>>(products);
