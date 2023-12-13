@@ -16,4 +16,12 @@
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Orders\Commands\" />
+    <Folder Include="Features\Orders\Dtos\" />
+    <Folder Include="Features\Orders\Models\" />
+    <Folder Include="Features\Orders\Profiles\" />
+    <Folder Include="Features\Orders\Queries\" />
+  </ItemGroup>
 </Project>
