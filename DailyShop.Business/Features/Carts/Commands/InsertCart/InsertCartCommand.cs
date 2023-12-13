@@ -9,6 +9,7 @@ using DailyShop.Business.Features.Carts.Dtos;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Entities.Concrete;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DailyShop.Business.Features.Carts.Commands.InsertCart
 {
@@ -32,7 +33,7 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
             {
                 try
                 {
-                    Cart cartByUser = _cartRepository.Query().FirstOrDefault(c => c.UserId == request.UserId);
+                    Cart cartByUser = _cartRepository.Query().Include(c=>c.CartItems).FirstOrDefault(c => c.UserId == request.UserId);
                     if (cartByUser == null)
                     {
                         Cart cart = new() { UserId = request.UserId, Status = "" };
