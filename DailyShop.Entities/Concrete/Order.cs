@@ -12,7 +12,7 @@ namespace DailyShop.Entities.Concrete
         public int? UserId { get; set; }
         public int? OrderAddressId { get; set; }
         public int? TotalPrice { get; set; }
-        public bool? Status { get; set; }
+        public string? Status { get; set; } = "New";
         public bool? IsPaymentCompleted { get; set; }
         public Order()
         {
