@@ -42,9 +42,7 @@ namespace DailyShop.API.Controllers
                         GetImageByHelper(x)).ToList();
                 }
             }
-            // Return the result as a JSON response
             return Ok(new { data = productValues, message = "Ürün verileri başarıyla getirildi." });
-            //return Ok(result);
         }
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] InsertedProductDto insertedProductDto)
