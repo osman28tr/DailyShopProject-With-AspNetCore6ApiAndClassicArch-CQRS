@@ -27,6 +27,9 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<WebSiteSetting> WebSiteSettings { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderAddress> OrderAddresses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
