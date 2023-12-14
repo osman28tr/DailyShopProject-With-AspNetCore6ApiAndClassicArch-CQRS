@@ -1,4 +1,5 @@
 ﻿using DailyShop.API.Helpers;
+using DailyShop.Business.Features.Addresses.Commands.DeleteAddress;
 using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
 using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
@@ -61,7 +62,13 @@ namespace DailyShop.API.Controllers
 			var address = await Mediator.Send(updateAddressCommand);
 			return Ok(new {data = address,Message = "Adresiniz Başarıyla Güncellendi." });
 		}
-
+		[HttpDelete("DeleteAddress")]
+		public async Task<IActionResult> DeleteAddress([FromQuery]int addressId)
+		{
+			int userId = _authService.VerifyToken(GetToken());
+			  await Mediator.Send(new DeleteAddressCommand() { UserId = userId, AddressId = addressId });
+			return Ok(new { Message = "Adresiniz başarıyla silindi." });
+		}
 		[HttpGet("Block")]
 		public async Task<IActionResult> Block()
 		{
