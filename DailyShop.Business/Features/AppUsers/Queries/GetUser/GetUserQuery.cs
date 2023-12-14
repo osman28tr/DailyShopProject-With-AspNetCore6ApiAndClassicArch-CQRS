@@ -3,6 +3,7 @@ using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Services.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace DailyShop.Business.Features.AppUsers.Queries.GetUser
             }
             public async Task<LoggedUserDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
             {
-                var user = await _appUserRepository.GetAsync(x => x.Id == request.UserId);
+                var user = await _appUserRepository.Query().Include(x => x.Addresses).Where(x => x.Id == request.UserId).FirstOrDefaultAsync();
                 var mappedUser = _mapper.Map<LoggedUserDto>(user);
                 return mappedUser;
             }

@@ -37,7 +37,6 @@ namespace DailyShop.API.Controllers
                 throw new BusinessException("Kullanıcı bulunamadı.");
 
             return Ok(new { data = user, Message = "Kullanıcı bilgileri başarıyla getirildi." });
-
         }
         [HttpGet("GetListAddressByUserId")]
 		public async Task<IActionResult> GetListAddressByUserId([FromQuery] int id)
@@ -45,30 +44,18 @@ namespace DailyShop.API.Controllers
 			 var address = await Mediator.Send(new GetListAddressByUserIdQuery { Id = id });
 			 return Ok(address);
 		}
-		[HttpPut("Update")]
-		public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
-		{
-			int userId = _authService.VerifyToken(GetToken());
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
+        {
+            int userId = _authService.VerifyToken(GetToken());
 
-			UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
-			var updatedUser = await Mediator.Send(updateUserCommand);
+            UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
+            await Mediator.Send(updateUserCommand);
 
-			List<AddressDto> updatedAddress = new();
-			foreach (var updateAddressCommand in updatedUserDto.Addresses
-				         .Select(address => new UpdateAddressCommand() 
-					         { AddressDto = address, UserId = userId, AddressId = address.Id }))
-			{
-				
-				var address = await Mediator.Send(updateAddressCommand);
-				updatedAddress.Add(address);
-			}
+            return Ok(new { Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
+        }
 
-			UpdatedUserDto newUser = new() { Email = updatedUser.Email, FirstName = updatedUser.FirstName, LastName = updatedUser.LastName, PhoneNumber = updatedUser.PhoneNumber, ProfileImage = updatedUser.ProfileImage, Addresses = updatedAddress };
-
-			return Ok(new { data = newUser, Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
-		}
-
-		[HttpPut("UpdateAddress")]
+        [HttpPut("UpdateAddress")]
 		public async Task<IActionResult> UpdateAddress([FromBody] AddressDto addressDto)
 		{
 			int userId = _authService.VerifyToken(GetToken());

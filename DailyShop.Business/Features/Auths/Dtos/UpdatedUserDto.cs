@@ -9,7 +9,5 @@ namespace DailyShop.Business.Features.Auths.Dtos
 {
     public class UpdatedUserDto : BaseUserDto
     {
-        [JsonPropertyName("addresses")]
-        public List<AddressDto>? Addresses { get; set; }
     }
 }

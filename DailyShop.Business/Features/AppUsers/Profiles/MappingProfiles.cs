@@ -17,6 +17,8 @@ namespace DailyShop.Business.Features.AppUsers.Profiles
             CreateMap<AppUser, GetListUserDto>()
                 .ForMember(x => x.Reviews, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<AppUser, LoggedUserDto>()
+                .ForMember(x => x.Addresses, opt => opt.MapFrom(x => x.Addresses));
             CreateMap<AppUser, UpdatedUserDto>().ReverseMap();
         }
     }
