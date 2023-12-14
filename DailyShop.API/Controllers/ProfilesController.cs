@@ -1,4 +1,5 @@
-﻿using DailyShop.API.Helpers;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Addresses.Commands.DeleteAddress;
 using DailyShop.Business.Features.Addresses.Commands.UpdateAddress;
 using DailyShop.Business.Features.Addresses.Dtos;
@@ -6,6 +7,7 @@ using DailyShop.Business.Features.Addresses.Queries.GetListAddressByUserId;
 using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
 using DailyShop.Business.Features.AppUsers.Commands.UpdateUser;
 using DailyShop.Business.Features.AppUsers.Dtos;
+using DailyShop.Business.Features.AppUsers.Queries.GetUser;
 using DailyShop.Business.Features.Auths.Dtos;
 using DailyShop.Business.Services.AuthService;
 using MediatR;
@@ -25,7 +27,19 @@ namespace DailyShop.API.Controllers
 		{
 			_authService = authService;
 		}
-		[HttpGet("GetListAddressByUserId")]
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetUser()
+        {
+            int userId = _authService.VerifyToken(GetToken());
+			var user = await Mediator.Send(new GetUserQuery() { UserId = userId });
+
+            if (user == null)
+                throw new BusinessException("Kullanıcı bulunamadı.");
+
+            return Ok(new { data = user, Message = "Kullanıcı bilgileri başarıyla getirildi." });
+
+        }
+        [HttpGet("GetListAddressByUserId")]
 		public async Task<IActionResult> GetListAddressByUserId([FromQuery] int id)
 		{
 			 var address = await Mediator.Send(new GetListAddressByUserIdQuery { Id = id });
