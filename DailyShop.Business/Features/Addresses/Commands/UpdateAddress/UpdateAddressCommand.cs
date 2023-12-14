@@ -10,15 +10,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.CrossCuttingConcerns.Exceptions;
 
 namespace DailyShop.Business.Features.Addresses.Commands.UpdateAddress
 {
-    public class UpdateAddressCommand : IRequest<List<AddressDto>?>
+    public class UpdateAddressCommand : IRequest<AddressDto?>
     {
-        public List<AddressDto>? AddressDtos { get; set; }
+        public AddressDto? AddressDto { get; set; }
         public int UserId { get; set; }
         public int AddressId { get; set; }
-        public class UpdateAddressCommandHandler : IRequestHandler<UpdateAddressCommand, List<AddressDto>?>
+        public class UpdateAddressCommandHandler : IRequestHandler<UpdateAddressCommand, AddressDto?>
         {
             private readonly IAddressRepository _addressRepository;
             private readonly IAppUserRepository _appUserRepository;
@@ -31,33 +32,44 @@ namespace DailyShop.Business.Features.Addresses.Commands.UpdateAddress
                 _appUserRepository = appUserRepository;
             }
 
-            public async Task<List<AddressDto>?> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
+            public async Task<AddressDto?> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
             {
-                List<AddressDto> mappedAddressDto = new List<AddressDto>();
-                if (request.AddressDtos != null)
-                {
-                    List<Address> addresses = await _addressRepository.Query().Where(a => a.AppUserId == request.UserId).ToListAsync();
+	            var addressDto = request.AddressDto;
 
-                    AppUser user = await _appUserRepository.GetAsync(x => x.Id == request.UserId);
-                    foreach (var address in addresses)
-                    {
-                        await _addressRepository.DeleteAsync(address, false);
-                    }
-                    List<Address> mappedNewAddress = _mapper.Map<List<Address>>(request.AddressDtos);
-                    foreach (var mappedAddress in mappedNewAddress)
-                    {
-                        mappedAddress.AppUserId = request.UserId;
-                        mappedAddress.AppUser = user;
-                    }
-                    foreach (var newAddress in mappedNewAddress)
-                    {
-                        await _addressRepository.AddAsync(newAddress);
-                    }
-                    mappedAddressDto = _mapper.Map<List<AddressDto>>(mappedNewAddress);
-                    return mappedAddressDto;
-                }
-                return null;
+	            if (addressDto == null)
+		            throw new BusinessException("Adres bulunamadı");
+
+	            var address = await _addressRepository
+		            .Query()
+		            .Where(a => a.AppUserId == request.UserId && a.Id == request.AddressId)
+		            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+	            if (address != null)
+	            {
+		            _mapper.Map(addressDto, address);
+		            address.UpdatedAt = DateTime.Now;
+		            await _addressRepository.UpdateAsync(address);
+	            }
+	            else
+	            {
+		            var user = await _appUserRepository.GetAsync(u => u.Id == request.UserId) ?? throw new BusinessException("Kullanıcı bulunamadı");
+
+		            var newAddressEntity = new Address
+		            {
+			            AppUserId = user.Id,
+			            CreatedAt = DateTime.Now,
+			            UpdatedAt = DateTime.Now,
+			            AppUser = user
+		            };
+		            _mapper.Map(addressDto, newAddressEntity);
+
+		            var addAddress = await _addressRepository.AddAsync(newAddressEntity);
+
+		            return _mapper.Map<AddressDto>(addAddress);
+	            }
+
+	            return _mapper.Map<AddressDto>(address);
             }
-        }
+		}
     }
 }

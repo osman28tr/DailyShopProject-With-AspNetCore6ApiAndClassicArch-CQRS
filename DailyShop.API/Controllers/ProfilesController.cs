@@ -38,14 +38,30 @@ namespace DailyShop.API.Controllers
 			UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
 			var updatedUser = await Mediator.Send(updateUserCommand);
 
-			UpdateAddressCommand updateAddressCommand = new() { AddressDtos = updatedUserDto.Addresses, UserId = userId };
-
-			var updatedAddress = await Mediator.Send(updateAddressCommand);
+			List<AddressDto> updatedAddress = new();
+			foreach (var updateAddressCommand in updatedUserDto.Addresses
+				         .Select(address => new UpdateAddressCommand() 
+					         { AddressDto = address, UserId = userId, AddressId = address.Id }))
+			{
+				
+				var address = await Mediator.Send(updateAddressCommand);
+				updatedAddress.Add(address);
+			}
 
 			UpdatedUserDto newUser = new() { Email = updatedUser.Email, FirstName = updatedUser.FirstName, LastName = updatedUser.LastName, PhoneNumber = updatedUser.PhoneNumber, ProfileImage = updatedUser.ProfileImage, Addresses = updatedAddress };
 
 			return Ok(new { data = newUser, Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
 		}
+
+		[HttpPut("UpdateAddress")]
+		public async Task<IActionResult> UpdateAddress([FromBody] AddressDto addressDto)
+		{
+			int userId = _authService.VerifyToken(GetToken());
+			UpdateAddressCommand updateAddressCommand = new() { AddressDto = addressDto, UserId = userId, AddressId = addressDto.Id };
+			var address = await Mediator.Send(updateAddressCommand);
+			return Ok(new {data = address,Message = "Adresiniz Başarıyla Güncellendi." });
+		}
+
 		[HttpGet("Block")]
 		public async Task<IActionResult> Block()
 		{
