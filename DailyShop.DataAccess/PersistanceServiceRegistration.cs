@@ -30,6 +30,8 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IWebSiteSettingRepository, WebSiteSettingRepository>();
 			services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IDpProductRepository, DpProductRepository>();
+			services.AddScoped<IOrderRepository, OrderRepository>();
+			services.AddScoped<IPaymentRepository, PaymentRepository>();
 			
 			return services;
 		}

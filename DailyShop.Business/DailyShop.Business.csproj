@@ -18,10 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Orders\Commands\" />
-    <Folder Include="Features\Orders\Dtos\" />
     <Folder Include="Features\Orders\Models\" />
-    <Folder Include="Features\Orders\Profiles\" />
     <Folder Include="Features\Orders\Queries\" />
   </ItemGroup>
 </Project>
