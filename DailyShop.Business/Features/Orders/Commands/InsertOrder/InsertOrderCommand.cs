@@ -32,11 +32,15 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
             }
             public async Task Handle(InsertOrderCommand request, CancellationToken cancellationToken)
             {
+                Random generator = new Random();
+
                 var address = await _addressRepository.GetAsync(x => x.Id == request.InsertedOrderDto.AdressId);
                 if (address == null)
                     throw new BusinessException("Böyle bir adres bulunamadı.");
 
                 OrderAddress orderAddress = new() { Title = address.Title, Adres = address.Adres, City = address.City, Country = address.Country };
+                
+                String orderNumber = generator.Next(0, 1000000).ToString("D6");
 
                 Order order = new()
                 {
@@ -44,8 +48,11 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
                     IsPaymentCompleted = true,
                     Status = "New",
                     OrderAddress = orderAddress,
+                    OrderNumber = orderNumber
                 };
+
                 order.TotalPrice = 0;
+
                 foreach (var orderItemDto in request.InsertedOrderDto.InsertedOrderItemDtos)
                 {
                     var product = await _productRepository.GetAsync(x => x.Id == orderItemDto.ProductId);
