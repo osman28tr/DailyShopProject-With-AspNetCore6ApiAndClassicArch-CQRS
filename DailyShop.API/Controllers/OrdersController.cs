@@ -1,7 +1,7 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Orders.Commands.InsertOrder;
 using DailyShop.Business.Features.Orders.Dtos;
-using DailyShop.Business.Features.Payments.Commands.InsertPayment;
+using DailyShop.Business.Features.Orders.Queries.GetListOrderByUserId;
 using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +24,14 @@ namespace DailyShop.API.Controllers
         {
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertOrderCommand() { InsertedOrderDto = insertedOrderDto, UserId = userId });
-            await Mediator.Send(new InsertPaymentCommand() { InsertedPaymentDto = insertedOrderDto.InsertedCreditCardDto, UserId = userId });
             return Ok(new { Message = "Siparişiniz başarıyla oluşturuldu." });
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetList()
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            var order = await Mediator.Send(new GetListOrderByUserIdQuery() { UserId = userId });
+            return Ok(new { Message = "Sipariş verileri başarıyla getirildi.", data = order });
         }
     }
 }

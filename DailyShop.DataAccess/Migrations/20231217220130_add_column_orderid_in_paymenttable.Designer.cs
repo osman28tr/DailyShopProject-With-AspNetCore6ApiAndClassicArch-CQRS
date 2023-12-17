@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231217220130_add_column_orderid_in_paymenttable")]
+    partial class add_column_orderid_in_paymenttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -485,9 +488,7 @@ namespace DailyShop.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId")
-                        .IsUnique()
-                        .HasFilter("[OrderId] IS NOT NULL");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -823,8 +824,8 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Payment", b =>
                 {
                     b.HasOne("DailyShop.Entities.Concrete.Order", "Order")
-                        .WithOne("Payment")
-                        .HasForeignKey("DailyShop.Entities.Concrete.Payment", "OrderId");
+                        .WithMany()
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("DailyShop.Entities.Concrete.AppUser", "User")
                         .WithMany()
@@ -950,8 +951,6 @@ namespace DailyShop.DataAccess.Migrations
             modelBuilder.Entity("DailyShop.Entities.Concrete.Order", b =>
                 {
                     b.Navigation("OrderItems");
-
-                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Product", b =>
