@@ -10,11 +10,15 @@ namespace DailyShop.Business.Features.Orders.Dtos
 {
     public class InsertedOrderDto
     {
+        public InsertedOrderDto()
+        {
+            InsertedOrderItemDtos = new List<InsertedOrderItemDto>();
+        }
         [JsonPropertyName("addressId")]
-        public int AdressId { get; set; }
+        public int? AdressId { get; set; }
         [JsonPropertyName("creditCard")]
-        public InsertedPaymentDto InsertedCreditCardDto { get; set; }
+        public InsertedPaymentDto? InsertedCreditCardDto { get; set; }
         [JsonPropertyName("orderItems")]
-        public ICollection<InsertedOrderItemDto> InsertedOrderItemDtos { get; set; }
+        public ICollection<InsertedOrderItemDto>? InsertedOrderItemDtos { get; set; }
     }
 }

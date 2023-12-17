@@ -16,6 +16,7 @@ namespace DailyShop.Entities.Concrete
         public bool? IsPaymentCompleted { get; set; }
         public Order()
         {
+            OrderItems = new List<OrderItem>();
         }
 
         public Order(int id):base(id)

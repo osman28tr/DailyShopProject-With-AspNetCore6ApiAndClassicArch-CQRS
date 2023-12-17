@@ -10,12 +10,12 @@ namespace DailyShop.Business.Features.Orders.Dtos
     public class InsertedOrderItemDto
     {
         [JsonPropertyName("productId")]
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         [JsonPropertyName("quantity")]
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
         [JsonPropertyName("size")]
-        public string Size { get; set; }
+        public string? Size { get; set; }
         [JsonPropertyName("color")]
-        public string Color { get; set; }
+        public string? Color { get; set; }
     }
 }

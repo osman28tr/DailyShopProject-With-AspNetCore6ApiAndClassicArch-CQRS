@@ -10,12 +10,12 @@ namespace DailyShop.Business.Features.Payments.Dtos
     public class InsertedPaymentDto
     {
         [JsonPropertyName("cardNumber")]
-        public string CardNumber { get; set; }
+        public string? CardNumber { get; set; }
         [JsonPropertyName("cardOwner")]
-        public string CardOwner { get; set; }
-        [JsonPropertyName("lastDate")]
-        public string LastDate { get; set; }
+        public string? CardOwner { get; set; }
+        [JsonPropertyName("LastDate")]
+        public string? LastDate { get; set; }
         [JsonPropertyName("cvv")]
-        public string Cvv { get; set; }
+        public string? Cvv { get; set; }
     }
 }

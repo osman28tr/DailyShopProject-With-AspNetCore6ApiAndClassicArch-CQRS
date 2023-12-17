@@ -45,6 +45,7 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
                     Status = "New",
                     OrderAddress = orderAddress,
                 };
+                order.TotalPrice = 0;
                 foreach (var orderItemDto in request.InsertedOrderDto.InsertedOrderItemDtos)
                 {
                     var product = await _productRepository.GetAsync(x => x.Id == orderItemDto.ProductId);
@@ -52,6 +53,7 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
                     OrderItem orderItem = new() { ProductId = orderItemDto.ProductId, Color = orderItemDto.Color, Size = orderItemDto.Size, Quantity = orderItemDto.Quantity };
                     order.OrderItems.Add(orderItem);
                 }
+                await _orderRepository.AddAsync(order);
             }
         }
     }
