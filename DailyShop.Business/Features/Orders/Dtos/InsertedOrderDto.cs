@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using DailyShop.Business.Features.Payments.Dtos;
 
 namespace DailyShop.Business.Features.Orders.Dtos
 {

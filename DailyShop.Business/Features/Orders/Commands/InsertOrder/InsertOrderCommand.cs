@@ -42,13 +42,17 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
                 
                 String orderNumber = generator.Next(0, 1000000).ToString("D6");
 
+                var mappedPayment = _mapper.Map<Payment>(request.InsertedOrderDto.InsertedCreditCardDto);
+                mappedPayment.UserId = request.UserId;
+
                 Order order = new()
                 {
                     UserId = request.UserId,
                     IsPaymentCompleted = true,
                     Status = "New",
                     OrderAddress = orderAddress,
-                    OrderNumber = orderNumber
+                    OrderNumber = orderNumber,
+                    Payment = mappedPayment
                 };
 
                 order.TotalPrice = 0;

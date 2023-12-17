@@ -9,12 +9,14 @@ namespace DailyShop.Entities.Concrete
 {
     public class Payment:Entity
     {
-        public int UserId { get; set; }
-        public string CardNumber { get; set; }
-        public string CardOwner { get; set; }
-        public string LastDate { get; set; }
-        public string Cvv { get; set; }
-        public AppUser User { get; set; }
+        public int? UserId { get; set; }
+        public int? OrderId { get; set; }
+        public string? CardNumber { get; set; }
+        public string? CardOwner { get; set; }
+        public string? LastDate { get; set; }
+        public string? Cvv { get; set; }
+        public AppUser? User { get; set; }
+        public Order? Order { get; set; }
         public Payment()
         {
             

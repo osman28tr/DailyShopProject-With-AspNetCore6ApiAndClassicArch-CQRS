@@ -26,6 +26,7 @@ namespace DailyShop.Entities.Concrete
         }
         public AppUser? User { get; set; }
         public OrderAddress? OrderAddress { get; set; }
+        public Payment? Payment { get; set; }
         public ICollection<OrderItem>? OrderItems { get; set; }
     }
 }
