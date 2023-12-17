@@ -56,6 +56,7 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
             var mappedProduct = _mapper.Map<GetProductDetailByIdViewModel>(product);
 
             mappedProduct.UserName = productUserName;
+            mappedProduct.UserId = product.UserId;
 
             if (product.Reviews == null) return mappedProduct;
             foreach (var review in product.Reviews)
