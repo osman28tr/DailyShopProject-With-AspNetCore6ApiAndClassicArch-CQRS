@@ -13,6 +13,8 @@ namespace DailyShop.Business.Features.Orders.Dtos
         public int? ProductId { get; set; }
         [JsonPropertyName("quantity")]
         public int? Quantity { get; set; }
+        [JsonPropertyName("price")]
+        public decimal? Price { get; set; }
         [JsonPropertyName("size")]
         public string? Size { get; set; }
         [JsonPropertyName("color")]
