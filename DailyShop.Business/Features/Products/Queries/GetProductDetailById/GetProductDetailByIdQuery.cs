@@ -57,6 +57,7 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 
             mappedProduct.UserName = productUserName;
             mappedProduct.UserId = product.UserId;
+            mappedProduct.Rating = product.Reviews is {Count: > 0} ? (byte)product.Reviews.Average(x => x.Rating)! : (byte)0;
 
             if (product.Reviews == null) return mappedProduct;
             foreach (var review in product.Reviews)
