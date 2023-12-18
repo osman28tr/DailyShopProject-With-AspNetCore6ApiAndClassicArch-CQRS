@@ -13,10 +13,12 @@ namespace DailyShop.API.Controllers
     public class OrdersController : BaseTokenController
     {
         private readonly IAuthService _authService;
+	    private readonly ImageHelper _imageHelper;
 
-        public OrdersController(IAuthService authService)
+        public OrdersController(IAuthService authService,ImageHelper imageHelper)
         {
             _authService = authService;
+            _imageHelper = imageHelper;
         }
 
         [HttpPost]
@@ -29,9 +31,24 @@ namespace DailyShop.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            int userId = _authService.VerifyToken(GetToken());
+            var userId = _authService.VerifyToken(GetToken());
             var order = await Mediator.Send(new GetListOrderByUserIdQuery() { UserId = userId });
+            order.ForEach(x => x.GetListOrderItemByOrderViewModels.ToList().ForEach(y =>
+            {
+	            if (y.GetListProductByOrderViewModel?.BodyImage != null)
+		            y.GetListProductByOrderViewModel.BodyImage =
+			            GetImageByHelper(y.GetListProductByOrderViewModel.BodyImage);
+            }));
+
+
             return Ok(new { Message = "Sipariş verileri başarıyla getirildi.", data = order });
         }
-    }
+
+        [NonAction]
+        public string GetImageByHelper(string imageName)
+        {
+	        string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+	        return getImage;
+        }
+	}
 }

@@ -60,9 +60,13 @@ namespace DailyShop.Business.Features.Orders.Commands.InsertOrder
                 foreach (var orderItemDto in request.InsertedOrderDto.InsertedOrderItemDtos)
                 {
                     var product = await _productRepository.GetAsync(x => x.Id == orderItemDto.ProductId);
-                    order.TotalPrice += (orderItemDto.Quantity * Convert.ToInt16(product.Price));
-                    OrderItem orderItem = new() { ProductId = orderItemDto.ProductId, Color = orderItemDto.Color, Size = orderItemDto.Size, Quantity = orderItemDto.Quantity };
-                    order.OrderItems.Add(orderItem);
+                    orderItemDto.Price = product?.Price * orderItemDto.Quantity;
+                    OrderItem orderItem = new()
+                    {
+	                    ProductId = orderItemDto.ProductId, Color = orderItemDto.Color, Size = orderItemDto.Size, Quantity = orderItemDto.Quantity, Price = orderItemDto.Price
+                    };
+                    order.TotalPrice += orderItem.Price;
+                    order.OrderItems?.Add(orderItem);
                 }
                 await _orderRepository.AddAsync(order);
             }
