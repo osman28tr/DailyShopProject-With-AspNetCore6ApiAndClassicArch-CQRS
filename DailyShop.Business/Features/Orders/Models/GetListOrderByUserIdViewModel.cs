@@ -19,7 +19,9 @@ namespace DailyShop.Business.Features.Orders.Models
         [JsonPropertyName("date")]
         public DateTime? CreatedAt { get; set; }
         public string? OrderNumber { get; set; }
+        [JsonPropertyName("address")]
         public GetListOrderAddressByOrderViewModel? GetListOrderAddressByOrderViewModel { get; set; }
+        [JsonPropertyName("orderItems")]
         public ICollection<GetListOrderItemByOrderViewModel> GetListOrderItemByOrderViewModels { get; set; }
     }
 }
