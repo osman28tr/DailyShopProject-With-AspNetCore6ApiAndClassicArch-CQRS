@@ -15,5 +15,6 @@ namespace DailyShop.Business.Services.Repositories.Dapper
         public Task<List<string>> GetProductDetailImageByIdAsync(int productId);
         public Task<Product> GetProductByIdAsync(int? productId);
         public Task<string> GetProductDetailUserByIdAsync(int productId);
+        public Task<Category> GetProductDetailCategoryByIdAsync(int? categoryId);
     }
 }

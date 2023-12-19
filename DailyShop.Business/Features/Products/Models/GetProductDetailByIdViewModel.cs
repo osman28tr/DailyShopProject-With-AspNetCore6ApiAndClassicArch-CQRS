@@ -2,5 +2,5 @@
 
 public class GetProductDetailByIdViewModel:ProductViewModel
 {
-	
+    public GetCategoryAtGetProductDetail Category { get; set; }
 }

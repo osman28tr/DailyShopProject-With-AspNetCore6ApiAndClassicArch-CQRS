@@ -3,6 +3,7 @@ using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.Business.Features.Products.Models;
 using DailyShop.Business.Services.Repositories;
 using DailyShop.Business.Services.Repositories.Dapper;
+using DailyShop.Entities.Concrete;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,7 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 
             var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
+            var category = await _dpProductRepository.GetProductDetailCategoryByIdAsync(product.CategoryId);
             var colors = await _dpProductRepository.GetProductDetailColorByIdAsync(request.ProductId);
             var sizes = await _dpProductRepository.GetProductDetailSizeByIdAsync(request.ProductId);
             var productImages = await _dpProductRepository.GetProductDetailImageByIdAsync(request.ProductId);
@@ -54,6 +56,11 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
             if (product == null) throw new BusinessException("Ürün bulunamadı veya kaldırıldı.");
 
             var mappedProduct = _mapper.Map<GetProductDetailByIdViewModel>(product);
+
+            Category categoryInProduct = new() { Name = category.Name, Id = category.Id, ParentCategoryId = category.ParentCategoryId };
+
+            var mappedCategory = _mapper.Map<GetCategoryAtGetProductDetail>(categoryInProduct);
+            mappedProduct.Category = mappedCategory;
 
             mappedProduct.UserName = productUserName;
             mappedProduct.UserId = product.UserId;

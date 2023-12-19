@@ -47,5 +47,11 @@ namespace DailyShop.DataAccess.Concrete.Dapper.Repositories
             return await connection.QueryFirstAsync<string>(
                 $"select Users.FirstName + ' '  + Users.LastName as 'UserName' from Users inner join Products on Users.Id = Products.UserId\r\nwhere Products.Id = {productId}");
         }
+
+        public async Task<Category> GetProductDetailCategoryByIdAsync(int? categoryId)
+        {
+            return await connection.QueryFirstAsync<Category>(
+                $"select * from Categories where Id = {categoryId}");
+        }
     }
 }

@@ -30,8 +30,10 @@ namespace DailyShop.Business.Features.Products.Profiles
                 //.ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors.Select(x => x.Color.Name)))
                 //.ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes.Select(x => x.Size.Name)))
                 //.ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages.Select(x => x.Name)))
-
+                .ForMember(x => x.Category, opt => opt.MapFrom(x => x.Category))
                 .ReverseMap();
+
+            CreateMap<Category, GetCategoryAtGetProductDetail>().ReverseMap();
 
             CreateMap<Product, GetListProductByUserIdViewModel>()
                 .ForMember(dest => dest.Description, opt => opt.Ignore())
