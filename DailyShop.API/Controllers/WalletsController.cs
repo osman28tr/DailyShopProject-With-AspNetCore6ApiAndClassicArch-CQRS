@@ -1,6 +1,7 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Wallets.Commands.InsertBalance;
 using DailyShop.Business.Features.Wallets.Dtos;
+using DailyShop.Business.Features.Wallets.Queries.GetWallet;
 using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,13 @@ namespace DailyShop.API.Controllers
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertBalanceCommand() { UserId = userId, InsertedBalanceDto = insertedBalanceDto });
             return Ok(new { Message = "Cüzdanınıza bakiye yükleme işlemi başarıyla gerçekleştirildi." });
+        }
+        [HttpGet("GetWalletByUser")]
+        public async Task<IActionResult> GetWalletByUser()
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            var walletByUser = await Mediator.Send(new GetWalletQuery() { UserId = userId });
+            return Ok(new { Message = "cüzdan verileri başarıyla getirildi.", data = walletByUser });
         }
     }
 }
