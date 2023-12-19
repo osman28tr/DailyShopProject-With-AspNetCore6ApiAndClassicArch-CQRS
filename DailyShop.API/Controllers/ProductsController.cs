@@ -131,14 +131,6 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var deletedProduct = await Mediator?.Send(new DeleteProductCommand() { ProductId = productId })!;
-            DeleteImage(deletedProduct.BodyImage); //delete is bodyimage
-            if (deletedProduct.ProductImages != null) //delete is productimages
-            {
-                foreach (var productImage in deletedProduct.ProductImages)
-                {
-                    DeleteImage(productImage);
-                }
-            }
             return Ok(new { message = $"{deletedProduct.Name} adlı ürün başarıyla silindi." });
         }
         private async Task<string> AddProductImageToFile(IFormFile imageFile)
@@ -151,13 +143,6 @@ namespace DailyShop.API.Controllers
                 await imageFile.CopyToAsync(fileStream);
             }
             return imageName;
-        }
-        [NonAction]
-        public void DeleteImage(string imageName)
-        {
-            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot/ProductImages", imageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
         }
         [NonAction]
         public string GetImageByHelper(string imageName)
