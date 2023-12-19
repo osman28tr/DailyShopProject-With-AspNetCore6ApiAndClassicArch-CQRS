@@ -1,4 +1,5 @@
 ﻿using DailyShop.API.Helpers;
+using DailyShop.Business.Features.Favorites.Commands.DeleteFavorite;
 using DailyShop.Business.Features.Favorites.Commands.InsertFavorite;
 using DailyShop.Business.Services.AuthService;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,13 @@ namespace DailyShop.API.Controllers
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertFavoriteCommand() { UserId = userId, ProductId = productId });
             return Ok(new { Message = "Seçtiğiniz ürün favorilerinize başarıyla eklendi." });
+        }
+        [HttpDelete("DeleteFavorite")]
+        public async Task<IActionResult> DeleteFavorite([FromQuery] int productId)
+        {
+            int userId = _authService.VerifyToken(GetToken());
+            await Mediator.Send(new DeleteFavoriteCommand() { UserId = userId, ProductId = productId });
+            return Ok(new { Message = "Seçtiğiniz ürün favorilerinizden başarıyla kaldırıldı." });
         }
     }
 }
