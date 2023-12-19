@@ -33,4 +33,6 @@ public class ReviewUser
 	public string? Name { get; set; }
 	[JsonPropertyName("profileImage")]
 	public string? Image { get; set; }
+    [JsonPropertyName("email")]
+    public string? Email { get; set; }
 }

@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231219101753_add_table_favorite")]
+    partial class add_table_favorite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -358,8 +361,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
                 });
@@ -827,13 +828,7 @@ namespace DailyShop.DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Order", b =>

@@ -31,6 +31,7 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<OrderAddress> OrderAddresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
