@@ -31,8 +31,8 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByUserId
             }
             public async Task<List<GetListProductByUserIdViewModel>> Handle(GetListProductByUserIdQuery request, CancellationToken cancellationToken)
             {
-                var products = await _productRepository.Query().Where(p => p.UserId == request.UserId)
-                    .Include(r => r.Reviews).ThenInclude(ap => ap.AppUser).ToListAsync();
+                var products = await _productRepository.Query().Where(p => p.UserId == request.UserId && p.IsDeleted == false)
+	                .Include(r => r.Reviews)!.ThenInclude(ap => ap.AppUser).ToListAsync(cancellationToken: cancellationToken);
 
                 if (products == null) throw new BusinessException("Bu kullanıcıya ait bir ürün bulunamadı.");
 
