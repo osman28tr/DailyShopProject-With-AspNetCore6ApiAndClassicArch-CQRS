@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Favorites.Commands.InsertFavorite
 {
-    public class InsertFavoriteCommand:IRequest
+    public class InsertFavoriteCommand : IRequest
     {
         public int ProductId { get; set; }
         public int UserId { get; set; }
@@ -26,8 +26,11 @@ namespace DailyShop.Business.Features.Favorites.Commands.InsertFavorite
             {
                 try
                 {
-                    var favorite = new Favorite() { ProductId = request.ProductId, UserId = request.UserId };
-                    await _favoriteRepository.AddAsync(favorite);
+                    var isFavorite = await _favoriteRepository.GetAsync(x => x.UserId == request.UserId && x.ProductId == request.ProductId);
+                    if (isFavorite != null)
+                        throw new BusinessException("Seçtiğiniz ürün favorilerinizde mevcut.");
+                    var newFavorite = new Favorite() { ProductId = request.ProductId, UserId = request.UserId };
+                    await _favoriteRepository.AddAsync(newFavorite);
                 }
                 catch (Exception hata)
                 {
