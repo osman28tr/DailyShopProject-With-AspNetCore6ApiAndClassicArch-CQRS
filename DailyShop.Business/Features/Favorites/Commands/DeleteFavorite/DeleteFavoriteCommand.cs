@@ -11,8 +11,7 @@ namespace DailyShop.Business.Features.Favorites.Commands.DeleteFavorite
 {
     public class DeleteFavoriteCommand : IRequest
     {
-        public int ProductId { get; set; }
-        public int UserId { get; set; }
+        public int FavoriteId { get; set; }
         public class DeleteFavoriteCommandHandler : IRequestHandler<DeleteFavoriteCommand>
         {
             private readonly IFavoriteRepository _favoriteRepository;
@@ -24,7 +23,7 @@ namespace DailyShop.Business.Features.Favorites.Commands.DeleteFavorite
             {
                 try
                 {
-                    var favorite = await _favoriteRepository.GetAsync(x => x.ProductId == request.ProductId && x.UserId == request.UserId);
+                    var favorite = await _favoriteRepository.GetAsync(x => x.Id == request.FavoriteId);
                     if (favorite == null)
                         throw new BusinessException("Favori bilgisi bulunamadı.");
                     await _favoriteRepository.DeleteAsync(favorite, false);

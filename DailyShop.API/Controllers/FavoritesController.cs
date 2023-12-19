@@ -29,10 +29,10 @@ namespace DailyShop.API.Controllers
             return Ok(new { Message = "Seçtiğiniz ürün favorilerinize başarıyla eklendi." });
         }
         [HttpDelete("DeleteFavorite")]
-        public async Task<IActionResult> DeleteFavorite([FromQuery] int productId)
+        public async Task<IActionResult> DeleteFavorite([FromQuery] int favoriteId)
         {
             int userId = _authService.VerifyToken(GetToken());
-            await Mediator.Send(new DeleteFavoriteCommand() { UserId = userId, ProductId = productId });
+            await Mediator.Send(new DeleteFavoriteCommand() { FavoriteId = favoriteId });
             return Ok(new { Message = "Seçtiğiniz ürün favorilerinizden başarıyla kaldırıldı." });
         }
         [HttpGet("GetFavorites")]
