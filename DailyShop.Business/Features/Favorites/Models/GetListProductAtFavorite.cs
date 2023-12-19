@@ -10,6 +10,7 @@ namespace DailyShop.Business.Features.Favorites.Models
     public class GetListProductAtFavorite
     {
         public int? Id { get; set; }
+        public string? Name { get; set; }
         public decimal? Price { get; set; }
         [JsonPropertyName("image")]
         public string? BodyImage { get; set; }

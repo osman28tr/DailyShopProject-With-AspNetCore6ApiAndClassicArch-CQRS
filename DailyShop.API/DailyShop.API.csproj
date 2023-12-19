@@ -48,7 +48,6 @@
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Models\" />
     <Folder Include="wwwroot\WebSiteIcons\" />
-    <Folder Include="wwwroot\ProductImages\" />
   </ItemGroup>
 
 </Project>
