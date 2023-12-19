@@ -33,6 +33,7 @@ namespace DailyShop.DataAccess
 			services.AddScoped<IOrderRepository, OrderRepository>();
 			services.AddScoped<IPaymentRepository, PaymentRepository>();
 			services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+			services.AddScoped<IWalletRepository, WalletRepository>();
 			
 			return services;
 		}

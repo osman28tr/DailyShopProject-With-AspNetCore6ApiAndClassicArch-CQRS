@@ -19,5 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Features\Favorites\Dtos\" />
+    <Folder Include="Features\Wallets\Models\" />
+    <Folder Include="Features\Wallets\Profiles\" />
+    <Folder Include="Features\Wallets\Queries\" />
   </ItemGroup>
 </Project>
