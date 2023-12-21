@@ -1,4 +1,6 @@
 ﻿using Core.Application.Pipelines.Authorization;
+using Core.Mailing;
+using Core.Mailing.MailKitImplementations;
 using DailyShop.Business.Features.Auths.Rules;
 using DailyShop.Business.Services.AuthService;
 using MediatR;

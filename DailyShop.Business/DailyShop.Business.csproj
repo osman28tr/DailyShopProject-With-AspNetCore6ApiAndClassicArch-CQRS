@@ -8,13 +8,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\corePackages\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\corePackages\Core.Mailing\Core.Mailing.csproj" />
     <ProjectReference Include="..\DailyShop.Entities\DailyShop.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MailKit" Version="4.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MimeKit" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
