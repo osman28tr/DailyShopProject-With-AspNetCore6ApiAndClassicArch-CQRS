@@ -81,7 +81,8 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 					{
 						Id = review.AppUser.Id,
 						Name = review.AppUser.FirstName + " " + review.AppUser.LastName,
-						Image = review.AppUser.ProfileImage
+						Image = review.AppUser.ProfileImage,
+                        Email = review.AppUser.Email
 					}
                 };
                 mappedProduct.ReviewsModel.Add(reviewModel);
