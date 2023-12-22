@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DailyShop.API.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class AuthsController : BaseController
 	{
@@ -37,12 +37,30 @@ namespace DailyShop.API.Controllers
 			SetAccessTokenToCookie(result.AccessToken);
 			return Ok(new { authorization = result.AccessToken.Token, user = result.LoggedUserDto, Message = "Başarıyla giriş yaptınız" });
 		}
-		[HttpPost]
-		public async Task<IActionResult> ForgotPassword([FromBody] string email)
+		[HttpPost("ForgotPassword")]
+		public async Task<IActionResult> ForgotPassword([FromQuery] string email)
 		{
 			await Mediator.Send(new ForgotPasswordCommand() { Email = email });
+			return Ok(new { Message = "Şifre yenileme linki mail adresinize gönderildi." });
+		}
+
+		[HttpPost("ResetPassword")]
+		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+		{
+			var token = Request.Headers["Authorization"].ToString().Split(" ")[1];
+			//await Mediator.Send(new ResetPasswordCommand() { ResetPasswordDto = resetPasswordDto , Token = token});
+			//ResetPasswordCommanddaki işlemler:
+			/* TODO: 
+				1. token ile kullanıcıyı bul
+				2.kullanıcıyı bulduktan sonra şifresini değiştir.
+				3.kullanıcıyı güncelle.
+				4.token'ı sil.
+			 */
+
+
 			return Ok();
 		}
+
 		private void SetAccessTokenToCookie(AccessToken accessToken)
 		{
 			CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) };
