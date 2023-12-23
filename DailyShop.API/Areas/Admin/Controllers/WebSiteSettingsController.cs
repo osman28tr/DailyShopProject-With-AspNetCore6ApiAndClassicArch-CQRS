@@ -39,10 +39,14 @@ namespace DailyShop.API.Areas.Admin.Controllers
         public async Task<IActionResult> Update([FromForm] UpdatedWebSiteSettingDto updatedWebSiteSettingDto)
         {
 			string siteIconPath = null;
-
+            
 			if (updatedWebSiteSettingDto.SiteIcon != null)
 			    siteIconPath = await AddWebSiteImageToFile(updatedWebSiteSettingDto.SiteIcon);
-
+            else
+            {
+                siteIconPath = Request.Form["siteIcon"];
+                siteIconPath = siteIconPath.Split("/")[^1];
+            }
             string result = await Mediator.Send(new UpdateWebSiteSettingCommand()
             { UpdatedWebSiteSettingDto = updatedWebSiteSettingDto, SiteIconPath = siteIconPath });
 

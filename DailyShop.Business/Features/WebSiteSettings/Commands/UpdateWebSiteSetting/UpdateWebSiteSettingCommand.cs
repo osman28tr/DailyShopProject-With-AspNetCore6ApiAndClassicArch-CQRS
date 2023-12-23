@@ -35,20 +35,21 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
                 {
                     var webSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
 
-                    var mappedWebSiteSetting = _mapper.Map<WebSiteSetting>(request.UpdatedWebSiteSettingDto);
-                    mappedWebSiteSetting.Icon = request.SiteIconPath;
+                    //var mappedWebSiteSetting = _mapper.Map<WebSiteSetting>(request.UpdatedWebSiteSettingDto);
+                    
 
                     if (webSiteSetting != null)
                     {
-                        mappedWebSiteSetting.UpdatedAt = DateTime.Now;
-                        mappedWebSiteSetting.Id = webSiteSetting.Id;
-                        await _webSiteSettingRepository.UpdateAsync(mappedWebSiteSetting);
+                        webSiteSetting.UpdatedAt = DateTime.Now;
+                        webSiteSetting.Icon = request.SiteIconPath;
+                        _mapper.Map(request.UpdatedWebSiteSettingDto, webSiteSetting);
+                        await _webSiteSettingRepository.UpdateAsync(webSiteSetting);
                         return "Web site ayarlarınız başarıyla güncellendi.";
                     }
                     else
                     {
-                        mappedWebSiteSetting.CreatedAt = DateTime.Now;
-                        await _webSiteSettingRepository.AddAsync(mappedWebSiteSetting);
+                        webSiteSetting.CreatedAt = DateTime.Now;
+                        await _webSiteSettingRepository.AddAsync(webSiteSetting);
                         return "Web site ayarlarınız başarıyla eklendi.";
                     }
                 }
