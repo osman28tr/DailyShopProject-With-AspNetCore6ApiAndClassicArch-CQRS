@@ -69,8 +69,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
         //Context.Entry(entity).State = EntityState.Detached;
-        //Context.Entry(entity).State = EntityState.Modified;
-        DetachLocal(Context, entity, entity.Id);
+        Context.Entry(entity).State = EntityState.Modified;
+        //DetachLocal(Context, entity, entity.Id);
         await Context.SaveChangesAsync();
         return entity;
     }
@@ -87,8 +87,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         context.Entry(t).State = EntityState.Modified;
     }
     public async Task<TEntity> DeleteAsync(TEntity entity,bool isCategory)
-    {  
-        if(isCategory)
+    {
+        if (isCategory)
         {
             Context.ChangeTracker.Clear();
         }

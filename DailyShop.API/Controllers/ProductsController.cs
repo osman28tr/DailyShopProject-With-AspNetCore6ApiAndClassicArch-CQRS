@@ -12,6 +12,8 @@ using DailyShop.Business.Features.Products.Queries.GetProductDetailById;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
+using DailyShop.Business.Features.Products.Commands.UpdateProduct;
+using DailyShop.Entities.Concrete;
 
 namespace DailyShop.API.Controllers
 {
@@ -76,7 +78,7 @@ namespace DailyShop.API.Controllers
         {
             int userId = _authService.VerifyToken(GetToken());
             var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery
-                { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId });
+            { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId });
             foreach (var product in productValues)
             {
                 product.BodyImage = GetImageByHelper(product.BodyImage);
@@ -97,9 +99,9 @@ namespace DailyShop.API.Controllers
             {
                 userId = _authService.VerifyToken(GetToken());
             }
-            
+
             var productValues = await Mediator?.Send(new GetProductDetailByIdQuery()
-                { ProductId = productId, UserId = userId })!;
+            { ProductId = productId, UserId = userId })!;
 
             productValues.BodyImage = GetImageByHelper(productValues.BodyImage);
             if (productValues.ProductImages != null)
@@ -132,6 +134,51 @@ namespace DailyShop.API.Controllers
         {
             var deletedProduct = await Mediator?.Send(new DeleteProductCommand() { ProductId = productId })!;
             return Ok(new { message = $"{deletedProduct.Name} adlı ürün başarıyla silindi." });
+        }
+        [HttpPut("{productId:int}")]
+        public async Task<IActionResult> UpdateProduct(int productId, [FromForm] UpdatedProductDto updatedProductDto)
+        {
+            // Request.Form["images"] senden bana gelip benim sana tekrar gönderdiğim images ler
+            // Request.Form.Files ise Benim sana gönderdiğim image/imagesler ( Name' e göre ayırıyor)
+            // Request.Form.Files ın içinde BodyImage varsa onu alıp güncelleme işlemi yap
+            // yoksa eskisiyle devam et.
+
+            List<string> productImagesPath = new List<string>();
+            string bodyImagePath = "";
+
+            if (updatedProductDto.ProductImagesFile != null)
+            {
+                foreach (var productImage in updatedProductDto.ProductImagesFile)
+                {
+                    string imageName = await AddProductImageToFile(productImage);
+                    productImagesPath.Add(imageName);
+                }
+            }
+            if (updatedProductDto.ProductImages != null)
+            {
+                foreach (var image in updatedProductDto.ProductImages)
+                {
+                    string restoredImage = image.Split("/")[^1];
+                    productImagesPath.Add(restoredImage);
+                }
+            }
+            if (updatedProductDto.BodyImage != null)
+            {
+                bodyImagePath = await AddProductImageToFile(updatedProductDto.BodyImage);
+            }
+            else
+            {
+                bodyImagePath = Request.Form["BodyImage"];
+                bodyImagePath = bodyImagePath.Split("/")[^1];
+            }
+            await Mediator?.Send(new UpdateProductCommand
+            {
+                UpdatedProductDto = updatedProductDto,
+                ProductImagesPath = productImagesPath,
+                BodyImagePath = bodyImagePath,
+                ProductId = productId
+            })!;
+            return Ok(new { Message = "Ürününüz başarıyla güncellendi." });
         }
         private async Task<string> AddProductImageToFile(IFormFile imageFile)
         {

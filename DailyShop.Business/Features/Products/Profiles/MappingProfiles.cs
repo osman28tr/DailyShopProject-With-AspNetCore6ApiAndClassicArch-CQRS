@@ -57,6 +57,14 @@ namespace DailyShop.Business.Features.Products.Profiles
             CreateMap<Color, InsertedProductColorDto>().ReverseMap();
             CreateMap<Size, InsertedProductSizeDto>().ReverseMap();
 
+            CreateMap<Product, UpdatedProductDto>()
+                .ForMember(x => x.ProductImages, opt => opt.Ignore())
+                .ForMember(x => x.ProductImagesFile, opt => opt.Ignore())
+                .ForMember(x => x.BodyImage, opt => opt.Ignore())
+                .ForMember(x => x.Colors, opt => opt.Ignore())
+                .ForMember(x => x.Sizes, opt => opt.Ignore())
+                .ReverseMap();
+
             CreateMap<Product, DeleteProductViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.BodyImage, opt => opt.MapFrom(src => src.BodyImage))
