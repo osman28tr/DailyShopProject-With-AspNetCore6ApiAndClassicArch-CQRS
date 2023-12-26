@@ -1,5 +1,6 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Orders.Commands.InsertOrder;
+using DailyShop.Business.Features.Orders.Commands.UpdateOrderStatus;
 using DailyShop.Business.Features.Orders.Dtos;
 using DailyShop.Business.Features.Orders.Queries.GetListOrderByUserId;
 using DailyShop.Business.Services.AuthService;
@@ -27,6 +28,12 @@ namespace DailyShop.API.Controllers
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertOrderCommand() { InsertedOrderDto = insertedOrderDto, UserId = userId });
             return Ok(new { Message = "Siparişiniz başarıyla oluşturuldu." });
+        }
+        [HttpPut("{orderId}")]
+        public async Task<IActionResult> UpdateStatus(int orderId, [FromBody] string status)
+        {
+            await Mediator.Send(new UpdateOrderStatusCommand() { OrderId = orderId, Status = status });
+            return Ok(new { Message = "Siparişinizin durumu başarıyla güncellendi." });
         }
         [HttpGet]
         public async Task<IActionResult> GetList()
