@@ -23,7 +23,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
             private readonly IProductRepository _productRepository;
             private readonly IAppUserRepository _appUserRepository;
             private readonly IDpProductRepository _dpProductRepository;
-            private readonly IMapper _mapper;
+			private readonly IMapper _mapper;
 
             public GetByIdProductQueryHandler(IProductRepository productRepository, IDpProductRepository dpProductRepository, IAppUserRepository appUserRepository, IMapper mapper)
             {
@@ -38,14 +38,13 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                 // sadece onaylanmış ürünler listelensin ama bakan kişi admin ise onaylanmamış ürünler de listelensin
                 var user = await _appUserRepository.Query().FirstOrDefaultAsync(x => x.Id == request.UserId);
 
-                List<Product> products = new List<Product>();
-                if (user.Role == "admin")
+                List<Product> products;
+                if (user?.Role == "admin")
                 {
-                    if (request.IsDeleted == true)
+                    if (request.IsDeleted)
                     {
                         products = await _productRepository.Query()
-                            .Where(p => p.CategoryId == request.CategoryId
-                            )
+                            .Where(p => p.CategoryId == request.CategoryId)
                             .Include(r => r.Reviews)!
                             .ThenInclude(ru => ru.AppUser)
                             .ToListAsync(cancellationToken: cancellationToken);
@@ -53,8 +52,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                     else
                     {
                         products = await _productRepository.Query()
-                            .Where(p => p.CategoryId == request.CategoryId && p.IsDeleted == false
-                            )
+                            .Where(p => p.CategoryId == request.CategoryId && p.IsDeleted == false)
                             .Include(r => r.Reviews)!
                             .ThenInclude(ru => ru.AppUser)
                             .ToListAsync(cancellationToken: cancellationToken);
@@ -62,7 +60,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                 }
                 else
                 {
-                    if (request.IsDeleted == true)
+                    if (request.IsDeleted)
                     {
                         products = await _productRepository.Query()
                             .Where(p => p.CategoryId == request.CategoryId
@@ -87,31 +85,15 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                 foreach (var mappedProduct in mappedProducts)
                 {
                     var productColors = await _dpProductRepository.GetProductDetailColorByIdAsync(mappedProduct.Id);
-                    if (productColors != null)
-                    {
-                        foreach (var productColor in productColors)
-                        {
-                            mappedProduct.Colors.Add(productColor);
-                        }
-                    }
+                    foreach (var productColor in productColors)
+	                    mappedProduct.Colors?.Add(productColor);
                     var productSizes = await _dpProductRepository.GetProductDetailSizeByIdAsync(mappedProduct.Id);
-                    if (productSizes != null)
-                    {
-                        foreach (var productSize in productSizes)
-                        {
-                            mappedProduct.Sizes.Add(productSize);
-                        }
-                    }
+                    foreach (var productSize in productSizes)
+	                    mappedProduct.Sizes?.Add(productSize);
                     var productImages = await _dpProductRepository.GetProductDetailImageByIdAsync(mappedProduct.Id);
-                    if (productImages != null)
-                    {
-                        foreach (var productImage in productImages)
-                        {
-                            mappedProduct.ProductImages.Add(productImage);
-                        }
-                    }
+                    foreach (var productImage in productImages)
+	                    mappedProduct.ProductImages?.Add(productImage);
                 }
-
                 foreach (var product in products)
                 {
                     if (product.Reviews == null) continue;
@@ -119,20 +101,13 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                     {
                         GetListReviewByProductViewModel reviewModel = new()
                         {
-                            ReviewDescription = review.Description,
                             ReviewRating = review.Rating,
                             ReviewStatus = review.Status,
                             ReviewCreatedDate = review.CreatedAt,
                             ReviewUpdatedDate = review.UpdatedAt,
-                            Id = review.Id,
-                            User = new ReviewUser()
-                            {
-                                Id = review.AppUser.Id,
-                                Name = review.AppUser?.FirstName + " " + review.AppUser?.LastName,
-                                Image = review.AppUser?.ProfileImage
-                            }
-                        };
-                        mappedProducts[products.IndexOf(product)].ReviewsModel.Add(reviewModel);
+                            Id = review.Id
+						};
+                        mappedProducts[products.IndexOf(product)].ReviewsModel?.Add(reviewModel);
                     }
                 }
                 return mappedProducts;
