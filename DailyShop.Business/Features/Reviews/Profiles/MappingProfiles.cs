@@ -23,6 +23,7 @@ namespace DailyShop.Business.Features.Reviews.Profiles
                 //.AfterMap((src, dest, context) => dest.Product = context.Mapper.Map<GetListReviewByProductViewModel, Product>(src))
                 .ReverseMap();
             CreateMap<Review, InsertedReviewDto>().ReverseMap();
+            CreateMap<Review, InsertedReviewToReviewDto>().ReverseMap();
         }
     }
 }
