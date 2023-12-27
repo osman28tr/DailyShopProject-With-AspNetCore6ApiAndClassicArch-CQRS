@@ -2,6 +2,7 @@
 using DailyShop.Business.Features.Reviews.Commands.DeleteReview;
 using DailyShop.Business.Features.Reviews.Commands.InsertReview;
 using DailyShop.Business.Features.Reviews.Commands.InsertReviewToReview;
+using DailyShop.Business.Features.Reviews.Commands.ReportReview;
 using DailyShop.Business.Features.Reviews.Dtos;
 using DailyShop.Business.Features.Reviews.Queries.GetListReviewByUserId;
 using DailyShop.Business.Services.AuthService;
@@ -47,6 +48,12 @@ namespace DailyShop.API.Controllers
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertReviewToReviewCommand() { AppUserId = userId, ProductId = id, InsertedReviewToReview = insertedReviewToReviewDto });
             return Ok(new { Message = "Yorumunuz onaylanmak üzere sisteme gönderilmiştir." });
+        }
+        [HttpPost("ReportReview/{reviewId}")]
+        public async Task<IActionResult> ReportReview(int reviewId)
+        {
+            await Mediator.Send(new ReportReviewCommand() { ReviewId = reviewId });
+            return Ok(new { Message = "Yorum başarıyla engellendi." });
         }
         [HttpDelete("{reviewId}")]
         public async Task<IActionResult> DeleteReview(int reviewId)
