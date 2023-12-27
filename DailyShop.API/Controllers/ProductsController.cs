@@ -76,7 +76,11 @@ namespace DailyShop.API.Controllers
         [HttpGet("category/{categoryId}")]
         public async Task<IActionResult> GetListByCategoryId(int categoryId, [FromQuery] bool isDeleteShow)
         {
-            int userId = _authService.VerifyToken(GetToken());
+            int userId = 0;
+            if (GetToken() != null)
+            {
+                userId = _authService.VerifyToken(GetToken());
+            }
             var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery
             { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId });
             foreach (var product in productValues)

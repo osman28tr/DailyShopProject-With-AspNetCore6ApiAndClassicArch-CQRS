@@ -19,15 +19,17 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
     {
         private readonly IProductRepository _productRepository;
         private readonly IDpProductRepository _dpProductRepository;
+        private readonly IDpOrderRepository _dpOrderRepository;
         private readonly IAppUserRepository _appUserRepository;
 	    private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public GetByIdProductDetailQueryHandler(IProductRepository productRepository,IDpProductRepository dpProductRepository, IAppUserRepository appUserRepository, IOrderRepository orderRepository, IMapper mapper)
+        public GetByIdProductDetailQueryHandler(IProductRepository productRepository,IDpProductRepository dpProductRepository,IDpOrderRepository dpOrderRepository, IAppUserRepository appUserRepository, IOrderRepository orderRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _appUserRepository = appUserRepository;
             _dpProductRepository = dpProductRepository;
+            _dpOrderRepository = dpOrderRepository;
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
@@ -35,8 +37,6 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
         public async Task<GetProductDetailByIdViewModel> Handle(GetProductDetailByIdQuery request,
             CancellationToken cancellationToken)
         {
-            //var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).Include(u => u.User).Include(c => c.Colors).ThenInclude(c => c.Color).Include(s => s.Sizes).ThenInclude(s => s.Size).Include(pi => pi.ProductImages).FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
             var product = await _productRepository.Query().Where(p => p.Id == request.ProductId).Include(r => r.Reviews)!.ThenInclude(ru => ru.AppUser).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             var category = await _dpProductRepository.GetProductDetailCategoryByIdAsync(product.CategoryId);
@@ -70,9 +70,11 @@ public class GetProductDetailByIdQuery : IRequest<GetProductDetailByIdViewModel>
 
             if (product.Reviews == null) return mappedProduct;
 
-            var allOrder = await _orderRepository.Query()
-	            .Include(o => o.OrderItems)
-	            .ToListAsync(cancellationToken: cancellationToken);
+            var allOrder = await _dpOrderRepository.GetList();
+            foreach (var order in allOrder)
+            {
+                order.OrderItems = await _dpOrderRepository.GetList(order.Id);
+            }
 
             foreach (var review in product.Reviews)
             {
