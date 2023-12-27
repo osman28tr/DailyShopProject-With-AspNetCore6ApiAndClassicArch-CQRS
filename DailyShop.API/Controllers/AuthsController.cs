@@ -4,6 +4,7 @@ using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Auths.Commands.ForgotPassword;
 using DailyShop.Business.Features.Auths.Commands.LoginUser;
 using DailyShop.Business.Features.Auths.Commands.RegisterUser;
+using DailyShop.Business.Features.Auths.Commands.ResetPassword;
 using DailyShop.Business.Features.Auths.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ namespace DailyShop.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class AuthsController : BaseController
+	public class AuthsController : BaseTokenController
 	{
 		[HttpPost("Register")]
 		public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
@@ -47,18 +48,9 @@ namespace DailyShop.API.Controllers
 		[HttpPost("ResetPassword")]
 		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
 		{
-			var token = Request.Headers["Authorization"].ToString().Split(" ")[1];
-			//await Mediator.Send(new ResetPasswordCommand() { ResetPasswordDto = resetPasswordDto , Token = token});
-			//ResetPasswordCommanddaki işlemler:
-			/* TODO: 
-				1. token ile kullanıcıyı bul
-				2.kullanıcıyı bulduktan sonra şifresini değiştir.
-				3.kullanıcıyı güncelle.
-				4.token'ı sil.
-			 */
-
-
-			return Ok();
+			var token = GetToken();
+			await Mediator.Send(new ResetPasswordCommand() { ResetPasswordDto = resetPasswordDto , Token = token});
+			return Ok(new { Message = "Şifreniz başarıyla güncellendi." });
 		}
 
 		private void SetAccessTokenToCookie(AccessToken accessToken)
