@@ -49,29 +49,13 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProduct
 
                 if (product == null)
                     throw new BusinessException("Güncellemek istediğiniz ürün bulunamadı.");
-
-                product.Name = request.UpdatedProductDto.Name;
-                
+                var oldPrice = product.Price;
+                product.Name = request.UpdatedProductDto.Name;       
                 product.Description = request.UpdatedProductDto.Description;
                 product.Stock = request.UpdatedProductDto.Stock;
                 product.Status = request.UpdatedProductDto.Status;
                 product.CategoryId = request.UpdatedProductDto.CategoryId;
                 product.UpdatedAt = DateTime.Now;
-
-                // fiyat eğer düştüyse bunu favori eklemiş kullanıcalara bildir
-                if (product.Price < request.UpdatedProductDto.Price)
-                {
-                    var users = await _favoriteRepository.Query()
-                        .Where(x => x.ProductId == product.Id)
-                        .Select(x => x.User)
-                        .ToListAsync(cancellationToken: cancellationToken);
-                    foreach (var user in users)
-                    {
-                        var body = $@" Sayın {user.FirstName}  {user.LastName} favori ürününüzün fiyatı düştü.<br/>
-                                    Ürün Adı: {product.Name} <br/> Ürün Fiyatı: {product.Price} <br/> Yeni Fiyat: {request.UpdatedProductDto.Price}<br/> <br/> <a href='http://localhost:5173/product/$%7Bproduct.Id%7D'> Ürüne Gitmek İçin Tıklayınız </a>";
-                        await _mailService.SendEmail(new MailDto { ToEmail = user.Email, Subject = "Favori Ürün", Body = body }, cancellationToken);
-                    }
-                }
                 product.Price = request.UpdatedProductDto.Price;
                 //color-size-image deleted
                 if (product.Colors.Count != 0)
@@ -139,6 +123,21 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProduct
                     product.BodyImage = request.BodyImagePath;
                 }
                 await _productRepository.UpdateAsync(product);
+
+                // fiyat eğer düştüyse bunu favori eklemiş kullanıcalara bildir
+                if (product.Price < request.UpdatedProductDto.Price)
+                {
+                    var users = await _favoriteRepository.Query()
+                        .Where(x => x.ProductId == product.Id)
+                        .Select(x => x.User)
+                        .ToListAsync(cancellationToken: cancellationToken);
+                    foreach (var user in users)
+                    {
+                        var body = $@" Sayın {user.FirstName}  {user.LastName} favori ürününüzün fiyatı düştü.<br/>
+                                    Ürün Adı: {product.Name} <br/> Ürün Fiyatı: {product.Price} <br/> Yeni Fiyat: {request.UpdatedProductDto.Price}<br/> <br/> <a href='http://localhost:5173/product/{product.Id}'> Ürüne Gitmek İçin Tıklayınız </a>";
+                        await _mailService.SendEmail(new MailDto { ToEmail = user.Email, Subject = "Favori Ürün", Body = body }, cancellationToken);
+                    }
+                }
             }
         }
     }
