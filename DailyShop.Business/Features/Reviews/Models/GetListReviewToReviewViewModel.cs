@@ -16,7 +16,7 @@ namespace DailyShop.Business.Features.Reviews.Models
         public string Description { get; set; }
         [JsonPropertyName("parentReviewId")]
         public int? ParentReviewId { get; set; }
-        [JsonPropertyName("subReviews")]
-        public ICollection<GetListReviewToReviewViewModel>? Answers { get; set; }
+        [JsonPropertyName("answers")]
+        public ICollection<GetListReviewToReviewViewModel>? SubReviews { get; set; }
     }
 }
