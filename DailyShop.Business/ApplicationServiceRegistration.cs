@@ -1,8 +1,7 @@
 ﻿using Core.Application.Pipelines.Authorization;
-using Core.Mailing;
-using Core.Mailing.MailKitImplementations;
 using DailyShop.Business.Features.Auths.Rules;
 using DailyShop.Business.Services.AuthService;
+using DailyShop.Business.Services.EmailService;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,6 +23,7 @@ namespace DailyShop.Business
 			services.AddScoped<AuthBusinessRules>();
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
 			services.AddScoped<IAuthService, AuthManager>();
+			services.AddScoped<IMailService, MailService>();
 			return services;
 		}
 	}
