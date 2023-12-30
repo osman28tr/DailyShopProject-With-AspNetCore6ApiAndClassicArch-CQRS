@@ -9,8 +9,7 @@ namespace DailyShop.Business.Features.Reviews.Dtos
 {
     public class InsertedReviewToReviewDto
     {
-        public int? ParentReviewId { get; set; }
-        [JsonPropertyName("comment")]
-        public string? Description { get; set; }
-    }
+	    [JsonPropertyName("comment")] public string Description { get; set; }
+	    [JsonPropertyName("parentReviewId")] public int ParentReviewId { get; set; }
+	}
 }
