@@ -22,10 +22,14 @@ namespace DailyShop.API.Controllers
 	public class ProfilesController : BaseTokenController
 	{
 		private readonly IAuthService _authService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ImageHelper _imageHelper;
 
-		public ProfilesController(IAuthService authService)
+        public ProfilesController(IAuthService authService,IWebHostEnvironment webHostEnvironment,ImageHelper imageHelper)
 		{
 			_authService = authService;
+			_webHostEnvironment = webHostEnvironment;
+			_imageHelper = imageHelper;
 		}
         [HttpGet("GetUser")]
         public async Task<IActionResult> GetUser()
@@ -45,9 +49,11 @@ namespace DailyShop.API.Controllers
 			 return Ok(address);
 		}
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] UpdatedUserDto updatedUserDto)
+        public async Task<IActionResult> Update([FromForm] UpdatedUserDto updatedUserDto)
         {
             int userId = _authService.VerifyToken(GetToken());
+
+			updatedUserDto.ProfileImage = await AddUserImageToFile(updatedUserDto.ProfileImageFile);
 
             UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
             await Mediator.Send(updateUserCommand);
@@ -78,5 +84,16 @@ namespace DailyShop.API.Controllers
 			string message = await Mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
 			return Ok(new { Message = message });
 		}
-	}
+        private async Task<string> AddUserImageToFile(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot/UserImages", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
+    }
 }

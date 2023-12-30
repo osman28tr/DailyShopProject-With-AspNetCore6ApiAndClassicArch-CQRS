@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace DailyShop.Business.Features.Auths.Dtos
 {
     public class BaseUserDto
     {
+        public IFormFile ProfileImageFile { get; set; }
         [JsonPropertyName("profileImage")]
         public string? ProfileImage { get; set; }
         [JsonPropertyName("name")]
