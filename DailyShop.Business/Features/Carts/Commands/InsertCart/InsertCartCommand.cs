@@ -15,7 +15,7 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
 {
     public class InsertCartCommand:IRequest
     {
-        public InsertedCartItemDto InsertedCartItemDto { get; set; }
+        public InsertedCartItemDto? InsertedCartItemDto { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public class InsertCartCommandHandler:IRequestHandler<InsertCartCommand>

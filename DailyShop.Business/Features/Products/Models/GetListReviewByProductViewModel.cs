@@ -25,10 +25,10 @@ namespace DailyShop.Business.Features.Products.Models
 		public ReviewUser? User { get; set; }
 		[JsonPropertyName("userPurchasedThisProduct")]
 		public bool? UserPurchasedThisProduct { get; set; }
-        //public int? ParentReviewId { get; set; }
-        //[JsonPropertyName("answers")]
-        //public List<GetListReviewByProductViewModel>? SubReviews { get; set; }
-    }
+		public int? ParentReviewId { get; set; }
+		[JsonPropertyName("answers")]
+		public List<GetListReviewByProductViewModel>? SubReviews { get; set; }
+	}
 }
 
 public class ReviewUser

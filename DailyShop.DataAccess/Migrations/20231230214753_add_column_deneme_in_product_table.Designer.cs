@@ -4,6 +4,7 @@ using DailyShop.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    partial class DailyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231230214753_add_column_deneme_in_product_table")]
+    partial class add_column_deneme_in_product_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -541,6 +544,9 @@ namespace DailyShop.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DenemeSütunu")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -585,7 +591,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 31,
                             BodyImage = "productimagess",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4524),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6210),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -594,7 +600,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4534),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6223),
                             UserId = 1
                         },
                         new
@@ -602,7 +608,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 32,
                             BodyImage = "productimagess2",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4540),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6232),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -611,7 +617,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)2,
                             Status = "yeni",
                             Stock = 13,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4541),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6232),
                             UserId = 1
                         },
                         new
@@ -619,7 +625,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 33,
                             BodyImage = "productimagess3",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4542),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6235),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -628,7 +634,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)3,
                             Status = "yeni",
                             Stock = 14,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4542),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6235),
                             UserId = 1
                         },
                         new
@@ -636,7 +642,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 34,
                             BodyImage = "productimagess4",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4543),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6236),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -645,7 +651,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)4,
                             Status = "yeni",
                             Stock = 126,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4544),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6237),
                             UserId = 1
                         },
                         new
@@ -653,7 +659,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 35,
                             BodyImage = "productimagess5",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4545),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6238),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -662,7 +668,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)5,
                             Status = "yeni",
                             Stock = 127,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4545),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6238),
                             UserId = 1
                         },
                         new
@@ -670,7 +676,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 36,
                             BodyImage = "productimagess6",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4546),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6240),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -679,7 +685,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 129,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4547),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6240),
                             UserId = 1
                         },
                         new
@@ -687,7 +693,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 37,
                             BodyImage = "productimagess7",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4548),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6241),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -696,7 +702,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4548),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6241),
                             UserId = 2
                         },
                         new
@@ -704,7 +710,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 38,
                             BodyImage = "productimagess8",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4549),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6243),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -713,7 +719,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 15,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4549),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6243),
                             UserId = 2
                         },
                         new
@@ -721,7 +727,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 39,
                             BodyImage = "productimagess9",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4554),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6244),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -730,7 +736,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)5,
                             Status = "yeni",
                             Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4554),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6245),
                             UserId = 2
                         },
                         new
@@ -738,7 +744,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 40,
                             BodyImage = "productimagess10",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4556),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6246),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -747,7 +753,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 21,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4556),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6246),
                             UserId = 2
                         },
                         new
@@ -755,7 +761,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 41,
                             BodyImage = "productimagess11",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4557),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6247),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -764,7 +770,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)7,
                             Status = "yeni",
                             Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4557),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6248),
                             UserId = 2
                         },
                         new
@@ -772,7 +778,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 42,
                             BodyImage = "productimagess12",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4558),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6249),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -781,7 +787,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 24,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4559),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6249),
                             UserId = 2
                         },
                         new
@@ -789,7 +795,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 43,
                             BodyImage = "productimagess13",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4560),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6250),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -798,7 +804,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)2,
                             Status = "yeni",
                             Stock = 126,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4560),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6251),
                             UserId = 2
                         },
                         new
@@ -806,7 +812,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 44,
                             BodyImage = "productimagess14",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4561),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6253),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -815,7 +821,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)1,
                             Status = "yeni",
                             Stock = 272,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4561),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6254),
                             UserId = 2
                         },
                         new
@@ -823,7 +829,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 45,
                             BodyImage = "productimagess15",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4562),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6255),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -832,7 +838,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 30,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4563),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6255),
                             UserId = 2
                         },
                         new
@@ -840,7 +846,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 46,
                             BodyImage = "productimagess16",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4564),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6257),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -849,7 +855,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)3,
                             Status = "yeni",
                             Stock = 31,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4564),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6257),
                             UserId = 2
                         },
                         new
@@ -857,7 +863,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 47,
                             BodyImage = "productimagess17",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4565),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6258),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -866,7 +872,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 36,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4565),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6259),
                             UserId = 2
                         },
                         new
@@ -874,7 +880,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 48,
                             BodyImage = "productimagess18",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4566),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6296),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -883,7 +889,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 58,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4567),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6297),
                             UserId = 2
                         },
                         new
@@ -891,7 +897,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 49,
                             BodyImage = "productimagess19",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4568),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6298),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -900,7 +906,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)2,
                             Status = "yeni",
                             Stock = 78,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4568),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6298),
                             UserId = 2
                         },
                         new
@@ -908,7 +914,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 50,
                             BodyImage = "productimagess20",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4569),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6299),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -917,7 +923,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 57,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4569),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6300),
                             UserId = 2
                         },
                         new
@@ -925,7 +931,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 51,
                             BodyImage = "productimagess21",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4570),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6301),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -934,7 +940,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)3,
                             Status = "yeni",
                             Stock = 46,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4571),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6301),
                             UserId = 2
                         },
                         new
@@ -942,7 +948,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 52,
                             BodyImage = "productimagess22",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4572),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6302),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -951,7 +957,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 89,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4572),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6303),
                             UserId = 1
                         },
                         new
@@ -959,7 +965,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 53,
                             BodyImage = "productimagess23",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4573),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6304),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -968,7 +974,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)4,
                             Status = "yeni",
                             Stock = 57,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4573),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6305),
                             UserId = 1
                         },
                         new
@@ -976,7 +982,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 54,
                             BodyImage = "productimagess24",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4574),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6306),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -985,7 +991,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 38,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4575),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6306),
                             UserId = 1
                         },
                         new
@@ -993,7 +999,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 55,
                             BodyImage = "productimagess25",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4577),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6307),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1002,7 +1008,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)5,
                             Status = "yeni",
                             Stock = 77,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4577),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6308),
                             UserId = 3
                         },
                         new
@@ -1010,7 +1016,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 56,
                             BodyImage = "productimagess26",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4578),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6309),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1019,7 +1025,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 96,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4579),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6309),
                             UserId = 3
                         },
                         new
@@ -1027,7 +1033,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 57,
                             BodyImage = "productimagess27",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4580),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6310),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1036,7 +1042,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)1,
                             Status = "yeni",
                             Stock = 65,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4580),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6311),
                             UserId = 3
                         },
                         new
@@ -1044,7 +1050,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 58,
                             BodyImage = "productimagess28",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4581),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6312),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1053,7 +1059,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)3,
                             Status = "yeni",
                             Stock = 67,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4581),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6313),
                             UserId = 3
                         },
                         new
@@ -1061,7 +1067,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 59,
                             BodyImage = "productimagess29",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4582),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6314),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1070,7 +1076,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)7,
                             Status = "yeni",
                             Stock = 47,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4583),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6314),
                             UserId = 3
                         },
                         new
@@ -1078,7 +1084,7 @@ namespace DailyShop.DataAccess.Migrations
                             Id = 60,
                             BodyImage = "productimagess30",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4584),
+                            CreatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6315),
                             Description = "denemedes1",
                             IsApproved = true,
                             IsDeleted = false,
@@ -1087,7 +1093,7 @@ namespace DailyShop.DataAccess.Migrations
                             Rating = (byte)6,
                             Status = "yeni",
                             Stock = 98,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4584),
+                            UpdatedAt = new DateTime(2023, 12, 31, 0, 47, 53, 98, DateTimeKind.Local).AddTicks(6316),
                             UserId = 3
                         });
                 });

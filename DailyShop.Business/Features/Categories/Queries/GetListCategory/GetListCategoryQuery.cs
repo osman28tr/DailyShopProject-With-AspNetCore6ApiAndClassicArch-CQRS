@@ -32,17 +32,6 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
             {
                 List<int> categoryIds = await _categoryRepository.Query().Where(c => c.ParentCategoryId == null).Select(x => x.Id).ToListAsync();
 
-                //List<Category> categories = await _categoryRepository.Query().Include(c => c.SubCategories).ThenInclude(c => c.SubCategories).ThenInclude(c=>c.SubCategories).Where(c => c.ParentCategoryId == null).ToListAsync();
-
-                //int depth = 5; // İstediğiniz derinlik seviyesini belirleyin
-                //var query = _categoryRepository.Query();
-                //query = IncludeSubCategories(query, depth);
-
-                //List<Category> targetCategories = await query
-                //    .Where(c => categoryIds.Contains(c.Id))
-                //    .ToListAsync();
-
-
                 var query = _categoryRepository.Query();
                 var includes = new List<Expression<Func<Category, object>>>();
 
@@ -56,37 +45,12 @@ namespace DailyShop.Business.Features.Categories.Queries.GetListCategory
                 }
                 List<Category> targetCategories = query.ToList();
                 query = query.Distinct();
-
-                // List<Category> targetCategories = query.ToList();
-
-                //List<Category> targetCategories = await query
-                //    .Where(c => categoryIds.Contains(c.Id))
-                //    .ToListAsync();
-                //var subCategories2 = await _categoryRepository.Query().Where(c => c.ParentCategoryId != null).ToListAsync();
-                //foreach (var item in targetCategories)
-                //{
-                //    foreach (var item2 in subCategories2)
-                //    {
-                //        if(item.Id == item2.Id)
-                //        {
-                //            targetCategories.Remove(item2);
-                //        }
-                //    }
-                //}
                
                 List<GetListCategoryDto> mappedGetListCategory = _mapper.Map<List<GetListCategoryDto>>(query);
                 return mappedGetListCategory;
             }
             public IQueryable<Category> IncludeSubCategories(IQueryable<Category> query, int depth)
             {
-                //if (depth <= 0)
-                //{
-                //    return query;
-                //}
-
-                //query = query.Include(c => c.SubCategories).ThenInclude(c => c.SubCategories);
-
-                //return IncludeSubCategories(query, depth - 1);
                 while(query.Any())
                 {
                     query = query.Include(c=>c.SubCategories);

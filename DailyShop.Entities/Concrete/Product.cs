@@ -38,5 +38,20 @@ namespace DailyShop.Entities.Concrete
         {
             Id = id;
         }
+        public Product(int id, int categoryId,string name,decimal price,string bodyImage,string description,string status,int stock,byte rating,bool isDeleted,bool isApproved,int userId)
+        {
+            Id = id;
+            CategoryId = categoryId;
+            Name = name;
+            Price = price;
+            BodyImage = bodyImage;
+            Description = description;
+            Status = status;
+            Stock = stock;
+            Rating = rating;
+            IsDeleted = isDeleted;
+            IsApproved = isApproved;
+            UserId = userId;
+        }
     }
 }
