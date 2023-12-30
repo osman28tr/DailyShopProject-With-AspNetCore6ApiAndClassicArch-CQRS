@@ -4,6 +4,7 @@ using DailyShop.Business.Features.Reviews.Commands.InsertReview;
 using DailyShop.Business.Features.Reviews.Commands.InsertReviewToReview;
 using DailyShop.Business.Features.Reviews.Commands.ReportReview;
 using DailyShop.Business.Features.Reviews.Dtos;
+using DailyShop.Business.Features.Reviews.Queries.GetListReviewByProductId;
 using DailyShop.Business.Features.Reviews.Queries.GetListReviewByUserId;
 using DailyShop.Business.Services.AuthService;
 using MediatR;
@@ -32,6 +33,12 @@ namespace DailyShop.API.Controllers
                 review.Product.BodyImage = GetImageByHelper(review.Product.BodyImage);
             });
             return Ok(new { message = "Kullanıcının yorumları getirildi.", data = reviews });
+        }
+        [HttpGet("GetReviewByProductId/{productId:int}")]
+        public async Task<IActionResult> GetReviewByProductId(int productId)
+        {
+            var reviews = await Mediator.Send(new GetListReviewByProductIdQuery() { ProductId = productId });
+            return Ok(new { Message = "Ürüne ait yorumlar getirildi.", data = reviews });
         }
 
         [HttpPost("AddReviewToProduct/{id}")]

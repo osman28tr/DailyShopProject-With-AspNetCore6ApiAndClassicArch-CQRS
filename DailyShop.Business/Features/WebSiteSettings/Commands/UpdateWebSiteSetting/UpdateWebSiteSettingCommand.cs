@@ -16,8 +16,8 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
 {
     public class UpdateWebSiteSettingCommand:IRequest<string>
     {
-        public UpdatedWebSiteSettingDto UpdatedWebSiteSettingDto { get; set; }
-        public string SiteIconPath { get; set; }
+        public UpdatedWebSiteSettingDto? UpdatedWebSiteSettingDto { get; set; }
+        public string? SiteIconPath { get; set; }
         public class UpdateWebSiteSettingCommandHandler : IRequestHandler<UpdateWebSiteSettingCommand,string>
         {
             private readonly IWebSiteSettingRepository _webSiteSettingRepository;

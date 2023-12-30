@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DailyShop.Business.Features.Categories.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace DailyShop.Business.Features.Products.Models
 {
 	public class GetListReviewByProductViewModel
 	{
-		[JsonPropertyName("id")]
+        [JsonPropertyName("id")]
 		public int Id { get; set; }
 		[JsonPropertyName("rating")]
 		public byte? ReviewRating { get; set; }
@@ -24,7 +25,10 @@ namespace DailyShop.Business.Features.Products.Models
 		public ReviewUser? User { get; set; }
 		[JsonPropertyName("userPurchasedThisProduct")]
 		public bool? UserPurchasedThisProduct { get; set; }
-	}
+        //public int? ParentReviewId { get; set; }
+        //[JsonPropertyName("answers")]
+        //public List<GetListReviewByProductViewModel>? SubReviews { get; set; }
+    }
 }
 
 public class ReviewUser
