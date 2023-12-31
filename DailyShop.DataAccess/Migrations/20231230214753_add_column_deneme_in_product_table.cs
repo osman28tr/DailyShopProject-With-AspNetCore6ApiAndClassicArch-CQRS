@@ -13,11 +13,11 @@ namespace DailyShop.DataAccess.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "DenemeSütunu",
-                table: "Products",
-                type: "nvarchar(max)",
-                nullable: true);
+            //migrationBuilder.AddColumn<string>(
+            //    name: "DenemeSütunu",
+            //    table: "Products",
+            //    type: "nvarchar(max)",
+            //    nullable: true);
 
             migrationBuilder.InsertData(
                 table: "Products",
