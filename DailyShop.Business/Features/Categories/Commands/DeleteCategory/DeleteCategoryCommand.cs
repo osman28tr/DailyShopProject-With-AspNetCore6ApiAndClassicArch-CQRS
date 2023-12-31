@@ -48,8 +48,9 @@ namespace DailyShop.Business.Features.Categories.Commands.DeleteCategory
                 // Üst kategori ile olan ilişkiyi kesin
                 if (category.ParentCategoryId != null)
                 {
-                    category.ParentCategoryId = null;
-                    await _categoryRepository.UpdateAsync(category);
+                    var parentCategory = await _categoryRepository.GetAsync(x => x.Id == category.ParentCategoryId);
+                    parentCategory?.SubCategories?.Remove(category);
+                    if (parentCategory != null) await _categoryRepository.UpdateAsync(parentCategory);
                 }
 
                 var deletedCategory = await _categoryRepository.DeleteAsync(category, true);
