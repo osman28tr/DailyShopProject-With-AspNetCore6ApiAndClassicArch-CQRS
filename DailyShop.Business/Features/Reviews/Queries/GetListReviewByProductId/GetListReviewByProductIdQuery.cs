@@ -46,7 +46,7 @@ namespace DailyShop.Business.Features.Reviews.Queries.GetListReviewByProductId
                         ReviewUpdatedDate = DateTime.Now,
                         User = new ReviewUser { Name = x.AppUser.FirstName + " " + x.AppUser.LastName, Email = x.AppUser.Email, Id = x.AppUser.Id, Image = x.AppUser.ProfileImage },
                         UserPurchasedThisProduct = allOrder.Any(y => y.OrderItems != null && y.UserId == x.AppUser.Id && y.OrderItems.Any(orderItem => orderItem.ProductId == request.ProductId)),
-                        SubReviews = x.SubReviews.Select(sr => new GetListReviewByProductViewModel()
+                        SubReviews = x.SubReviews.Where(x => x.Status.ToLower() == "Approved".ToLower()).Select(sr => new GetListReviewByProductViewModel()
                         {
                             Id = sr.Id,
                             ReviewDescription = sr.Description,
@@ -62,7 +62,6 @@ namespace DailyShop.Business.Features.Reviews.Queries.GetListReviewByProductId
                             },
                             UserPurchasedThisProduct = allOrder.Any(y => y.OrderItems != null && y.UserId == sr.AppUser.Id && y.OrderItems.Any(orderItem => orderItem.ProductId == request.ProductId))
                         }).ToList()
-
                     });
                 });
                 return mappedListReview;
