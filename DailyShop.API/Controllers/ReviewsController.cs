@@ -1,8 +1,8 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.Reviews.Commands.DeleteReview;
+using DailyShop.Business.Features.Reviews.Commands.InsertReportReview;
 using DailyShop.Business.Features.Reviews.Commands.InsertReview;
 using DailyShop.Business.Features.Reviews.Commands.InsertReviewToReview;
-using DailyShop.Business.Features.Reviews.Commands.ReportReview;
 using DailyShop.Business.Features.Reviews.Dtos;
 using DailyShop.Business.Features.Reviews.Queries.GetListReviewByProductId;
 using DailyShop.Business.Features.Reviews.Queries.GetListReviewByUserId;
@@ -57,10 +57,13 @@ namespace DailyShop.API.Controllers
             return Ok(new { Message = "Yorumunuz onaylanmak üzere sisteme gönderilmiştir." });
         }
         [HttpPost("ReportReview/{reviewId}")]
-        public async Task<IActionResult> ReportReview(int reviewId)
+        public async Task<IActionResult> ReportReview(int reviewId, [FromBody] ReportReviewDto reportReviewDto)
         {
-            await Mediator.Send(new ReportReviewCommand() { ReviewId = reviewId });
-            return Ok(new { Message = "Yorum başarıyla engellendi." });
+            int userId = _authService.VerifyToken(GetToken());
+
+            await Mediator.Send(new ReportReviewCommand() { ReportReviewDto = reportReviewDto, ReviewId = reviewId, ReporterUserId = userId });
+
+            return Ok(new { Message = "Bildiriminiz başarıyla alındı." });
         }
         [HttpDelete("{reviewId}")]
         public async Task<IActionResult> DeleteReview(int reviewId)
