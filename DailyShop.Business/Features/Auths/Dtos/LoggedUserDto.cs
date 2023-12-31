@@ -11,6 +11,8 @@ namespace DailyShop.Business.Features.Auths.Dtos
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
+        [JsonPropertyName("profileImage")]
+        public string ProfileImage { get; set; }
         [JsonPropertyName("role")]
         public string Role { get; set; }
         [JsonPropertyName("createdAt")]
