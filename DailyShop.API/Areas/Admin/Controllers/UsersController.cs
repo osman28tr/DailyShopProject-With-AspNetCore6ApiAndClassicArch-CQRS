@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.API.Helpers;
+using DailyShop.Business.Features.AppUsers.Queries.GetListUserByReport;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
 using DailyShop.Business.Features.Reviews.Commands.UpdateStatusReview;
 using DailyShop.Entities.Concrete;
@@ -46,7 +47,12 @@ namespace DailyShop.API.Areas.Admin.Controllers
             await Mediator.Send(new UpdateStatusReviewCommand() { ReviewId = reviewId, Status = status });
             return Ok(new { Message = "Yorum durumu başarıyla güncellendi." });
         }
-
+        [HttpGet("ReportedUsers")]
+        public async Task<IActionResult> ReportedUsers()
+        {
+            var reportedUsers = await Mediator.Send(new GetListUserByReportQuery());
+            return Ok(new { Message = reportedUsers.Any() ? "Raporlanan kullanıcılar başarıyla getirildi." : "Raporlanan bir kullanıcı bulunamadı.", data = reportedUsers });
+        }
         [NonAction]
         public string GetImageByHelper(string imageName)
         {

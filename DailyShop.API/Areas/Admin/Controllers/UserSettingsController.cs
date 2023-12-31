@@ -1,4 +1,5 @@
-﻿using DailyShop.API.Helpers;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using DailyShop.API.Helpers;
 using DailyShop.Business.Features.AppUsers.Commands.BlockUser;
 using DailyShop.Business.Features.AppUsers.Dtos;
 using DailyShop.Business.Features.AppUsers.Queries.GetListUser;
@@ -15,18 +16,38 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Authorize]
     public class UserSettingsController : BaseController
     {
+        private readonly ImageHelper _imageHelper;
+        public UserSettingsController(ImageHelper imageHelper)
+        {
+            _imageHelper = imageHelper;
+        }
         [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
             var users = await Mediator.Send(new GetListUserQuery());
-            return Ok(users);
+            if (users == null)
+                throw new BusinessException("Herhangi bir kullanıcı bulunamadı.");
+            foreach (var user in users)
+            {
+                if (user.ProfileImage != null)
+                {
+                    user.ProfileImage = GetImageByHelper(user.ProfileImage);
+                }
+            }
+            return Ok(new { Message = "Kullanıcılar başarıyla getirildi.", data = users });
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> BlockUser()
         {
             BlockedUserDto blockedUserDto = new() { Id = int.Parse(HttpContext.GetRouteData().Values["id"].ToString()) };
             var message = await Mediator.Send(new BlockUserCommand { BlockedUserDto = blockedUserDto });
-            return Ok(message);
+            return Ok(new { Message = message });
+        }
+        [NonAction]
+        public string GetImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
         }
     }
 }

@@ -26,6 +26,8 @@ namespace DailyShop.Business.Features.AppUsers.Dtos
         public string LastName { get; set; }
         [JsonPropertyName("email")]
         public string Email { get; set; }
+        [JsonPropertyName("profileImage")]
+        public string ProfileImage { get; set; }
         [JsonPropertyName("role")]
         public string Role { get; set; }
         [JsonPropertyName("status")]
