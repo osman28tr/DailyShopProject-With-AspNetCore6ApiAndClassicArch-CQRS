@@ -50,7 +50,9 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductByCategoryA
                 {
                     var products = await _productRepository.Query()
                     .Where(p => (user != null && user.Role == "admin") || p.IsApproved == true)
-                    .Where(p => p.CategoryId == categoryId && (request.IsDeleted || p.IsDeleted == false))
+                    .Where(p => p.CategoryId == categoryId && // ürünün kategorisi istenilen kategoriye eşitse
+                                (request.IsDeleted || p.IsDeleted == false) && // ürün silinmişse veya silinmemişse (true ise silinmiş ürünler de dahil edilir)
+                                (request.IsDeleted || p.Stock > 0)) // ürün stokta varsa veya stokta yoksa (true ise stokta olmayan ürünler de dahil edilir)
                     .Include(r => r.Reviews)!
                     .ThenInclude(ru => ru.AppUser)
                     .ToListAsync(cancellationToken: cancellationToken);

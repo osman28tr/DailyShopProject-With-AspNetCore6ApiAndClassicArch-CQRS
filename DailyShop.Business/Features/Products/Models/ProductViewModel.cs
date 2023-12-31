@@ -27,6 +27,7 @@ namespace DailyShop.Business.Features.Products.Models
         public int? Stock { get; set; }
         public string? UserName { get; set; }
         public byte? Rating { get; set; }
+        public bool? IsDeleted { get; set; }
         [JsonPropertyName("images")]
         public ICollection<string>? ProductImages { get; set; }
         public ICollection<string>? Colors { get; set; }
