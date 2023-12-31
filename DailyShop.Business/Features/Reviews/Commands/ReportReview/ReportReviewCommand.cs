@@ -1,4 +1,5 @@
-﻿using DailyShop.Business.Services.Repositories;
+﻿using DailyShop.Business.Features.Reviews.Dtos;
+using DailyShop.Business.Services.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace DailyShop.Business.Features.Reviews.Commands.ReportReview
     public class ReportReviewCommand:IRequest
     {
         public int? ReviewId { get; set; }
+        public ReportReviewDto? MyProperty { get; set; }
         public class ReportReviewCommandHandler : IRequestHandler<ReportReviewCommand>
         {
             private readonly IReviewRepository _reviewRepository;

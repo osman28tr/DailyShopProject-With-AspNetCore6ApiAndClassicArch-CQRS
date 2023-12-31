@@ -10,10 +10,10 @@ namespace DailyShop.Entities.Concrete
     public class ReportReview:Entity
     {
         public int? ReviewId { get; set; }
-        public int? ReporterReviewId { get; set; }
+        public int? ReporterUserId { get; set; }
         public string? ReportedMessage { get; set; }
         public Review? Review { get; set; }
-        public Review? ReporterReview { get; set; }
+        public AppUser? ReporterUser { get; set; }
         public ReportReview()
         {
 
