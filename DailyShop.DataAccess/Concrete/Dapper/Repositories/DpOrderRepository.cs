@@ -17,14 +17,14 @@ namespace DailyShop.DataAccess.Concrete.Dapper.Repositories
         public async Task<List<Order>> GetList()
         {
             return (await connection.QueryAsync<Order>(
-                   "select * from orders"))
-               .AsList();
+                   "select * from orders")).Where(x => x != null)
+                .ToList();
         }
 
         public async Task<List<OrderItem>> GetList(int orderId)
         {
-            return (await connection.QueryAsync<OrderItem>($"select * from OrderItems where OrderId = {orderId}"))
-               .AsList();
+            return (await connection.QueryAsync<OrderItem>($"select * from OrderItems where OrderId = {orderId}")).Where(x => x != null)
+                .ToList();
         }
     }
 }
