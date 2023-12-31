@@ -38,6 +38,13 @@ namespace DailyShop.API.Controllers
         public async Task<IActionResult> GetReviewByProductId(int productId)
         {
             var reviews = await Mediator.Send(new GetListReviewByProductIdQuery() { ProductId = productId });
+            foreach (var review in reviews)
+            {
+                if (review.User.Image != null)
+                {
+                    review.User.Image = GetUserImageByHelper(review.User.Image);
+                }
+            }
             return Ok(new { Message = "Ürüne ait yorumlar getirildi.", data = reviews });
         }
 
@@ -75,6 +82,12 @@ namespace DailyShop.API.Controllers
         public string GetImageByHelper(string imageName)
         {
             string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
+        }
+        [NonAction]
+        public string GetUserImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName, "UserImages");
             return getImage;
         }
     }

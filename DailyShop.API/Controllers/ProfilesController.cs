@@ -104,7 +104,7 @@ namespace DailyShop.API.Controllers
         [NonAction]
         public string GetImageByHelper(string imageName)
         {
-            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName,"UserImages");
             return getImage;
         }
     }
