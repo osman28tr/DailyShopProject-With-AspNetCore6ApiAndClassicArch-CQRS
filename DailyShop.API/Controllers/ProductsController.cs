@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
 using DailyShop.Business.Features.Products.Commands.UpdateProduct;
 using DailyShop.Entities.Concrete;
+using DailyShop.Business.Features.Categories.Queries.GetListCategory;
 
 namespace DailyShop.API.Controllers
 {
@@ -81,8 +82,9 @@ namespace DailyShop.API.Controllers
             {
                 userId = _authService.VerifyToken(GetToken());
             }
+            var categoryList = await Mediator.Send(new GetListCategoryQuery());
             var productValues = await Mediator.Send(new GetListProductByCategoryAndIsDeleteQuery
-            { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId });
+            { CategoryId = categoryId, IsDeleted = isDeleteShow, UserId = userId, GetListCategoryDtos = categoryList });
             foreach (var product in productValues)
             {
                 product.BodyImage = GetImageByHelper(product.BodyImage);
