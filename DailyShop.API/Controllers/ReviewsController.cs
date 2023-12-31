@@ -42,6 +42,10 @@ namespace DailyShop.API.Controllers
             {
                 if (review.User.Image != null)
                 {
+                    foreach (var subReview in review.SubReviews)
+                    {
+                        subReview.User.Image = GetUserImageByHelper(review.User.Image);
+                    }
                     review.User.Image = GetUserImageByHelper(review.User.Image);
                 }
             }
