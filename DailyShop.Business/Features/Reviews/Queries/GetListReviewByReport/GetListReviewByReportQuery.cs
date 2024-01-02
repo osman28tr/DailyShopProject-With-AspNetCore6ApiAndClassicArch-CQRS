@@ -33,6 +33,7 @@ namespace DailyShop.Business.Features.Reviews.Queries.GetListReviewByReport
                 int counter = 0;
                 foreach (var item in reportedReviews)
                 {
+                    mappedReportedReviews[counter].Review.Id = item.Review.Id;
                     mappedReportedReviews[counter].Review.Description = item.Review.Description;
                     mappedReportedReviews[counter].Review.Status = item.Review.Status;
                     mappedReportedReviews[counter].Review.User.FirstName = item.Review.AppUser.FirstName;
