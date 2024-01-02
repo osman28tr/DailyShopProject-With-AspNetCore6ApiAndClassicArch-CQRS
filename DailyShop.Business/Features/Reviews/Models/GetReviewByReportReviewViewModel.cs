@@ -15,8 +15,8 @@ namespace DailyShop.Business.Features.Reviews.Models
             User = new GetListUserDto();
         }
         public GetListUserDto User { get; set; }
-        [JsonPropertyName("comment")]
         public int Id { get; set; }
+        [JsonPropertyName("comment")]
         public string? Description { get; set; }
         public string? Status { get; set; }
     }
