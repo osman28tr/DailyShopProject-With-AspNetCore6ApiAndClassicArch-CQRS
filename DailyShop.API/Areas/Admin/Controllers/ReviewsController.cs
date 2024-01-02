@@ -1,5 +1,6 @@
 ﻿using DailyShop.API.Helpers;
 using DailyShop.Business.Features.AppUsers.Queries.GetListUserByReport;
+using DailyShop.Business.Features.Reviews.Commands.DeleteReportReview;
 using DailyShop.Business.Features.Reviews.Queries.GetListReviewByReport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,12 @@ namespace DailyShop.API.Areas.Admin.Controllers
                     reportedReview.Review.User.ProfileImage = GetUserImageByHelper(reportedReview.Review.User.ProfileImage);
             }
             return Ok(new { Message = reportedReviews.Any() ? "Raporlanan yorumlar başarıyla getirildi." : "Raporlanan bir yorum bulunamadı.", data = reportedReviews });
+        }
+        [HttpDelete("ReportedReviews/{reportId:int}")]
+        public async Task<IActionResult> ReportedReviews(int reportId)
+        {
+            await Mediator.Send(new DeleteReportReviewCommand() { ReportId = reportId });
+            return Ok(new { Message = "Yoruma ait rapor başarıyla kaldırıldı." });
         }
         [NonAction]
         public string GetUserImageByHelper(string imageName)
