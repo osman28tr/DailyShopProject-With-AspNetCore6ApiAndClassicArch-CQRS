@@ -26,6 +26,8 @@ namespace DailyShop.API.Areas.Admin.Controllers
             {
                 if (reportedReview.ReporterUser.ProfileImage != null)
                     reportedReview.ReporterUser.ProfileImage = GetUserImageByHelper(reportedReview.ReporterUser.ProfileImage);
+                if (reportedReview.Review.User.ProfileImage != null)
+                    reportedReview.Review.User.ProfileImage = GetUserImageByHelper(reportedReview.Review.User.ProfileImage);
             }
             return Ok(new { Message = reportedReviews.Any() ? "Raporlanan yorumlar başarıyla getirildi." : "Raporlanan bir yorum bulunamadı.", data = reportedReviews });
         }
