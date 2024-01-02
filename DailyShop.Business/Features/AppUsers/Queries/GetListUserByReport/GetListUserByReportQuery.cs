@@ -13,24 +13,26 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.AppUsers.Queries.GetListUserByReport
 {
-    public class GetListUserByReportQuery:IRequest<List<GetListUserDto>>
+    public class GetListUserByReportQuery:IRequest<List<GetListUserByReportDto>>
     {
-        public class GetListUserByReportQueryHandler : IRequestHandler<GetListUserByReportQuery, List<GetListUserDto>>
+        public class GetListUserByReportQueryHandler : IRequestHandler<GetListUserByReportQuery, List<GetListUserByReportDto>>
         {
             private readonly IAppUserRepository _appUserRepository;
+            private readonly IReportUserRepository _reportUserRepository;
             private readonly IMapper _mapper;
-            public GetListUserByReportQueryHandler(IAppUserRepository appUserRepository, IMapper mapper)
+            public GetListUserByReportQueryHandler(IAppUserRepository appUserRepository, IMapper mapper, IReportUserRepository reportUserRepository)
             {
                 _appUserRepository = appUserRepository;
                 _mapper = mapper;
+                _reportUserRepository = reportUserRepository;
             }
-            public async Task<List<GetListUserDto>> Handle(GetListUserByReportQuery request, CancellationToken cancellationToken)
+            public async Task<List<GetListUserByReportDto>> Handle(GetListUserByReportQuery request, CancellationToken cancellationToken)
             {
-                var reportedUsers = await _appUserRepository.Query().Where(x => x.Status == false).ToListAsync();
-                if (reportedUsers.Count == 0)
+                var reportedUsers = await _reportUserRepository.Query().Include(x => x.User).Include(x => x.ReporterUser).ToListAsync();
+                if (reportedUsers == null)
                     throw new BusinessException("Raporlanan kullanıcı bulunamadı.");
-                var mappedReportUsers = _mapper.Map<List<GetListUserDto>>(reportedUsers);
-                return mappedReportUsers;
+                var mappedReportedUsers = _mapper.Map<List<GetListUserByReportDto>>(reportedUsers);
+                return mappedReportedUsers;
             }
         }
     }

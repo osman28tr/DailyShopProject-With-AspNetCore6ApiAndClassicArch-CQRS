@@ -51,12 +51,25 @@ namespace DailyShop.API.Areas.Admin.Controllers
         public async Task<IActionResult> ReportedUsers()
         {
             var reportedUsers = await Mediator.Send(new GetListUserByReportQuery());
+            foreach (var reportedUser in reportedUsers)
+            {
+                if (reportedUser.User.ProfileImage != null)
+                    reportedUser.User.ProfileImage = GetUserImageByHelper(reportedUser.User.ProfileImage);
+                if (reportedUser.ReporterUser.ProfileImage != null)
+                    reportedUser.ReporterUser.ProfileImage = GetUserImageByHelper(reportedUser.ReporterUser.ProfileImage);
+            }
             return Ok(new { Message = reportedUsers.Any() ? "Raporlanan kullanıcılar başarıyla getirildi." : "Raporlanan bir kullanıcı bulunamadı.", data = reportedUsers });
         }
         [NonAction]
         public string GetImageByHelper(string imageName)
         {
             string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName);
+            return getImage;
+        }
+        [NonAction]
+        public string GetUserImageByHelper(string imageName)
+        {
+            string getImage = _imageHelper.GetImage(Request.Scheme, Request.Host, Request.PathBase, imageName, "UserImages");
             return getImage;
         }
     }
