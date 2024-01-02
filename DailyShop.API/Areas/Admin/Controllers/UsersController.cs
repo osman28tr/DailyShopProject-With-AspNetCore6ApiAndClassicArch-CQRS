@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using DailyShop.API.Helpers;
+using DailyShop.Business.Features.AppUsers.Commands.DeleteReportUser;
 using DailyShop.Business.Features.AppUsers.Queries.GetListUserByReport;
 using DailyShop.Business.Features.Products.Queries.GetListProductByUserId;
 using DailyShop.Business.Features.Reviews.Commands.UpdateStatusReview;
@@ -46,6 +47,12 @@ namespace DailyShop.API.Areas.Admin.Controllers
         {
             await Mediator.Send(new UpdateStatusReviewCommand() { ReviewId = reviewId, Status = status });
             return Ok(new { Message = "Yorum durumu başarıyla güncellendi." });
+        }
+        [HttpDelete("ReportedUsers/{reportId:int}")]
+        public async Task<IActionResult> ReportedUsers(int reportId)
+        {
+            await Mediator.Send(new DeleteReportUserCommand() { ReportUserId = reportId });
+            return Ok(new { Message = "Rapor başarıyla kaldırıldı." });
         }
         [HttpGet("ReportedUsers")]
         public async Task<IActionResult> ReportedUsers()
