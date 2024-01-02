@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.Reviews.Commands.InsertReportReview
 {
-    public class ReportReviewCommand:IRequest
+    public class ReportReviewCommand : IRequest
     {
         public int? ReviewId { get; set; }
         public int? ReporterUserId { get; set; }
@@ -30,6 +30,11 @@ namespace DailyShop.Business.Features.Reviews.Commands.InsertReportReview
                 var review = await _reviewRepository.GetAsync(x => x.Id == request.ReviewId);
                 if (review == null)
                     throw new BusinessException("Yorum bulunamadı.");
+
+                var IsReported = await _reportReviewRepository.GetAsync(x => x.ReviewId == request.ReviewId && x.ReporterUserId == request.ReporterUserId);
+
+                if (IsReported != null)
+                    throw new BusinessException("Bu yorumu zaten raporladınız.");
 
                 await _reportReviewRepository.AddAsync(new ReportReview { ReportedMessage = request.ReportReviewDto.ReportedMessage, ReviewId = request.ReviewId, ReporterUserId = request.ReporterUserId });
             }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Business.Features.AppUsers.Commands.InsertReportUser
 {
-    public class InsertReportUserCommand:IRequest
+    public class InsertReportUserCommand : IRequest
     {
         public int? UserId { get; set; }
         public int? ReporterUserId { get; set; }
@@ -30,6 +30,11 @@ namespace DailyShop.Business.Features.AppUsers.Commands.InsertReportUser
                 var reportedUser = await _appUserRepository.GetAsync(x => x.Id == request.ReporterUserId);
                 if (reportedUser == null)
                     throw new BusinessException("Raporlanmak istenen kullanıcı bulunamadı.");
+
+                var IsReported = await _reportUserRepository.GetAsync(x => x.UserId == request.UserId && x.ReporterUserId == request.ReporterUserId);
+
+                if (IsReported != null)
+                    throw new BusinessException("Bu kullanıcıyı zaten raporladınız.");
 
                 await _reportUserRepository.AddAsync(new ReportUser { ReportedMessage = request.ReportUserDto.ReportedMessage, UserId = request.UserId, ReporterUserId = request.ReporterUserId });
             }
