@@ -14,11 +14,11 @@ using Core.CrossCuttingConcerns.Exceptions;
 
 namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSetting
 {
-    public class UpdateWebSiteSettingCommand:IRequest<string>
+    public class UpdateWebSiteSettingCommand : IRequest<string>
     {
         public UpdatedWebSiteSettingDto? UpdatedWebSiteSettingDto { get; set; }
         public string? SiteIconPath { get; set; }
-        public class UpdateWebSiteSettingCommandHandler : IRequestHandler<UpdateWebSiteSettingCommand,string>
+        public class UpdateWebSiteSettingCommandHandler : IRequestHandler<UpdateWebSiteSettingCommand, string>
         {
             private readonly IWebSiteSettingRepository _webSiteSettingRepository;
             private readonly IMapper _mapper;
@@ -36,7 +36,7 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
                     var webSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
 
                     //var mappedWebSiteSetting = _mapper.Map<WebSiteSetting>(request.UpdatedWebSiteSettingDto);
-                    
+
 
                     if (webSiteSetting != null)
                     {
@@ -46,12 +46,15 @@ namespace DailyShop.Business.Features.WebSiteSettings.Commands.UpdateWebSiteSett
                         await _webSiteSettingRepository.UpdateAsync(webSiteSetting);
                         return "Web site ayarlarınız başarıyla güncellendi.";
                     }
-                    else
+                    webSiteSetting = new WebSiteSetting
                     {
-                        webSiteSetting.CreatedAt = DateTime.Now;
-                        await _webSiteSettingRepository.AddAsync(webSiteSetting);
-                        return "Web site ayarlarınız başarıyla eklendi.";
-                    }
+                        CreatedAt = DateTime.Now,
+                        Icon = request.SiteIconPath
+                    };
+                    _mapper.Map(request.UpdatedWebSiteSettingDto, webSiteSetting);
+                    await _webSiteSettingRepository.AddAsync(webSiteSetting);
+                    return "Web site ayarlarınız başarıyla eklendi.";
+
                 }
                 catch (Exception hata)
                 {

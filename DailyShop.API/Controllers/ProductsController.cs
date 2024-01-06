@@ -64,11 +64,11 @@ namespace DailyShop.API.Controllers
                     productImagesPath.Add(imageName);
                 }
             }
-
+            int userId = _authService.VerifyToken(GetToken());
             await Mediator?.Send(new InsertProductCommand
             {
                 InsertedProductDto = insertedProductDto,
-                UserId = 1,
+                UserId = userId,
                 BodyImagePath = bodyImagePath,
                 ProductImagesPath = productImagesPath
             })!;
