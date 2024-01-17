@@ -42,13 +42,13 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductBySuggestio
 
                 if (suggestionProductsByOrder == null)
                 {
-                    suggestionProductsByOrder = await _orderRepository.Query().Include(x => x.OrderItems).ThenInclude(x => x.Product).SelectMany(x => x.OrderItems.Select(oi => oi.Product)).ToListAsync();
+                    suggestionProductsByOrder = await _orderRepository.Query().Take(6).Include(x => x.OrderItems).ThenInclude(x => x.Product).SelectMany(x => x.OrderItems.Select(oi => oi.Product)).ToListAsync();
                 }
                 if (suggestionProductsByOrder == null)
                 {
                     var allIdsByProduct = await _productRepository.Query().Select(x => x.Id).ToListAsync();
 
-                    var randomIdsByProduct = allIdsByProduct.OrderBy(x => random.Next()).Take(4).ToList();
+                    var randomIdsByProduct = allIdsByProduct.OrderBy(x => random.Next()).Take(6).ToList();
 
                     suggestionProducts = suggestionProducts.Where(x => randomIdsByProduct.Contains(x.Id)).ToList();
 
@@ -86,7 +86,7 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProductBySuggestio
 
                 var allIdsByOrder = await _orderRepository.Query().Where(x => x.UserId == request.UserId).Include(x => x.OrderItems).ThenInclude(x => x.Product).SelectMany(x => x.OrderItems.Select(oi => oi.Product.Id)).ToListAsync();
 
-                var randomIdsByOrder = allIdsByOrder.OrderBy(x => random.Next()).Take(4).ToList();
+                var randomIdsByOrder = allIdsByOrder.OrderBy(x => random.Next()).Take(6).ToList();
 
                 suggestionProductsByOrder = suggestionProductsByOrder.Where(x => randomIdsByOrder.Contains(x.Id)).ToList();
 
