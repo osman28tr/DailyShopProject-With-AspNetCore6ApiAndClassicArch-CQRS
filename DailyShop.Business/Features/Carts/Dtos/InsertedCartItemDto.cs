@@ -11,6 +11,6 @@ namespace DailyShop.Business.Features.Carts.Dtos
         public int Quantity { get; set; }
         public int TotalPrice { get; set; }
         public string Color { get; set; }
-        public string Size { get; set; }
+        public string? Size { get; set; }
     }
 }
