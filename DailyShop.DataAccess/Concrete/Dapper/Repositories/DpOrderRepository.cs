@@ -23,8 +23,9 @@ namespace DailyShop.DataAccess.Concrete.Dapper.Repositories
 
         public async Task<List<OrderItem>> GetList(int orderId)
         {
-            return (await connection.QueryAsync<OrderItem>($"select * from OrderItems where OrderId = {orderId}")).Where(x => x != null)
+            var orders = (await connection.QueryAsync<OrderItem>("select * from OrderItems where OrderId = @orderId", new { orderId = orderId })).Where(x => x != null)
                 .ToList();
+            return orders;
         }
     }
 }
