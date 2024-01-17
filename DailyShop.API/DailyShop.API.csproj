@@ -47,6 +47,7 @@
   <ItemGroup>
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Models\" />
+    <Folder Include="wwwroot\ProductImages\" />
     <Folder Include="wwwroot\UserImages\" />
     <Folder Include="wwwroot\WebSiteIcons\" />
   </ItemGroup>

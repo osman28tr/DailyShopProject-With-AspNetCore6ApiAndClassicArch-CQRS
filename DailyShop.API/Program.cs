@@ -133,7 +133,7 @@ if (app.Environment.IsDevelopment())
 	//app.UseSwaggerUI();
 	app.UseSwaggerUI(opt => { opt.DisplayRequestDuration(); opt.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyShop"); });
 }
-if (app.Environment.IsProduction())
+//if (app.Environment.IsProduction())
 	app.ConfigureCustomExceptionMiddleware();
 
 app.ConfigureCustomAuthExceptionMiddleware();
