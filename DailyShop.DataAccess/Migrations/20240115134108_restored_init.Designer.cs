@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DailyShop.DataAccess.Migrations
 {
     [DbContext(typeof(DailyShopContext))]
-    [Migration("20231230215422_drop_column_deneme_in_product_table")]
-    partial class drop_column_deneme_in_product_table
+    [Migration("20240115134108_restored_init")]
+    partial class restored_init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -581,518 +581,6 @@ namespace DailyShop.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 31,
-                            BodyImage = "productimagess",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4524),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme1",
-                            Price = 140m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4534),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 32,
-                            BodyImage = "productimagess2",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4540),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme2",
-                            Price = 123m,
-                            Rating = (byte)2,
-                            Status = "yeni",
-                            Stock = 13,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4541),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 33,
-                            BodyImage = "productimagess3",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4542),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme3",
-                            Price = 140m,
-                            Rating = (byte)3,
-                            Status = "yeni",
-                            Stock = 14,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4542),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 34,
-                            BodyImage = "productimagess4",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4543),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme4",
-                            Price = 124m,
-                            Rating = (byte)4,
-                            Status = "yeni",
-                            Stock = 126,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4544),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 35,
-                            BodyImage = "productimagess5",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4545),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme5",
-                            Price = 126m,
-                            Rating = (byte)5,
-                            Status = "yeni",
-                            Stock = 127,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4545),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 36,
-                            BodyImage = "productimagess6",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4546),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme6",
-                            Price = 167m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 129,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4547),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 37,
-                            BodyImage = "productimagess7",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4548),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme7",
-                            Price = 156m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4548),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 38,
-                            BodyImage = "productimagess8",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4549),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme8",
-                            Price = 145m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 15,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4549),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 39,
-                            BodyImage = "productimagess9",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4554),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme9",
-                            Price = 167m,
-                            Rating = (byte)5,
-                            Status = "yeni",
-                            Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4554),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 40,
-                            BodyImage = "productimagess10",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4556),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme10",
-                            Price = 140m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 21,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4556),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 41,
-                            BodyImage = "productimagess11",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4557),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme11",
-                            Price = 170m,
-                            Rating = (byte)7,
-                            Status = "yeni",
-                            Stock = 12,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4557),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 42,
-                            BodyImage = "productimagess12",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4558),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme12",
-                            Price = 190m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 24,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4559),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 43,
-                            BodyImage = "productimagess13",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4560),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme13",
-                            Price = 167m,
-                            Rating = (byte)2,
-                            Status = "yeni",
-                            Stock = 126,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4560),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 44,
-                            BodyImage = "productimagess14",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4561),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme14",
-                            Price = 156m,
-                            Rating = (byte)1,
-                            Status = "yeni",
-                            Stock = 272,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4561),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 45,
-                            BodyImage = "productimagess15",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4562),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme15",
-                            Price = 145m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 30,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4563),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 46,
-                            BodyImage = "productimagess16",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4564),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme16",
-                            Price = 167m,
-                            Rating = (byte)3,
-                            Status = "yeni",
-                            Stock = 31,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4564),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 47,
-                            BodyImage = "productimagess17",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4565),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme17",
-                            Price = 178m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 36,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4565),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 48,
-                            BodyImage = "productimagess18",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4566),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme18",
-                            Price = 179m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 58,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4567),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 49,
-                            BodyImage = "productimagess19",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4568),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme19",
-                            Price = 145m,
-                            Rating = (byte)2,
-                            Status = "yeni",
-                            Stock = 78,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4568),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 50,
-                            BodyImage = "productimagess20",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4569),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme20",
-                            Price = 134m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 57,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4569),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 51,
-                            BodyImage = "productimagess21",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4570),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme21",
-                            Price = 145m,
-                            Rating = (byte)3,
-                            Status = "yeni",
-                            Stock = 46,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4571),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 52,
-                            BodyImage = "productimagess22",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4572),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme22",
-                            Price = 167m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 89,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4572),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 53,
-                            BodyImage = "productimagess23",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4573),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme23",
-                            Price = 189m,
-                            Rating = (byte)4,
-                            Status = "yeni",
-                            Stock = 57,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4573),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 54,
-                            BodyImage = "productimagess24",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4574),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme24",
-                            Price = 190m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 38,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4575),
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 55,
-                            BodyImage = "productimagess25",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4577),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme25",
-                            Price = 145m,
-                            Rating = (byte)5,
-                            Status = "yeni",
-                            Stock = 77,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4577),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 56,
-                            BodyImage = "productimagess26",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4578),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme26",
-                            Price = 123m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 96,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4579),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 57,
-                            BodyImage = "productimagess27",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4580),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme27",
-                            Price = 112m,
-                            Rating = (byte)1,
-                            Status = "yeni",
-                            Stock = 65,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4580),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 58,
-                            BodyImage = "productimagess28",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4581),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme28",
-                            Price = 145m,
-                            Rating = (byte)3,
-                            Status = "yeni",
-                            Stock = 67,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4581),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 59,
-                            BodyImage = "productimagess29",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4582),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme29",
-                            Price = 167m,
-                            Rating = (byte)7,
-                            Status = "yeni",
-                            Stock = 47,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4583),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 60,
-                            BodyImage = "productimagess30",
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4584),
-                            Description = "denemedes1",
-                            IsApproved = true,
-                            IsDeleted = false,
-                            Name = "deneme30",
-                            Price = 178m,
-                            Rating = (byte)6,
-                            Status = "yeni",
-                            Stock = 98,
-                            UpdatedAt = new DateTime(2023, 12, 31, 0, 54, 22, 404, DateTimeKind.Local).AddTicks(4584),
-                            UserId = 3
-                        });
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.ProductColor", b =>
@@ -1151,6 +639,70 @@ namespace DailyShop.DataAccess.Migrations
                     b.HasIndex("SizeId");
 
                     b.ToTable("ProductSize");
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.ReportReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReportedMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReporterUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReporterUserId");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReportReviews");
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.ReportUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReportedMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReporterUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReporterUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReportUsers");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Review", b =>
@@ -1488,6 +1040,36 @@ namespace DailyShop.DataAccess.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.ReportReview", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "ReporterUser")
+                        .WithMany()
+                        .HasForeignKey("ReporterUserId");
+
+                    b.HasOne("DailyShop.Entities.Concrete.Review", "Review")
+                        .WithMany()
+                        .HasForeignKey("ReviewId");
+
+                    b.Navigation("ReporterUser");
+
+                    b.Navigation("Review");
+                });
+
+            modelBuilder.Entity("DailyShop.Entities.Concrete.ReportUser", b =>
+                {
+                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "ReporterUser")
+                        .WithMany()
+                        .HasForeignKey("ReporterUserId");
+
+                    b.HasOne("DailyShop.Entities.Concrete.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("ReporterUser");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DailyShop.Entities.Concrete.Review", b =>
