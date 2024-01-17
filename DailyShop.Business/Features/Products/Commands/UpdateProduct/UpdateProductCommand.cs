@@ -50,7 +50,7 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProduct
                 if (product == null)
                     throw new BusinessException("Güncellemek istediğiniz ürün bulunamadı.");
                 var oldPrice = product.Price;
-                product.Name = request.UpdatedProductDto.Name;       
+                product.Name = request.UpdatedProductDto.Name;
                 product.Description = request.UpdatedProductDto.Description;
                 product.Stock = request.UpdatedProductDto.Stock;
                 product.Status = request.UpdatedProductDto.Status;
@@ -105,19 +105,20 @@ namespace DailyShop.Business.Features.Products.Commands.UpdateProduct
                         product.Colors?.Add(new ProductColor() { Color = newColor });
                     }
                 }
-                foreach (var size in request.UpdatedProductDto.Sizes)
-                {
-                    if (sizes.Find(x => x.Name.ToLower() == size.ToLower()) != null)
+                if (request.UpdatedProductDto.Sizes != null)
+                    foreach (var size in request.UpdatedProductDto.Sizes)
                     {
-                        int sizeId = sizes.Find(x => x.Name.ToLower() == size.ToLower()).Id;
-                        product.Sizes?.Add(new ProductSize() { SizeId = sizeId });
+                        if (sizes.Find(x => x.Name.ToLower() == size.ToLower()) != null)
+                        {
+                            int sizeId = sizes.Find(x => x.Name.ToLower() == size.ToLower()).Id;
+                            product.Sizes?.Add(new ProductSize() { SizeId = sizeId });
+                        }
+                        else
+                        {
+                            Size newSize = new() { Name = size };
+                            product.Sizes?.Add(new ProductSize() { Size = newSize });
+                        }
                     }
-                    else
-                    {
-                        Size newSize = new() { Name = size };
-                        product.Sizes?.Add(new ProductSize() { Size = newSize });
-                    }
-                }
                 if (request.BodyImagePath != null)
                 {
                     product.BodyImage = request.BodyImagePath;
