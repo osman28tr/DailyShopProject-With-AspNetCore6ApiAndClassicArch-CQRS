@@ -21,7 +21,12 @@ namespace DailyShop.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Index([FromBody] List<ProductCookieViewModel> productCookie)
         {
-            int userId = _authService.VerifyToken(GetToken());
+            var token = GetToken();
+            int userId = 0;
+            if(token!= null)
+            {
+                userId = _authService.VerifyToken(token);
+            }
             var suggestionProducts = await Mediator.Send(new GetListProductBySuggestionQuery() { UserId = userId });
             if(suggestionProducts.Count > 0)
             {
