@@ -15,29 +15,23 @@ namespace DailyShop.Business.Features.WebSiteSettings.Queries.GetWebSiteSetting
     {
         public class GetWebSiteSettingQueryHandler : IRequestHandler<GetWebSiteSettingQuery, WebSiteSettingDto>
         {
-			private readonly IWebSiteSettingRepository _webSiteSettingRepository;
-			private readonly IMapper _mapper;
+            private readonly IWebSiteSettingRepository _webSiteSettingRepository;
+            private readonly IMapper _mapper;
 
-			public GetWebSiteSettingQueryHandler(IWebSiteSettingRepository webSiteSettingRepository, IMapper mapper)
+            public GetWebSiteSettingQueryHandler(IWebSiteSettingRepository webSiteSettingRepository, IMapper mapper)
             {
-				_webSiteSettingRepository = webSiteSettingRepository;
-				_mapper = mapper;
-			}
+                _webSiteSettingRepository = webSiteSettingRepository;
+                _mapper = mapper;
+            }
 
-			public async Task<WebSiteSettingDto> Handle(GetWebSiteSettingQuery request, CancellationToken cancellationToken)
-			{
-				var webSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
+            public async Task<WebSiteSettingDto?> Handle(GetWebSiteSettingQuery request, CancellationToken cancellationToken)
+            {
+                var webSiteSetting = await _webSiteSettingRepository.Query().FirstOrDefaultAsync();
 
-				if (webSiteSetting != null)
-				{
-					var mappedWebSiteSetting = _mapper.Map<WebSiteSettingDto>(webSiteSetting);
-					return mappedWebSiteSetting;
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
+                var mappedWebSiteSetting = _mapper.Map<WebSiteSettingDto>(webSiteSetting);
+                return mappedWebSiteSetting;
+
+            }
+        }
     }
 }
