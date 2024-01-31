@@ -3,4 +3,8 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 
 Projenin frontend kısmına https://github.com/Mstfucrr/React-DailyShop linkinden ulaşabilirsiniz.
 
+UseCases:
+
+<img src="DailyShop.API/wwwroot/UseCases/dailyusecase1.PNG" height="300px" width="450px">
+
 Kullanılan Dil: C#
