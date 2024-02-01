@@ -12,12 +12,23 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch.PNG" height="400px" width="500px">
-<h3>Kullanılan Dil: C#</h3>
+<h3>3. Kullanılan Dil: C#</h3>
 
-<h3>3. Kullanıcı Senaryoları(UseCases)<hr>
+<h3>4. Kullanıcı Senaryoları(UseCases)<hr>
 <ul>
     <li>Admin Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase1.PNG" height="400px" width="500px"></li>
     <li>Giriş yap, Kayıt ol ve Kullanıcı Hesap Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase2.PNG" height="400px" width="500px"></li>
     <li>Müşteri-Ürün ilişkisi Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase3.PNG" height="400px" width="500px"></li>
     <li>Sipariş verme, Satıcı Olma ve Cüzdan Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase4.PNG" height="400px" width="500px"></li>
+</ul>
+<h3>5. Kullanılan Tablolar</h3>
+<ul>
+    <li>AppUsers, Carts, CartItems, Categories, Claims, Colors, Favorites, OrderAddress, Orders, OrderItems, Payments, Products, ProductImages, ReportReviews, ReportUsers, Reviews, Sizes, Wallets, WebSiteSettings ...</li>
+</ul>
+
+<h3>6. Emeği Geçenler</h3>
+<hr>
+<ul>
+    <li>Osman Tonbul (Backend)</li>
+    <li>Muhammet Mustafa Uçar (Frontend and AI)</li>
 </ul>
