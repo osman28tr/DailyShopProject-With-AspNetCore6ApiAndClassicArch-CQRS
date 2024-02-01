@@ -6,6 +6,7 @@ Frontend:  https://github.com/Mstfucrr/React-DailyShop <br>
 Fiyat Öneri Api: https://github.com/Mstfucrr/DailyShopProjeAi
 
 <h3>1. Kullanılan Teknolojiler:</h3>
+<hr>
 Asp.Net Core 6 Mvc API, EntityFrameworkCore ,Dapper, Classic Architecture,
 Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman
 
@@ -22,6 +23,7 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
     <li>Sipariş verme, Satıcı Olma ve Cüzdan Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase4.PNG" height="400px" width="500px"></li>
 </ul>
 <h3>5. Kullanılan Tablolar</h3>
+<hr>
 <ul>
     <li>AppUsers, Carts, CartItems, Categories, Claims, Colors, Favorites, OrderAddress, Orders, OrderItems, Payments, Products, ProductImages, ReportReviews, ReportUsers, Reviews, Sizes, Wallets, WebSiteSettings ...</li>
 </ul>
