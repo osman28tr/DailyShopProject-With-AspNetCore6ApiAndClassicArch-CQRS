@@ -13,30 +13,73 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
-<h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3>
+<h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3><hr>
 <h4>Not: Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.</h4>
-<h3>4. Kurulum: </h3>
+<h3>4. Kurulum: </h3><hr>
  - Projede DailyShop.API katmanında appsettings.json dosyasını açın, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyin.<br>
  - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayın.<br>
  - Ardından açılan pencerede default project yazan yere tıklayıp açılan seçim ekranından DailyShop.DataAccess'e tıklayın<br>
  - Açılan pencereye "update-database" yazıp enter'a tıklayın.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
  - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyin ve API'yi ayağa kaldırın.
 
-<h3>5. Kullanıcı Senaryoları(UseCases)<hr>
+<h3>5. Kullanıcı Senaryoları(UseCases)</h3><hr>
 <ul>
     <li>Admin Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase1.PNG" height="400px" width="500px"></li>
     <li>Giriş yap, Kayıt ol ve Kullanıcı Hesap Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase2.PNG" height="400px" width="500px"></li>
     <li>Müşteri-Ürün ilişkisi Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase3.PNG" height="400px" width="500px"></li>
     <li>Sipariş verme, Satıcı Olma ve Cüzdan Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase4.PNG" height="400px" width="500px"></li>
 </ul>
-<h3>6. Gereksinim Dökümanı:</h3>
-<h3>5. Kullanılan Tablolar</h3>
+<h3>6. Gereksinim Dökümanı</h3>
+<hr>
+<h4>Kullanıcı Kaydı ve Girişi</h4>
+<ul>
+    <li>Kullanıcıların platforma kaydolabilmesi ve hesap oluşturabilmesi.</li>
+    <li>Güvenli ve kullanıcı dostu bir giriş ve oturum açma işlemi.</li>
+    <li>Şifremi unuttum işlemi.</li>
+</ul>
+<h4>Ürün Arama, Sıralama ve Filtreleme</h4>
+<ul>
+    <li>Kullanıcıların istedikleri ürünleri kolaylıkla bulabilmesi</li>
+    <li>Farklı kategorilere ve filtreleme seçeneklerine göre ürün arama imkânı.</li>
+    <li>Kullanıcının Puan, beğeni, fiyat artan-azalan, yorum sayısı yeni ve çok satanlar şeklinde sıralayabilmesi.</li>
+    <li>Kullanıcı Daha önce olmuş ve silinmiş, stoğu bitmiş ( admin tarafından kaldırılanlar hariç ) ürünleri de listeleyip istek listesine ekleyebilecek.</li>
+</ul>
+<h4>Satıcı Hesap Yönetimi</h4>
+<ul>
+    <li>Kullanıcıların satıcı olarak hesap açabilmesi ve ürünlerini listeleme imkânı</li>
+    <li>Satışa koyduğu ürünün fiyatında, adında ve resimlerinde ekleme silme güncelleme işlemlerini yapabilecek.</li>
+    <li>Müşteri satış yapmak istediği bir ürünün mevcut sitede 2. El piyasasının ortalamasını alan bi apiden koyması gereken önerilen fiyat aralığı alabilecek.</li>
+</ul>
+<h4>Hesap Yönetimi</h4>
+<ul>
+    <li>Kullanıcı hesap bilgilerini ve profil fotoğrafını görüntüleme, silme ve güncelleme işlemlerinde bulunabilecek.</li>
+    <li>Kullanıcı iletişim bilgilerinde ekleme görüntüleme, silme ve güncelleme işlemlerinde bulunabilecek</li>
+    <li>Kullanıcı adres bilgilerinde ekleme, görüntüleme, silme ve güncelleme işlemlerinde bulunabilecek.</li>
+</ul>
+<h4>Ürün Değerlendirmeleri ve Geri Bildirimler</h4>
+<ul>
+    <li>Kullanıcıların satın aldıkları ürünleri değerlendirebilmesi ve geri bildirimde bulunabilmesi.</li>
+    <li>Satın almış kişi yorum yaptıysa bu kullanıcı bu ürünü satın aldı ibaresi ekleme.</li>
+    <li>Diğer kullanıcıların ürünler hakkında bilgi sahibi olabilmesi için kullanıcı yorumlarının desteklenmesi.</li>
+    <li>Ürünle alakalı yorum yapabilme.</li>
+    <li>Kullanıcının yaptığı yorumu güncelleyip silebilme.</li>
+    <li>Başka kullanıcıların yorumlarına yorum yapabilme (cevaplayabilme)</li>
+    <li>Ürün Puanlama</li>
+    <li>Yorumlara like-dislike atabilme.</li>
+    <li>Yorumlara ve ürünlere report ( admine bildiride buluma ) atabilme.</li>
+</ul>
+<h4>Cüzdan İşlemleri</h4>
+<ul>
+    <li>Para Ekleme</li>
+    <li>Bakiye Görüntüleme</li>
+</ul>
+<h3>7. Kullanılan Tablolar</h3>
 <hr>
 <ul>
     <li>AppUsers, Carts, CartItems, Categories, Claims, Colors, Favorites, OrderAddress, Orders, OrderItems, Payments, Products, ProductImages, ReportReviews, ReportUsers, Reviews, Sizes, Wallets, WebSiteSettings ...</li>
 </ul>
 
-<h3>6. Emeği Geçenler</h3>
+<h3>8. Emeği Geçenler</h3>
 <hr style="height:1px;border:none;color:#333;background-color:#333;">
 <ul>
     <li>Osman Tonbul (Backend)</li>
