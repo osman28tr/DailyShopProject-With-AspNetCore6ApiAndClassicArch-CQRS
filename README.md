@@ -22,13 +22,14 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
  - Açılan pencereye "update-database" yazıp enter'a tıklayın.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
  - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyin ve API'yi ayağa kaldırın.
 
-<h3>4. Kullanıcı Senaryoları(UseCases)<hr>
+<h3>5. Kullanıcı Senaryoları(UseCases)<hr>
 <ul>
     <li>Admin Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase1.PNG" height="400px" width="500px"></li>
     <li>Giriş yap, Kayıt ol ve Kullanıcı Hesap Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase2.PNG" height="400px" width="500px"></li>
     <li>Müşteri-Ürün ilişkisi Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase3.PNG" height="400px" width="500px"></li>
     <li>Sipariş verme, Satıcı Olma ve Cüzdan Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase4.PNG" height="400px" width="500px"></li>
 </ul>
+<h3>6. Gereksinim Dökümanı:</h3>
 <h3>5. Kullanılan Tablolar</h3>
 <hr>
 <ul>
@@ -36,7 +37,7 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 </ul>
 
 <h3>6. Emeği Geçenler</h3>
-<hr>
+<hr style="clear:both;">
 <ul>
     <li>Osman Tonbul (Backend)</li>
     <li>Muhammet Mustafa Uçar (Frontend and AI)</li>
