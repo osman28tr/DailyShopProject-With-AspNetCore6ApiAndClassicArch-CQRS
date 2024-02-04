@@ -37,7 +37,7 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 </ul>
 
 <h3>6. Emeği Geçenler</h3>
-<hr style="clear:both;">
+<hr style="height:1px;border:none;color:#333;background-color:#333;">
 <ul>
     <li>Osman Tonbul (Backend)</li>
     <li>Muhammet Mustafa Uçar (Frontend and AI)</li>
