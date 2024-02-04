@@ -13,7 +13,14 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
-<h3>3. Kullanılan Dil: C#</h3>
+<h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3>
+<h4>Not: Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.</h4>
+<h3>4. Kurulum: </h3>
+ - Projede DailyShop.API katmanında appsettings.json dosyasını açın, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyin.<br>
+ - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayın.<br>
+ - Ardından açılan pencerede default project yazan yere tıklayıp açılan seçim ekranından DailyShop.DataAccess'e tıklayın<br>
+ - Açılan pencereye "update-database" yazıp enter'a tıklayın.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
+ - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyin ve API'yi ayağa kaldırın.
 
 <h3>4. Kullanıcı Senaryoları(UseCases)<hr>
 <ul>
