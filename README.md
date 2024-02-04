@@ -12,7 +12,7 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
-<img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch.PNG" height="400px" width="500px">
+<img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
 <h3>3. Kullanılan Dil: C#</h3>
 
 <h3>4. Kullanıcı Senaryoları(UseCases)<hr>
