@@ -16,7 +16,6 @@ namespace DailyShop.API.Controllers
         {
             List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();
             var result = await Mediator.Send(new GetListCategoryQuery());
-            
             for (int i = 0; i < result.Count; i++)
             {
                 if (result[i].ParentCategoryId == null)
