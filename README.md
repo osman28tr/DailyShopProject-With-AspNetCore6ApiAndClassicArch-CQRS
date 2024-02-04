@@ -14,7 +14,6 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
 <h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3><hr>
-<h4>Not: Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.</h4>
 <h3>4. Kurulum: </h3><hr>
  - Projede DailyShop.API katmanında appsettings.json dosyasını açın, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyin.<br>
  - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayın.<br>
@@ -78,10 +77,24 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
 <ul>
     <li>AppUsers, Carts, CartItems, Categories, Claims, Colors, Favorites, OrderAddress, Orders, OrderItems, Payments, Products, ProductImages, ReportReviews, ReportUsers, Reviews, Sizes, Wallets, WebSiteSettings ...</li>
 </ul>
+<h3>8. Örnek API İstekleri</h3>
+<ul>
+    <li>Login</li>
+    <img src="DailyShop.API/wwwroot/APIRequests/request1.PNG">
+    <li>Sepet'e ürün ekleme</li>
+    <img src="DailyShop.API/wwwroot/APIRequests/request5.PNG">
+    <li>Kategori ekleme</li>
+    <img src="DailyShop.API/wwwroot/APIRequests/request3.PNG">
+    <li>Sipariş verme</li>
+    <img src="DailyShop.API/wwwroot/APIRequests/request4.PNG">
+    <li>Ürün'e yorum yapma</li>
+    <img src="DailyShop.API/wwwroot/APIRequests/request6.PNG">
+</ul>
 
-<h3>8. Emeği Geçenler</h3>
+<h3>9. Emeği Geçenler</h3>
 <hr style="height:1px;border:none;color:#333;background-color:#333;">
 <ul>
     <li>Osman Tonbul (Backend)</li>
     <li>Muhammet Mustafa Uçar (Frontend and AI)</li>
 </ul>
+<h4>Not: Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.</h4>
