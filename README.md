@@ -8,7 +8,7 @@ Fiyat Öneri Api: https://github.com/Mstfucrr/DailyShopProjeAi
 <h3>1. Kullanılan Teknolojiler:</h3>
 <hr>
 Asp.Net Core 6 Mvc API, EntityFrameworkCore ,Dapper, Classic Architecture,
-Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman
+Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman,MSSQL
 
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
