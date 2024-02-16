@@ -1,6 +1,6 @@
 <h1>DailyShop 2.El E-Ticaret Sitesi</h1>
-Gerçekleştirdiğimiz bu proje ikinci el ürün alım satım yapmayı hedefleyen bir e-ticaret sitesidir. Kullanıcılar istedikleri ürünleri kolay ve güvenilir bir şekilde alabilecek, satabileceklerdir.<br><br>
-Proje'de görmüş olduğunuz bu repo dışında ayrıca 2 repo daha bulunmaktadır. Bunlardan biri projenin frontend'inin yer aldığı bir repo diğeri ise satış yapmak isteyen bir kullanıcıya kolaylık sağlaması için satmak istediği ürün ile ilgili bir veritabanını tarayarak ve bunlardan elde edilen datalar üzerinde bir takım makine öğrenmesi algoritmaları kullanarak kullanıcıya bir fiyat önerisi sunan python ile yazılmış bir api. Bahsedilen bu repolara aşağıdaki bağlantılardan ulaşabilirsiniz.<br><br>
+<p align="justify">Gerçekleştirdiğimiz bu proje ikinci el ürün alım satım yapmayı hedefleyen bir e-ticaret sitesidir. Kullanıcılar istedikleri ürünleri kolay ve güvenilir bir şekilde alabilecek, satabileceklerdir.<br><br>
+Proje'de görmüş olduğunuz bu repo dışında ayrıca 2 repo daha bulunmaktadır. Bunlardan biri projenin frontend'inin yer aldığı bir repo diğeri ise satış yapmak isteyen bir kullanıcıya kolaylık sağlaması için satmak istediği ürün ile ilgili bir veritabanını tarayarak ve bunlardan elde edilen datalar üzerinde bir takım makine öğrenmesi algoritmaları kullanarak kullanıcıya bir fiyat önerisi sunan python ile yazılmış bir api. Bahsedilen bu repolara aşağıdaki bağlantılardan ulaşabilirsiniz. Geliştirmiş olduğumuz bu proje "Lisans Tez Projesi" olarak geliştirilmiş ve teslim edilmiştir.</p>
 
 Frontend:  https://github.com/Mstfucrr/React-DailyShop <br>
 Fiyat Öneri Api: https://github.com/Mstfucrr/DailyShopProjeAi
@@ -8,18 +8,18 @@ Fiyat Öneri Api: https://github.com/Mstfucrr/DailyShopProjeAi
 <h3>1. Kullanılan Teknolojiler:</h3>
 <hr>
 Asp.Net Core 6 Mvc API, EntityFrameworkCore ,Dapper, Classic Architecture,
-Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman
+Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman,MSSQL
 
 <h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
 <h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3><hr>
 <h3>4. Kurulum: </h3><hr>
- - Projede DailyShop.API katmanında appsettings.json dosyasını açın, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyin.<br>
- - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayın.<br>
- - Ardından açılan pencerede default project yazan yere tıklayıp açılan seçim ekranından DailyShop.DataAccess'e tıklayın<br>
- - Açılan pencereye "update-database" yazıp enter'a tıklayın.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
- - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyin ve API'yi ayağa kaldırın.
+ - Projede DailyShop.API katmanında appsettings.json dosyasını açınız, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyiniz.<br>
+ - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayınız.<br>
+ - Ardından açılan pencerede default project yazan yere tıklayıp açılan seçim ekranından DailyShop.DataAccess'e tıklayınız<br>
+ - Açılan pencereye "update-database" yazıp enter'a tıklayınız.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
+ - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyiniz ve API'yi ayağa kaldırınız.
 
 <h3>5. Kullanıcı Senaryoları(UseCases)</h3><hr>
 <ul>
