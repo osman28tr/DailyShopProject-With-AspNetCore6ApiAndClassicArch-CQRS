@@ -1,34 +1,35 @@
-<h1>DailyShop 2.El E-Ticaret Sitesi</h1>
+<h1>DailyShop 2.El E-Ticaret Sitesi</h1><br>
+<h3>1. Giriş:</h3>
 <p align="justify">Gerçekleştirdiğimiz bu proje ikinci el ürün alım satım yapmayı hedefleyen bir e-ticaret sitesidir. Kullanıcılar istedikleri ürünleri kolay ve güvenilir bir şekilde alabilecek, satabileceklerdir.<br><br>
 Proje'de görmüş olduğunuz bu repo dışında ayrıca 2 repo daha bulunmaktadır. Bunlardan biri projenin frontend'inin yer aldığı bir repo diğeri ise satış yapmak isteyen bir kullanıcıya kolaylık sağlaması için satmak istediği ürün ile ilgili bir veritabanını tarayarak ve bunlardan elde edilen datalar üzerinde bir takım makine öğrenmesi algoritmaları kullanarak kullanıcıya bir fiyat önerisi sunan python ile yazılmış bir api. Bahsedilen bu repolara aşağıdaki bağlantılardan ulaşabilirsiniz. Geliştirmiş olduğumuz bu proje "Lisans Tez Projesi" olarak geliştirilmiş ve teslim edilmiştir.</p>
 
 Frontend:  https://github.com/Mstfucrr/React-DailyShop <br>
 Fiyat Öneri Api: https://github.com/Mstfucrr/DailyShopProjeAi
 
-<h3>1. Kullanılan Teknolojiler:</h3>
+<h3>2. Kullanılan Teknolojiler:</h3>
 <hr>
 Asp.Net Core 6 Mvc API, EntityFrameworkCore ,Dapper, Classic Architecture,
 Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Areas,Swagger,Postman,MSSQL
 
-<h3>2. Projede Kullanılan Mimarinin Genel Hatları</h3>
+<h3>3. Projede Kullanılan Mimarinin Genel Hatları</h3>
 <hr>
 <img src="DailyShop.API/wwwroot/DesignArch/DailyAPIArch2.PNG" height="400px" width="500px">
-<h3>3. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3><hr>
-<h3>4. Kurulum: </h3><hr>
+<h3>4. Kullanılan Dil ve Geliştirme Ortamı: C# - Asp.Net Core 6.0</h3><hr>
+<h3>5. Kurulum: </h3><hr>
  - Projede DailyShop.API katmanında appsettings.json dosyasını açınız, ConnectionStrings kısmında belirtilen veritabanı bağlantı dizesini kendi veritabanı bağlantı dizenize göre güncelleyiniz.<br>
  - Ardından Visual Studio aracının üst sekmesinden view -> other windows -> package manager console kısmına tıklayınız.<br>
  - Ardından açılan pencerede default project yazan yere tıklayıp açılan seçim ekranından DailyShop.DataAccess'e tıklayınız<br>
  - Açılan pencereye "update-database" yazıp enter'a tıklayınız.(ilgili veritabanı ve tabloları SSMS'de oluşacaktır.)<br>
  - Ardından DailyShop.API projesine sağ tık yapıp "Set as Startup Project" deyiniz ve API'yi ayağa kaldırınız.
 
-<h3>5. Kullanıcı Senaryoları(UseCases)</h3><hr>
+<h3>6. Kullanıcı Senaryoları(UseCases)</h3><hr>
 <ul>
     <li>Admin Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase1.PNG" height="400px" width="500px"></li>
     <li>Giriş yap, Kayıt ol ve Kullanıcı Hesap Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase2.PNG" height="400px" width="500px"></li>
     <li>Müşteri-Ürün ilişkisi Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase3.PNG" height="400px" width="500px"></li>
     <li>Sipariş verme, Satıcı Olma ve Cüzdan Senaryoları<br></br><img src="DailyShop.API/wwwroot/UseCases/dailyusecase4.PNG" height="400px" width="500px"></li>
 </ul>
-<h3>6. Gereksinim Dökümanı</h3>
+<h3>7. Gereksinim Dökümanı</h3>
 <hr>
 <h4>Kullanıcı Kaydı ve Girişi</h4>
 <ul>
@@ -72,12 +73,12 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
     <li>Para Ekleme</li>
     <li>Bakiye Görüntüleme</li>
 </ul>
-<h3>7. Kullanılan Tablolar</h3>
+<h3>8. Kullanılan Tablolar</h3>
 <hr>
 <ul>
     <li>AppUsers, Carts, CartItems, Categories, Claims, Colors, Favorites, OrderAddress, Orders, OrderItems, Payments, Products, ProductImages, ReportReviews, ReportUsers, Reviews, Sizes, Wallets, WebSiteSettings ...</li>
 </ul>
-<h3>8. Örnek API İstekleri</h3>
+<h3>9. Örnek API İstekleri</h3>
 <ul>
     <li>Login</li>
     <img src="DailyShop.API/wwwroot/APIRequests/request1.PNG">
@@ -91,7 +92,7 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
     <img src="DailyShop.API/wwwroot/APIRequests/request6.PNG">
 </ul>
 
-<h3>9. Emeği Geçenler</h3>
+<h3>10. Emeği Geçenler</h3>
 <hr style="height:1px;border:none;color:#333;background-color:#333;">
 <ul>
     <li>Osman Tonbul (Backend)</li>
