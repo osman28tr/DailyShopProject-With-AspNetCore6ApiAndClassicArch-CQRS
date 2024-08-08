@@ -33,7 +33,7 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
             {
                 try
                 {
-                    Cart cartByUser = _cartRepository.Query().Include(c=>c.CartItems).FirstOrDefault(c => c.UserId == request.UserId);
+                    var cartByUser = _cartRepository.Query().Include(c=>c.CartItems).FirstOrDefault(c => c.UserId == request.UserId);
                     if (cartByUser == null)
                     {
                         Cart cart = new() { UserId = request.UserId, Status = "" };
@@ -50,8 +50,8 @@ namespace DailyShop.Business.Features.Carts.Commands.InsertCart
                     else
                     {
                         if (cartByUser.CartItems.Any(c => c.ProductId == request.ProductId &&
-                                                          c.Color == request.InsertedCartItemDto.Color &&
-                                                          c.Size == request.InsertedCartItemDto.Size))
+                                                          c.Color == request.InsertedCartItemDto?.Color &&
+                                                          c.Size == request.InsertedCartItemDto?.Size))
                             throw new BusinessException("Bu ürün zaten sepetinizde bulunmaktadır.");
 
                         cartByUser.CartItems.Add(new CartItem()

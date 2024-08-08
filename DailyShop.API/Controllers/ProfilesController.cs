@@ -59,9 +59,12 @@ namespace DailyShop.API.Controllers
         {
             int userId = _authService.VerifyToken(GetToken());
 
-            updatedUserDto.ProfileImage = await AddUserImageToFile(updatedUserDto.ProfileImageFile);
+            if (updatedUserDto.ProfileImageFile != null)
+				updatedUserDto.ProfileImage = await AddUserImageToFile(updatedUserDto.ProfileImageFile);
+			else
+				updatedUserDto.ProfileImage = updatedUserDto.ProfileImage?.Split("/").Last();
 
-            UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
+	        UpdateUserCommand updateUserCommand = new() { UpdatedUserDto = updatedUserDto, Id = userId };
             await Mediator.Send(updateUserCommand);
 
             return Ok(new { Message = "Kullanıcı Bilgileriniz Başarıyla Güncellendi." });
