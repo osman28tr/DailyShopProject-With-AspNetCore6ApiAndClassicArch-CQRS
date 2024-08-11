@@ -35,40 +35,41 @@ namespace DailyShop.Business.Features.Products.Queries.GetListProduct
 
             public async Task<List<GetListProductDto>> Handle(GetListProductQuery request, CancellationToken cancellationToken)
             {
-                List<Product> products = await _productRepository.Query().Include(p => p.User).ToListAsync();
+                List<Product> products = await _productRepository.Query().Include(p => p.User).
+                    Include(p => p.Colors).Include(p => p.Sizes).Include(p => p.ProductImages).ToListAsync();
 
                 if (products == null)
                     throw new BusinessException("Herhangi bir ürün bulunamadı.");
 
                 List<GetListProductDto> mappedGetListProduct = _mapper.Map<List<GetListProductDto>>(products);
 
-                foreach (var mappedProduct in mappedGetListProduct)
-                {
-                    var productColors = await _dpProductRepository.GetProductDetailColorByIdAsync(mappedProduct.Id);
-                    if (productColors != null)
-                    {
-                        foreach (var productColor in productColors)
-                        {
-                            mappedProduct.Colors.Add(productColor);
-                        }
-                    }
-                    var productSizes = await _dpProductRepository.GetProductDetailSizeByIdAsync(mappedProduct.Id);
-                    if (productSizes != null)
-                    {
-                        foreach (var productSize in productSizes)
-                        {
-                            mappedProduct.Sizes.Add(productSize);
-                        }
-                    }
-                    var productImages = await _dpProductRepository.GetProductDetailImageByIdAsync(mappedProduct.Id);
-                    if (productImages != null)
-                    {
-                        foreach (var productImage in productImages)
-                        {
-                            mappedProduct.ProductImages.Add(productImage);
-                        }
-                    }
-                }
+                //foreach (var mappedProduct in mappedGetListProduct)
+                //{
+                //    var productColors = await _dpProductRepository.GetProductDetailColorByIdAsync(mappedProduct.Id);
+                //    if (productColors != null)
+                //    {
+                //        foreach (var productColor in productColors)
+                //        {
+                //            mappedProduct.Colors.Add(productColor);
+                //        }
+                //    }
+                //    var productSizes = await _dpProductRepository.GetProductDetailSizeByIdAsync(mappedProduct.Id);
+                //    if (productSizes != null)
+                //    {
+                //        foreach (var productSize in productSizes)
+                //        {
+                //            mappedProduct.Sizes.Add(productSize);
+                //        }
+                //    }
+                //    var productImages = await _dpProductRepository.GetProductDetailImageByIdAsync(mappedProduct.Id);
+                //    if (productImages != null)
+                //    {
+                //        foreach (var productImage in productImages)
+                //        {
+                //            mappedProduct.ProductImages.Add(productImage);
+                //        }
+                //    }
+                //}
 
                 foreach (var mappedProduct in mappedGetListProduct)
                 {

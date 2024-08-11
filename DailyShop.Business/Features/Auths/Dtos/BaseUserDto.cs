@@ -10,7 +10,7 @@ namespace DailyShop.Business.Features.Auths.Dtos
 {
     public class BaseUserDto
     {
-        public IFormFile ProfileImageFile { get; set; }
+        public IFormFile? ProfileImageFile { get; set; }
         [JsonPropertyName("profileImage")]
         public string? ProfileImage { get; set; }
         [JsonPropertyName("name")]

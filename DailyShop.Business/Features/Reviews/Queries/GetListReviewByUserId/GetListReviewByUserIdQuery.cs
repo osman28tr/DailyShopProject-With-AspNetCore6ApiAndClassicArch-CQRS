@@ -27,8 +27,8 @@ namespace DailyShop.Business.Features.Reviews.Queries.GetListReviewByUserId
             }
             public async Task<List<GetListReviewByUserIdDto>> Handle(GetListReviewByUserIdQuery request, CancellationToken cancellationToken)
             {
-                List<Review> reviews = await _reviewRepository.Query().Where(u => u.AppUser.Id == request.UserId).Include(a => a.AppUser).Include(p => p.Product).ToListAsync();
-                List<GetListReviewByUserIdDto> mappedReviewDto = _mapper.Map<List<GetListReviewByUserIdDto>>(reviews);
+                var reviews = await _reviewRepository.Query().Where(u => u.AppUser.Id == request.UserId).Include(a => a.AppUser).Include(p => p.Product).ToListAsync(cancellationToken: cancellationToken);
+                var mappedReviewDto = _mapper.Map<List<GetListReviewByUserIdDto>>(reviews);
                 return mappedReviewDto;
             }
         }

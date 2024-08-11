@@ -18,6 +18,8 @@ using DailyShop.Business.Services.AuthService;
 using DailyShop.DataAccess.Concrete.Dapper.Contexts;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.FileProviders;
+using Npgsql;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -29,9 +31,10 @@ builder.Services.AddSecurityServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddDbContext<DailyShopContext>(opt =>
 {
-	opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
+	opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+builder.Services.AddTransient<IDbConnection>((sp) => new NpgsqlConnection("DefaultConnection"));
 builder.Services.AddPersistanceRegistration();
 builder.Services.GetConfiguration(builder.Configuration);
 builder.Services.AddScoped<DbContext, DailyShopContext>();
