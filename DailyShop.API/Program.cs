@@ -29,8 +29,9 @@ builder.Services.AddSecurityServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddDbContext<DailyShopContext>(opt =>
 {
-	opt.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
+	opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
 });
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddPersistanceRegistration();
 builder.Services.GetConfiguration(builder.Configuration);
 builder.Services.AddScoped<DbContext, DailyShopContext>();
@@ -134,9 +135,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI(opt => { opt.DisplayRequestDuration(); opt.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyShop"); });
 }
 //if (app.Environment.IsProduction())
-	app.ConfigureCustomExceptionMiddleware();
+	//app.ConfigureCustomExceptionMiddleware();
 
-app.ConfigureCustomAuthExceptionMiddleware();
+//app.ConfigureCustomAuthExceptionMiddleware();
 app.UseRouting();
 
 app.UseAuthentication();

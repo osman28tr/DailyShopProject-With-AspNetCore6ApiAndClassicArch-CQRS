@@ -38,6 +38,22 @@ namespace DailyShop.DataAccess.Concrete.EntityFramework.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+            modelBuilder.Entity<CartItem>()
+	            .Property(ci => ci.TotalPrice)
+	            .HasColumnType("decimal(18, 2)");
+            // Order
+            modelBuilder.Entity<Order>()
+	            .Property(o => o.TotalPrice)
+	            .HasColumnType("decimal(18, 2)");
+            // OrderItem
+            modelBuilder.Entity<OrderItem>()
+	            .Property(oi => oi.Price)
+	            .HasColumnType("decimal(18, 2)");
+            // product
+            modelBuilder.Entity<Product>()
+	            .Property(p => p.Price)
+	            .HasColumnType("decimal(18, 2)");
+
+		}
 	}
 }
