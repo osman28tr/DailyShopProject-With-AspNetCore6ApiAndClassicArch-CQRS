@@ -32,7 +32,7 @@ namespace DailyShop.API.Controllers
             _webHostEnvironment = webHostEnvironment;
             _imageHelper = imageHelper;
         }
-        [HttpGet("GetUser")]
+        [HttpGet]
         public async Task<IActionResult> GetUser()
         {
             int userId = _authService.VerifyToken(GetToken());
@@ -54,7 +54,7 @@ namespace DailyShop.API.Controllers
             var address = await Mediator.Send(new GetListAddressByUserIdQuery { Id = id });
             return Ok(address);
         }
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdatedUserDto updatedUserDto)
         {
             int userId = _authService.VerifyToken(GetToken());

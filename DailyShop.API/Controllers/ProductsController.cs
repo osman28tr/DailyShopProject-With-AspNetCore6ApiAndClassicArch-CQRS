@@ -135,7 +135,7 @@ namespace DailyShop.API.Controllers
             return Ok(new { message = "ürün verileri getirildi.", data = products });
         }
 
-        [HttpDelete("DeleteProduct/{productId:int}")]
+        [HttpDelete("{productId:int}")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var deletedProduct = await Mediator?.Send(new DeleteProductCommand() { ProductId = productId })!;

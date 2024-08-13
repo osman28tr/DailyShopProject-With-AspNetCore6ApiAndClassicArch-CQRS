@@ -17,13 +17,12 @@ namespace DailyShop.API.Controllers
             _imageHelper = imageHelper;
             _webHostEnvironment = webHostEnvironment;
         }
-        [HttpGet("GetAbout")]
+        [HttpGet]
         public async Task<IActionResult> GetAbout()
         {
             var result = await Mediator.Send(new GetWebSiteSettingQuery());
             return Ok(new { Message = "Hakkımızda verileri çekildi.", data = result.About });
         }
-
         [HttpGet("GetIcon")]
         public async Task<IActionResult> GetIcon()
         {

@@ -19,7 +19,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
     [Authorize]
     public class CategoriesController : BaseController
     {
-        [HttpGet("Index")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();
@@ -34,7 +34,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
             }
             return Ok(getListCategoryDtos);
         }
-        [HttpPost("Add")]
+        [HttpPost]
         public async Task<IActionResult> Add([FromBody] InsertedCategoryDto insertedCategoryDto)
         {
             var insertedCategory = await Mediator.Send(new InsertCategoryCommand { InsertedCategoryDto = insertedCategoryDto });

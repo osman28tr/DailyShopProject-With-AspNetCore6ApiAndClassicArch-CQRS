@@ -11,7 +11,7 @@ namespace DailyShop.API.Controllers
     [ApiController]
     public class CategoriesController : BaseController
     {
-        [HttpGet("GetList")]
+        [HttpGet]
         public async Task<IActionResult> GetList()
         {
             List<GetListCategoryDto> getListCategoryDtos = new List<GetListCategoryDto>();

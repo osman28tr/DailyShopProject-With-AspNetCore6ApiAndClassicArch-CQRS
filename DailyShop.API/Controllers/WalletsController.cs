@@ -24,7 +24,7 @@ namespace DailyShop.API.Controllers
             await Mediator.Send(new InsertBalanceCommand() { UserId = userId, InsertedBalanceDto = insertedBalanceDto });
             return Ok(new { Message = "Cüzdanınıza bakiye yükleme işlemi başarıyla gerçekleştirildi." });
         }
-        [HttpGet("GetWalletByUser")]
+        [HttpGet]
         public async Task<IActionResult> GetWalletByUser()
         {
             int userId = _authService.VerifyToken(GetToken());

@@ -21,21 +21,21 @@ namespace DailyShop.API.Controllers
             _imageHelper = imageHelper;
         }
 
-        [HttpPost("AddFavorite")]
+        [HttpPost]
         public async Task<IActionResult> AddFavorite([FromQuery]int productId)
         {
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new InsertFavoriteCommand() { UserId = userId, ProductId = productId });
             return Ok(new { Message = "Seçtiğiniz ürün favorilerinize başarıyla eklendi." });
         }
-        [HttpDelete("DeleteFavorite")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteFavorite([FromQuery] int favoriteId)
         {
             int userId = _authService.VerifyToken(GetToken());
             await Mediator.Send(new DeleteFavoriteCommand() { FavoriteId = favoriteId });
             return Ok(new { Message = "Seçtiğiniz ürün favorilerinizden başarıyla kaldırıldı." });
         }
-        [HttpGet("GetFavorites")]
+        [HttpGet]
         public async Task<IActionResult> GetFavorites()
         {
             int userId = _authService.VerifyToken(GetToken());

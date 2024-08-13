@@ -21,7 +21,7 @@ namespace DailyShop.API.Areas.Admin.Controllers
         {
             _imageHelper = imageHelper;
         }
-        [HttpGet("Index")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var users = await Mediator.Send(new GetListUserQuery());

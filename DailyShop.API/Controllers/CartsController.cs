@@ -42,7 +42,7 @@ namespace DailyShop.API.Controllers
             return Ok(new { message = "Sepet verileri getirildi.", data = cartItems });
         }
 
-        [HttpPut("Update/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdatedCartItemDto updatedCartItemDto)
         {
             int userId = _authService.VerifyToken(GetToken());
@@ -51,7 +51,7 @@ namespace DailyShop.API.Controllers
             return Ok(new { Message = "Sepetiniz başarıyla güncellendi." });
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             int userId = _authService.VerifyToken(GetToken());
