@@ -17,23 +17,31 @@ namespace DailyShop.Business.Features.AppUsers.Queries.GetListUser
         public class GetListUserQueryHandler : IRequestHandler<GetListUserQuery, List<GetListUserDto>>
         {
             private readonly IAppUserRepository _appUserRepository;
+            private readonly IReviewRepository _reviewRepository;
+            private readonly IAddressRepository _addressRepository;
             private readonly IMapper _mapper;
 
-            public GetListUserQueryHandler(IAppUserRepository appUserRepository, IMapper mapper)
+            public GetListUserQueryHandler(IAppUserRepository appUserRepository, IMapper mapper, IAddressRepository addressRepository, IReviewRepository reviewRepository)
             {
                 _appUserRepository = appUserRepository;
                 _mapper = mapper;
+                _addressRepository = addressRepository;
+                _reviewRepository = reviewRepository;
             }
 
             public async Task<List<GetListUserDto>> Handle(GetListUserQuery request, CancellationToken cancellationToken)
             {
-                List<AppUser> appUsers = await _appUserRepository.Query().Include(a => a.Addresses)
-                    .Include(r => r.Reviews).ToListAsync();
+                //belleğe alınan veriler 
+                var addresses = await _addressRepository.Query().ToListAsync();
+                var reviews = await _reviewRepository.Query().ToListAsync();
+
+                var appUsers = await _appUserRepository.Query().ToListAsync(); // include olmadan joinli veriler bellekten getirildi.
+
                 List<GetListUserDto> mappedUserDto = _mapper.Map<List<GetListUserDto>>(appUsers);
                 int counter = 0;
                 appUsers.ForEach(appUser =>
                 {
-                    if (appUser.Reviews.Any())
+                    if (appUser.Reviews != null && appUser.Reviews.Any())
                     {
                         foreach (var userReview in appUser.Reviews)
                         {

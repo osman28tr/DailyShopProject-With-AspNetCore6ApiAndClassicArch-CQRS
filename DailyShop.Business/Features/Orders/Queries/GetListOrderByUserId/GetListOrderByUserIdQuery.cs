@@ -19,15 +19,26 @@ namespace DailyShop.Business.Features.Orders.Queries.GetListOrderByUserId
         public class GetListOrderByUserIdQueryHandler : IRequestHandler<GetListOrderByUserIdQuery, List<GetListOrderByUserIdViewModel>>
         {
             private readonly IOrderRepository _orderRepository;
+            private readonly IProductRepository _productRepository;
+            private readonly IPaymentRepository _paymentRepository;
+            private readonly IReviewRepository _reviewRepository;
             private readonly IMapper _mapper;
-            public GetListOrderByUserIdQueryHandler(IOrderRepository orderRepository, IMapper mapper)
+            public GetListOrderByUserIdQueryHandler(IOrderRepository orderRepository, IMapper mapper, IProductRepository productRepository, IPaymentRepository paymentRepository, IReviewRepository reviewRepository)
             {
                 _orderRepository = orderRepository;
                 _mapper = mapper;
+                _productRepository = productRepository;
+                _paymentRepository = paymentRepository;
+                _reviewRepository = reviewRepository;
             }
             public async Task<List<GetListOrderByUserIdViewModel>> Handle(GetListOrderByUserIdQuery request, CancellationToken cancellationToken)
             {
-                var orders = await _orderRepository.Query().Where(x => x.UserId == request.UserId).Include(oi => oi.OrderItems)!.ThenInclude(p => p.Product).ThenInclude(p=>p.Reviews).Include(x => x.Payment).Include(x => x.OrderAddress).ToListAsync(cancellationToken: cancellationToken);
+                var products = await _productRepository.Query().ToListAsync();
+                var payments = await _paymentRepository.Query().ToListAsync();
+                var reviews = await _reviewRepository.Query().ToListAsync();
+
+                var orders = await _orderRepository.Query().Where(x => x.UserId == request.UserId).Include(oi => oi.OrderItems)!.Include(x => x.OrderAddress).ToListAsync(cancellationToken: cancellationToken);
+
 				orders.ForEach(o => o.OrderItems.ToList().ForEach(oi => oi.Product.Rating = oi.Product.Reviews is { Count: > 0 } ? (byte)oi.Product.Reviews.Average(x => x.Rating)! : (byte)0));
 
 				if (orders == null)

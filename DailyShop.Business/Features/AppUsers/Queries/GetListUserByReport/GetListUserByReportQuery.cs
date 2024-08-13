@@ -17,12 +17,11 @@ namespace DailyShop.Business.Features.AppUsers.Queries.GetListUserByReport
     {
         public class GetListUserByReportQueryHandler : IRequestHandler<GetListUserByReportQuery, List<GetListUserByReportDto>>
         {
-            private readonly IAppUserRepository _appUserRepository;
             private readonly IReportUserRepository _reportUserRepository;
+            private readonly IAppUserRepository _appUserRepository;
             private readonly IMapper _mapper;
-            public GetListUserByReportQueryHandler(IAppUserRepository appUserRepository, IMapper mapper, IReportUserRepository reportUserRepository)
+            public GetListUserByReportQueryHandler(IMapper mapper, IReportUserRepository reportUserRepository)
             {
-                _appUserRepository = appUserRepository;
                 _mapper = mapper;
                 _reportUserRepository = reportUserRepository;
             }
