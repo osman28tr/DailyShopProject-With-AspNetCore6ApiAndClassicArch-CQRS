@@ -15,6 +15,10 @@ namespace DailyShop.API.Helpers
             {
                 return null;
             }
+
+            if (!authorization.Contains("Bearer"))
+                return authorization;
+
             var token = authorization.ToString().Split(" ")[1];
             return token;
         }
