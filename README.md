@@ -100,5 +100,6 @@ Generic Repository Design Pattern, CQRS Design Pattern,AutoMapper,JWT,Asp.Net Ar
     <li>Osman Tonbul (Backend)</li>
     <li>Muhammet Mustafa Uçar (Frontend and AI)</li>
 </ul>
-<h4>Not: Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.</h4>
-<h4>Not: Geliştirilen proje için bir dockerfile dosyası oluşturulmuştur, ihtiyaç halinde bu dockerfile dosyasını kullanarak projeyi container'dan ayağa kaldırabilirsiniz.</h4>
+<b>Not:</b> Proje .Net 6.0 ile geliştirilmiştir. Eğer sizde .Net 6.0 ortamı kurulu değil ise "visual studio installer" aracından "bağımsız bileşenler" kısmına gelip .Net 6.0 ile ilgili yazan paketleri seçip değiştir'e tıklayın.<br><br>
+<b>Not:</b> Geliştirilen proje için bir dockerfile dosyası oluşturulmuştur, ihtiyaç halinde bu dockerfile dosyasını kullanarak projeyi container'dan ayağa kaldırabilirsiniz.<br><br>
+<b>Not:</b> Proje geliştirilmeye devam etmektedir.
